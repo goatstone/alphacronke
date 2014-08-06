@@ -8,7 +8,7 @@ function AppInformation() {
     this.version = 0.7;
     var title = "AlphaCronke"
     var description = "Select Words by Letter Range from the text 'Dickory Cronke' by Daniel Defoe. "
-    var makersMark = " (Goatstone, 20014.) "
+    var makersMark = " (Goatstone, 2014.) "
     var link = "about/"
     var dDivDims = [
         {x: window.innerWidth / 2 - 200, y: window.innerHeight / 2 - 60}
