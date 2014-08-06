@@ -2,10 +2,11 @@
  alpha_brush.js
  * */
 
-var alphaRange;
-var storyWordsWidget;
-var appInformation;
 window.addEventListener("load", function () {
+
+	var alphaRange;
+	var storyWordsWidget;
+	var appInformation;
 
     alphaRange = new AlphaRange();
 
