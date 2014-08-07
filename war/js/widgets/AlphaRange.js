@@ -11,6 +11,7 @@ function AlphaRange() {
     this.ordialScale;
     this.ordinalGroup;
     this.brush;
+    this.onSelectCallback = null;
     this.config = {
         width: 410,
         height: 35,
@@ -200,8 +201,12 @@ AlphaRange.prototype.toString = function () {
     return this.name + " : " + this.version;
 }
 
+AlphaRange.prototype.addSelectListener = function(callBack){
+    this.onSelectCallback = callBack;
+}
+
 AlphaRange.prototype.move = function () {
-    var brushExtent = this.brush.extent()
+    var brushExtent = this.brush.extent();
     var filteredStr = "";
     var $this = this;
 
@@ -221,6 +226,8 @@ AlphaRange.prototype.move = function () {
             }
         });
 
-    storyWordsWidget.set(filteredStr);
+        if(this.onSelectCallback != null){
+            this.onSelectCallback(filteredStr);
+        }
 
 }

@@ -1,21 +1,24 @@
 /*
- alpha_brush.js
+ main.js
  * */
 
 window.addEventListener("load", function () {
 
-	var alphaRange;
-	var storyWordsWidget;
-	var appInformation;
+    var alphaRange;
+    var storyWordsWidget;
+    var appInformation;
 
     alphaRange = new AlphaRange();
-
     storyWordsWidget = new StoryWords();
-    storyWordsWidget.fetchText(function(){
+    appInformation = new AppInformation();
+
+    alphaRange.addSelectListener(
+    	function(filteredStr){ 
+    		storyWordsWidget.set(filteredStr);
+    	});
+
+    storyWordsWidget.fetchText(function () {
         alphaRange.move();
     });
 
-    appInformation = new AppInformation();
-
 });
-
