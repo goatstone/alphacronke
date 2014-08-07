@@ -84,7 +84,7 @@ function AlphaRange() {
         {x:   window.innerWidth/2 - 200, y: window.innerHeight/2 - 60}
     ];
     var dDiv = d3.select("body")
-        .selectAll("div")
+        .selectAll("div#alpha-range")
         .data(dDivDims)
         .enter().append("div")
         .attr("id", "dd")
