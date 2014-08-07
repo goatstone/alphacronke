@@ -6,14 +6,11 @@ function StoryWords() {
     this.$div_words;
     this.storyWords;
     this.wordConfig = {
-        "padding": "3px",
-        "border": "0px solid #ccc",
         "backgroundColorOff": "#333",
-        "backgroundColorOn": "#bbb",
-        "opacity": 1,
-        "fontSize": "15px"
+        "backgroundColorOn": "#bbb"
     };
 }
+
 StoryWords.prototype.fetchText = function (callBack) {
 
     var $that = this;
@@ -24,10 +21,8 @@ StoryWords.prototype.fetchText = function (callBack) {
         var txtLn = 59570;
         var storyText = unparsedData.substr(txtStrt, txtLn);
         var storyTextPart = (storyText.substr(300, 4000));
-        storyTextPart = storyTextPart.replace( /\n/g , " ")
+        storyTextPart = storyTextPart.replace(/\n/g, " ")
         var storyLetters = storyTextPart.split("");
-
-        //storyLetters = storyLetters.replace(" ", "xxxx")
 
         $that.storyWords = storyTextPart.split(" ");
         storyText = null;
@@ -35,7 +30,6 @@ StoryWords.prototype.fetchText = function (callBack) {
 
         $that.$div_words = d3.select("body")
             .append("div")
-            .style({"position": "absolute", "top": "0px" })
             .attr("id", "div_words")
 
         $that.$div_words.selectAll("span")
@@ -47,11 +41,6 @@ StoryWords.prototype.fetchText = function (callBack) {
             .text(function (d) {
                 return d;
             })
-            .style({"font-size": $that.wordConfig.fontSize ,
-                "padding": $that.wordConfig.padding,
-                "float":"left"
-            });
-
         if (callBack) {
             callBack();
         }

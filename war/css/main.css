@@ -1,0 +1,63 @@
+
+body {
+    background-color: #333;
+    font-family: sans-serif, Helvetica, Verdana;
+}
+
+a {
+    color: #070;
+}
+
+/*                                  #app_information */
+#app_information {
+    font-size: 14px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 440px;
+    height: 65px;
+    opacity: 1;
+    z-index: 2000;
+    background-color: rgb(240, 240, 240);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 10px 10px 5px #777
+}
+
+#app_information h2 {
+    margin: 2px;
+    font-size: 16px;
+    color: rgb(40, 40, 140)
+}
+
+#app_information p {
+    margin: 0;
+    display: inline;
+    position: relative;
+    margin-left: 0;
+}
+
+#app_information address {
+    font-size: 12px;
+    margin-left: 10px;
+    display: inline;
+}
+
+#app_information a {
+    margin-left: 10px
+}
+
+/*                                  #div_words */
+#div_words {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#div_words span {
+    float: left;
+    padding: 3px;
+    opacity: 1;
+    fontSize: .9em;
+
+}
