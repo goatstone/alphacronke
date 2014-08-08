@@ -4,10 +4,6 @@ body {
     font-family: sans-serif, Helvetica, Verdana;
 }
 
-a {
-    color: #070;
-}
-
 /*                                  #app_information */
 #app_information {
     font-size: 14px;
@@ -52,6 +48,7 @@ a {
     position: absolute;
     top: 0;
     left: 0;
+    background-color: #444;
 }
 
 #div_words span {
@@ -59,5 +56,13 @@ a {
     padding: 3px;
     opacity: 1;
     fontSize: .9em;
+    background-color: #ccc;
+
+}
+#div_words p {
+    float: left;
+    padding: 3px;
+    background-color: #444;
+    margin: 1px;
 
 }

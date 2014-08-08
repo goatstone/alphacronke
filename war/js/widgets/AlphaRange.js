@@ -89,7 +89,7 @@ function AlphaRange() {
         .enter().append("div")
         .attr("id", "dd")
         .style({
-            "position": "absolute",
+            "position": "fixed",
             "top": dDivDims[0].y + "px",
             left: dDivDims[0].x + "px",
             width: "440px",

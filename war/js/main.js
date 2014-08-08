@@ -5,18 +5,18 @@
 window.addEventListener("load", function () {
 
     var alphaRange;
-    var storyWordsWidget;
+    var storyWords;
 
     alphaRange = new AlphaRange();
-    storyWordsWidget = new StoryWords();
+    storyWords = new StoryWords();
 
-    alphaRange.addSelectListener(
-    	function(filteredStr){ 
-    		storyWordsWidget.set(filteredStr);
-    	});
-
-    storyWordsWidget.fetchText(function () {
+    storyWords.fetchText(function () {
         alphaRange.move();
     });
+
+    alphaRange.addSelectListener(
+        function (filteredStr) {
+            storyWords.highlightWords(filteredStr);
+        });
 
 });
