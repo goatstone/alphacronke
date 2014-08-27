@@ -2,20 +2,25 @@
  main.js
  * */
 
-var storyWords;
-
 window.addEventListener("load", function () {
 
     var alphaRange;
     var message;
+    var storyWords;
+    var storyPartSelect;
 
+    storyPartSelect = new StoryPartSelect();
     alphaRange = new AlphaRange();
     storyWords = new StoryWords();
     message = new Message();
 
+    storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
+        storyWords.setSection(this.value);
+    })
+
     storyWords.fetchText(function () {
         console.log(storyWords.storyParts)
-        storyWords.setSection(storyWords.storyParts.intro);
+        storyWords.setSection('intro');
         alphaRange.move();
     });
 

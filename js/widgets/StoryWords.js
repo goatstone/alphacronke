@@ -52,9 +52,12 @@ StoryWords.prototype.fetchText = function (callBack) {
     });
 };
 
-StoryWords.prototype.setSection = function (storyPart) {
+StoryWords.prototype.setSection = function (storiesK) {
     var $this = this;
 
+    var storyPart = this.storyParts[storiesK];
+
+    // clear the contents
     d3.select("#div_words").selectAll("p").remove();
     this.sectionsWords = [];
 

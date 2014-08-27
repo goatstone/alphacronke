@@ -21,12 +21,28 @@
     <p id="message-main"></p>
 </div>
 
+<div id="story-parts">
+    <div class="handle"></div>
+
+    <div class="widget-body">
+        <label for="story-parts-opts">Select a section:</label>
+        <select id="story-parts-opts">
+            <option value="intro">Intro and Preface</option>
+            <option value="partOne">Part I</option>
+            <option value="partTwo">Part II</option>
+            <option value="partThree">Part III</option>
+        </select>
+    </div>
+
+</div>
+
 <!--<script src="http://d3js.org/d3.v3.min.js"></script>-->
 <script src="js/lib/d3.min.js"></script>
 <script src="js/widgets/Panel.js"></script>
 <script src="js/widgets/Message.js"></script>
 <script src="js/widgets/AlphaRange.js"></script>
 <script src="js/widgets/StoryWords.js"></script>
+<script src="/js/widgets/StoryPartSelect.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
