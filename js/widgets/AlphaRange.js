@@ -47,6 +47,7 @@ function AlphaRange() {
     var dDivDims =  [{x: 20, y: window.innerHeight  - 140}];
     this.$root.style.left =  dDivDims[0].x  +"px";
     this.$root.style.top =  dDivDims[0].y + 'px';
+    this.$root.style.visibility = 'visible';
 
     var dDiv = d3.select("#dd")
         .selectAll("div#alpha-range")

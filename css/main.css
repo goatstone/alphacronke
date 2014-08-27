@@ -16,6 +16,7 @@ body {
     background-color: #ccc;
     border-radius: 6px;
     padding: 7px;
+    visibility: hidden;
 }
 
 #dd #scale_background {

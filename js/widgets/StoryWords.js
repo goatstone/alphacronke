@@ -18,6 +18,7 @@ function StoryWords() {
         "backgroundColorOff": "#444",
         "backgroundColorOn": "#ccc"
     };
+    this.storyParts = {};
 }
 
 StoryWords.prototype.fetchText = function (callBack) {
@@ -28,22 +29,21 @@ StoryWords.prototype.fetchText = function (callBack) {
         var sections = [];
         var txtStart = 738;
         var textEnd = 59570;
-        textEnd = 20050;
-
         var storyText = unparsedData.substr(txtStart, textEnd);
+
         // remove \r characters
-        storyText = storyText.replace(/\r/g, "")
+        storyText = storyText.replace(/\r/g, "");
         // chang all single \n into a single space
         storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
 
         sections = storyText.split(/[\n][\n]/g);
-        sections.forEach(function (e) {
-            $this.sectionsWords.push(e.split(" "));
-        });
+        $this.storyParts.intro = sections.slice(0,16);
+        $this.storyParts.partOne = sections.slice(17,74);
+        $this.storyParts.partTwo = sections.slice(75,129);
+        $this.storyParts.partThree = sections.slice(130,172);
+
         sections = null;
         storyText = null;
-
-        $this.setSection();
 
         if (callBack) {
             callBack();
@@ -52,9 +52,17 @@ StoryWords.prototype.fetchText = function (callBack) {
     });
 };
 
-StoryWords.prototype.setSection = function () {
+StoryWords.prototype.setSection = function (storyPart) {
+    var $this = this;
 
-    var para = d3.select("body").append("div").attr("id", "div_words").selectAll("p")
+    d3.select("#div_words").selectAll("p").remove();
+    this.sectionsWords = [];
+
+    storyPart.forEach(function (e) {
+        $this.sectionsWords.push(e.split(" "));
+    });
+
+    var para = d3.select("#div_words").selectAll("p")
         .data(this.sectionsWords)
         .enter().append("p");
     this.words = para.selectAll("span")

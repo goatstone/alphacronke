@@ -2,10 +2,11 @@
  main.js
  * */
 
+var storyWords;
+
 window.addEventListener("load", function () {
 
     var alphaRange;
-    var storyWords;
     var message;
 
     alphaRange = new AlphaRange();
@@ -13,6 +14,8 @@ window.addEventListener("load", function () {
     message = new Message();
 
     storyWords.fetchText(function () {
+        console.log(storyWords.storyParts)
+        storyWords.setSection(storyWords.storyParts.intro);
         alphaRange.move();
     });
 
