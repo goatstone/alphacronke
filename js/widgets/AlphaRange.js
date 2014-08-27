@@ -6,8 +6,10 @@
  * */
 
 function AlphaRange() {
-    this.name = "AlphaRange";
-    this.version = 0.7;
+    this.$root = document.querySelector('#dd');
+    this.$body = document.querySelector('body');
+    this.$handle = this.$root.querySelector('.handle');
+
     this.ordialScale;
     this.ordinalGroup;
     this.brush;
@@ -18,7 +20,7 @@ function AlphaRange() {
         color: d3.rgb(30, 30, 30),
         scaleSymbols: {
             colorOn: d3.rgb(255, 255, 255),
-            colorOff: d3.rgb(200, 200, 100),
+            colorOff: d3.rgb(0, 0, 0),
             listStartX: 20,
             listWidth: 390
         },
@@ -42,90 +44,17 @@ function AlphaRange() {
     var brushGroup;
     var $this = this;
 
-    var drag = d3.behavior.drag()
-        .origin(function (d) {
-            return d;
-        })
-        .on("dragstart", dragStart)
-        .on("drag", onDrag)
-        .on("dragend", dragEnd);
-    var isHit = false;
+    var dDivDims =  [{x: 20, y: window.innerHeight  - 140}];
+    this.$root.style.left =  dDivDims[0].x  +"px";
+    this.$root.style.top =  dDivDims[0].y + 'px';
 
-    function dragStart(d) {
-        if (d3.event.sourceEvent.target.id === "ui-handle") {
-            d3.event.sourceEvent.stopPropagation();
-            d3.select(this).classed("dragging", true);
-            isHit = true;
-        }
-        else {
-            d3.event.sourceEvent.stopPropagation();
-
-        }
-    }
-
-    function onDrag(d) {
- //        if (d3.event.sourceEvent.target.id !== "ui-handle") {
-//            console.log("hit")
-//        }
-        if (!isHit)return;
-        d.x = d3.event.x;
-        d.y = d3.event.y;
-         d3.select(this).style({
-            "left": d3.event.x + "px",
-            "top": d3.event.y + "px"
-        })
-    }
-
-    function dragEnd() {
-        isHit = false;
-    }
-
-    var dDivDims = [
-        {x:   window.innerWidth/2 - 200, y: window.innerHeight/2 - 60}
-    ];
-    var dDiv = d3.select("body")
+    var dDiv = d3.select("#dd")
         .selectAll("div#alpha-range")
         .data(dDivDims)
-        .enter().append("div")
-        .attr("id", "dd")
-        .style({
-            "position": "fixed",
-            "top": dDivDims[0].y + "px",
-            left: dDivDims[0].x + "px",
-            width: "440px",
-            height: "55px",
-            "opacity": 1,
-            "z-index": 200
-        })
-        .call(drag);
-    dDiv.append("div")
-        .attr("id", "scale_background")
-        .style({
-            top: "18px", left: "0px",
-            width: "400px", height: "48px",
-            "background-color": "#000",
-            "position": "absolute",
-            "border-top-right-radius": "7px",
-            "border-bottom-left-radius": "7px",
-            "border-bottom-right-radius": "7px",
-            "opacity": 1,
-            "z-index": 0
-        })
+        .enter().append("div");
 
     dDiv.append("div")
-        .attr("id", "ui-handle")
-        .style({
-            top: 0, left: 0,
-            width: "60px", height: "18px",
-            "background-color": d3.rgb(20, 255, 225),
-            "cursor": "move",
-            "border-top-right-radius": "7px",
-            "border-top-left-radius": "7px",
-            "opacity": 1,
-            "z-index": 100,
-            "background-image": "linear-gradient(to bottom , rgba(30,100,255,255), rgba(10,10,10,255))"
-
-        })
+        .attr("id", "scale_background");
 
     this.ordialScale = d3.scale
         .ordinal()
@@ -143,9 +72,8 @@ function AlphaRange() {
             "left": "0px",
             "top": "7px",
             "position": "relative",
-//            "background-color":"#f00",
             "opacity": .5
-        })
+        });
 
     // SVG group to represent the ordinal scale
     this.ordinalGroup = svgTag.append("g");
@@ -163,7 +91,7 @@ function AlphaRange() {
         .attr("y", function (d) {
             return $this.config.height / 2;
         })
-        .attr("fill", this.config.scaleSymbols.colorOff)
+        .attr("fill", this.config.scaleSymbols.colorOff);
 
     // Assemble the d3 brush, the selector component.
     this.brush = d3.svg.brush()
@@ -195,15 +123,20 @@ function AlphaRange() {
         .attr("fill-opacity", this.config.selector.selectedWindow.opacity)
         .attr("height", this.config.height)
         .attr("y", 0);
+
+    this.setDrag();
+
 }
+
+AlphaRange.prototype = Object.create(Panel.prototype);
 
 AlphaRange.prototype.toString = function () {
     return this.name + " : " + this.version;
-}
+};
 
 AlphaRange.prototype.addSelectListener = function(callBack){
     this.onSelectCallback = callBack;
-}
+};
 
 AlphaRange.prototype.move = function () {
     var brushExtent = this.brush.extent();
@@ -226,8 +159,7 @@ AlphaRange.prototype.move = function () {
             }
         });
 
-        if(this.onSelectCallback != null){
+        if(this.onSelectCallback !== null){
             this.onSelectCallback(filteredStr);
         }
-
-}
+};

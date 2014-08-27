@@ -4,8 +4,52 @@ body {
     font-family: sans-serif, Helvetica, Verdana;
 }
 
+/* AlphaRange */
+#dd {
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    width: 400px;
+    height: 68px;
+    opacity: 1;
+    z-index: 200;
+    background-color: #ccc;
+    border-radius: 6px;
+    padding: 7px;
+}
 
-/*                                  #div_words */
+#dd #scale_background {
+    top:33px;
+    width: 400px;
+    height: 40px;
+    background-color: #999;
+    position: absolute;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    z-index: 0;
+}
+
+#dd   .handle {
+    height: 20px;
+    cursor: move;
+    background: linear-gradient(to top,
+    rgba(220, 220, 220, .5) 0%,
+    rgba(50, 50, 250, 1) 10%,
+    rgba(220, 220, 220, .5) 20%,
+    rgba(50, 50, 250, 1) 30%,
+    rgba(220, 220, 220, .5) 40%,
+    rgba(50, 50, 250, 1) 50%,
+    rgba(220, 220, 220, .5) 60%,
+    rgba(50, 50, 250, 1) 70%,
+    rgba(220, 220, 220, .5) 80%,
+    rgba(50, 50, 250, 1) 90%,
+    rgba(220, 220, 220, 1) 100%);
+
+ }
+/* END AlphaRange */
+
+/* div_words */
 #div_words {
     position: absolute;
     top: 0;
@@ -22,6 +66,7 @@ body {
     background-color: #ccc;
 
 }
+
 #div_words p {
     float: left;
     padding: 3px;
@@ -30,56 +75,63 @@ body {
 
 }
 
+/* END div_words */
+
 /* Message */
-#message{
+#message {
+    position: fixed;
     display: inline-block;
-    position: absolute;
     max-width: 400px;
-    top:20px;
-    right:20px ;
+    top: 20px;
+    right: 20px;
     background-color: #ccc;
-    border:5px solid rgba(200, 200, 200, .3);
+    border: 5px solid rgba(200, 200, 200, .3);
     /*box-shadow: 0 0 5px rgba(200, 200, 200, .6);*/
     border-radius: 6px;
     visibility: hidden;
-    padding: 5px;
+    padding: 3px;
 }
-#message h3{
+
+#message h3 {
     font-size: 1em;
-    color:#555;
+    color: #555;
     margin: 3px 0px;
     /*margin-top: 3px;*/
 }
-#message #message-main{
+
+#message #message-main {
     margin: 5px;
 }
-#message .handle{
+
+#message .handle {
     height: 20px;
     cursor: move;
-    background:
-    linear-gradient(to top,
-    rgba(220,220,220,.5) 0%,
-    rgba(50,50,250,1) 10%,
-    rgba(220,220,220,.5) 20%,
-    rgba(50,50,250,1) 30%,
-    rgba(220,220,220,.5) 40%,
-    rgba(50,50,250,1) 50%,
-    rgba(220,220,220,.5) 60%,
-    rgba(50,50,250,1) 70%,
-    rgba(220,220,220,.5) 80%,
-    rgba(50,50,250,1) 90%,
-    rgba(220,220,220,1) 100% )
+    background: linear-gradient(to top,
+    rgba(220, 220, 220, .5) 0%,
+    rgba(50, 50, 250, 1) 10%,
+    rgba(220, 220, 220, .5) 20%,
+    rgba(50, 50, 250, 1) 30%,
+    rgba(220, 220, 220, .5) 40%,
+    rgba(50, 50, 250, 1) 50%,
+    rgba(220, 220, 220, .5) 60%,
+    rgba(50, 50, 250, 1) 70%,
+    rgba(220, 220, 220, .5) 80%,
+    rgba(50, 50, 250, 1) 90%,
+    rgba(220, 220, 220, 1) 100%)
 }
+
 #message p {
     margin: 7px 0px;
     position: relative;
     font-size: .9em;
 }
-#message address{
+
+#message address {
     margin-top: 3px;
     font-size: .8em;
 
 }
+
 #message a {
     margin-left: 10px;
     font-size: .8em;

@@ -17,6 +17,10 @@ handlers:
 - url: /datum
   static_dir: datum
 
+- url: /about/*
+  static_files:  about/index.html
+  upload:  about/index.html
+
 - url: /test/*
   static_files:  tests/SpecRunner.html
   upload:  tests/SpecRunner.html
