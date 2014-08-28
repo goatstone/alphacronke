@@ -13,7 +13,20 @@
 </div>
 
 <div id="message">
-    <div class="handle"></div>
+    <div class="handle">
+        
+         <svg width="22" height="22" fill="white" stroke="#333"
+     viewPort="0 0 120 120" version="1.1"
+     xmlns="http://www.w3.org/2000/svg" class="panel-close-button">
+    <line x1="0" y1="0" 
+          x2="22" y2="22" 
+          stroke-width="5"/>
+    <line x1="22" y1="0" 
+          x2="0" y2="22" 
+          stroke-width="5"/>
+    </svg>
+            
+    </div>
     <h3>Goatstone: AlphaCronke</h3>
     <p>Select Words by Letter Range from the text 'Dickory Cronke' by Daniel Defoe. </p>
     <address class="author">Goatstone 2014</address>
@@ -36,6 +49,32 @@
 
 </div>
 
+<div id="action-bar">
+    <div class="icon-overflow">
+        <svg width="30" height="30" fill="white" stroke="#777"
+     viewPort="0 0 120 120" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+    <line x1="3" y1="7" 
+          x2="27" y2="7" 
+          stroke-width="4"/>
+    <line x1="3" y1="15" 
+          x2="27" y2="15" 
+          stroke-width="4"/>
+    <line x1="3" y1="23" 
+          x2="27" y2="23" 
+          stroke-width="4"/>
+    </svg>
+    </div>
+</div>
+
+<div id="action-menu">
+<ul>
+    <li>
+        About AlphaCronke        
+    </li>
+</ul>
+</div>
+
 <!--<script src="http://d3js.org/d3.v3.min.js"></script>-->
 <script src="js/lib/d3.min.js"></script>
 <script src="js/widgets/Panel.js"></script>
@@ -43,6 +82,10 @@
 <script src="js/widgets/AlphaRange.js"></script>
 <script src="js/widgets/StoryWords.js"></script>
 <script src="/js/widgets/StoryPartSelect.js"></script>
+<script src="/js/widgets/ActionBar.js"></script>
+<script src="/js/widgets/ActionMenu.js"></script>
+
 <script src="js/main.js"></script>
+
 </body>
 </html>

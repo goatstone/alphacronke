@@ -8,7 +8,9 @@ function Message() {
     this.$root = document.querySelector('#message');
     this.$body = document.querySelector('body');
     this.$handle = this.$root.querySelector('.handle');
-
+	//class="panel-close-button"
+    this.$closePanel = this.$root.querySelector('.panel-close-button');
+    
     this.$root.style.visibility = 'visible';
     this.$root.style.top =   dDivDims.y+'px';
     this.$root.style.left =  dDivDims.x+'px';

@@ -75,6 +75,7 @@ StoryWords.prototype.setSection = function (storiesK) {
 StoryWords.prototype.setBubbleWordData = function () {
     var bwd = {};
     //var $this = this;
+    this.bubbleData.children = [];
     var blackList = ['', 'a', 'the', 'and', 'in', 'of', 'to', 'that', 'is', 'be', 'if', 'as', 'his', 'this']
     this.sectionsWords.forEach(function (e, i) {
         e.forEach(function (e, i) {

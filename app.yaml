@@ -1,4 +1,4 @@
-application: lime-goatstone
+application: amber-goatstone
 version: 1
 runtime: go
 api_version: go1
