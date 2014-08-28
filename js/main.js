@@ -19,7 +19,6 @@ window.addEventListener("load", function () {
     })
 
     storyWords.fetchText(function () {
-        console.log(storyWords.storyParts)
         storyWords.setSection('intro');
         alphaRange.move();
     });
