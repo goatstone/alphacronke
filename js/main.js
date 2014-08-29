@@ -10,6 +10,7 @@ window.addEventListener("load", function () {
     var storyPartSelect;
     var actionBar;
     var actionMenu;
+    var selectStyle;
 
     actionBar = new ActionBar();
     actionMenu = new ActionMenu();
@@ -17,32 +18,44 @@ window.addEventListener("load", function () {
     alphaRange = new AlphaRange();
     storyWords = new StoryWords();
     message = new Message();
+    selectStyle = new SelectStyle();
 
-    message.$closePanel.addEventListener('click', function(){
-        console.log('close it!')
+    selectStyle.$styleOpts.addEventListener('change', function (e) {
+
+        storyWords.setStyle(this.value)
+        if (this.value === 'bubble') {
+            alphaRange.$root.style.visibility = 'hidden';
+        }
+        else if (this.value === 'alphaSelect') {
+            alphaRange.$root.style.visibility = 'visible'
+            alphaRange.move();
+        }
+    })
+
+    message.$closePanel.addEventListener('click', function () {
         message.$root.style.visibility = 'hidden';
     })
 
-    actionBar.$showMenu.addEventListener('click', function(e){
+    actionBar.$showMenu.addEventListener('click', function (e) {
         e.stopPropagation();
         actionMenu.$root.style.visibility = 'visible';
         return true;
     })
 
-    actionMenu.$body.addEventListener('mousedown', function(){
+    actionMenu.$body.addEventListener('mousedown', function () {
         actionMenu.$root.style.visibility = 'hidden';
     })
-    actionMenu.$root.addEventListener('mousedown', function(e){
+    actionMenu.$root.addEventListener('mousedown', function (e) {
         e.stopPropagation();
     })
-    actionMenu.$showAbout.addEventListener('click', function(e){
+    actionMenu.$showAbout.addEventListener('click', function (e) {
         e.stopPropagation();
-        console.log('about click')
-        message.$root.style.visibility = 'visible';        
+        message.$root.style.visibility = 'visible';
     })
 
     storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
         storyWords.setSection(this.value);
+        alphaRange.move();
     })
     storyWords.fetchText(function () {
         storyWords.setSection('intro');
@@ -53,5 +66,4 @@ window.addEventListener("load", function () {
         function (filteredStr) {
             storyWords.highlightWords(filteredStr);
         });
-
 });

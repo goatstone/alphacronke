@@ -5,6 +5,54 @@ body {
     height: 100%
 }
 
+/*
+goatstone.ui.SelectStyle
+ */
+#select-style .handle {
+    height: 20px;
+    cursor: move;
+    background: linear-gradient(to top,
+    rgba(220, 220, 220, .5) 0%,
+    rgba(50, 50, 250, 1) 10%,
+    rgba(220, 220, 220, .5) 20%,
+    rgba(50, 50, 250, 1) 30%,
+    rgba(220, 220, 220, .5) 40%,
+    rgba(50, 50, 250, 1) 50%,
+    rgba(220, 220, 220, .5) 60%,
+    rgba(50, 50, 250, 1) 70%,
+    rgba(220, 220, 220, .5) 80%,
+    rgba(50, 50, 250, 1) 90%,
+    rgba(220, 220, 220, 1) 100%);
+}
+#select-style .widget-body{
+    margin: 6px 0;
+}
+#select-style{
+    position: fixed;
+    top: 40px;
+    right: 10px;
+    min-width: 100px;
+    max-width: 250px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: #ccc;
+    left: 20px;
+    padding: 7px;
+    /*visibility: hidden;*/
+}
+#select-style ul{
+    list-style: none;
+    margin: 6px;
+}
+#select-style li{
+    padding: 5px;
+    margin-left: -40px;
+    cursor: pointer;
+}
+#select-style li:hover{
+    color: green;
+    cursor: pointer;
+}
+
 /* goatstone.ui.ActionMenu */
 #action-menu{
     position: fixed;
@@ -56,7 +104,7 @@ body {
     left: 20px;
     opacity: 1;
     z-index: 200;    background-color: #ccc;
-    border-radi1: 6px;
+    border-radius: 10px 10px 10px 10px;
     padding: 7px;
     visibility: hidden;
 }
