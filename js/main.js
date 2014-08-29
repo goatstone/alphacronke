@@ -36,21 +36,31 @@ window.addEventListener("load", function () {
         message.$root.style.visibility = 'hidden';
     })
 
-    actionBar.$showMenu.addEventListener('click', function (e) {
+   // actionBar 
+    actionBar.$showMenu.addEventListener('mousedown', function(e){
         e.stopPropagation();
-        actionMenu.$root.style.visibility = 'visible';
+        if(!actionMenu.$root.style.visibility || actionMenu.$root.style.visibility === 'hidden'){
+            actionMenu.$root.style.visibility = 'visible';            
+        }
+        else{
+            actionMenu.$root.style.visibility = 'hidden';            
+        }
         return true;
     })
 
-    actionMenu.$body.addEventListener('mousedown', function () {
-        actionMenu.$root.style.visibility = 'hidden';
+    // actionMenu
+    actionMenu.$body.addEventListener('mousedown', function(){
+        if( actionMenu.$root.style.visibility === 'visible'){
+            actionMenu.$root.style.visibility = 'hidden';            
+        } 
     })
-    actionMenu.$root.addEventListener('mousedown', function (e) {
+    actionMenu.$root.addEventListener('mousedown', function(e){
         e.stopPropagation();
     })
-    actionMenu.$showAbout.addEventListener('click', function (e) {
+    actionMenu.$showAbout.addEventListener('click', function(e){
         e.stopPropagation();
         message.$root.style.visibility = 'visible';
+        actionMenu.$root.style.visibility = 'hidden';                            
     })
 
     storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
