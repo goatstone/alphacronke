@@ -23,6 +23,9 @@ function StoryWords() {
     this.styleTypes = ['bubble', 'alphaSelect'];
     this.selectedStyle = this.styleTypes[1];
     this.selectedStoryPart = null;
+    this.wordEngineRunning = false;
+    this.reString = null;
+    this.lastCallTime = null;
 }
 
 StoryWords.prototype.setStyle = function(styleName){
@@ -86,10 +89,6 @@ StoryWords.prototype.setSection = function (storiesK) {
     this.selectedStoryPart = storiesK;
     var storyPart = this.storyParts[storiesK];
 
-    // clear the contents
-//    d3.select("#div_words").selectAll("p").remove();
-//    d3.select("body").selectAll("svg.bubble").remove();
-//    this.sectionsWords = [];
     this.clearContent();
     this.sectionsWords = [];
 
@@ -166,7 +165,7 @@ StoryWords.prototype.generateBubbleWord = function () {
 
     d3.select(self.frameElement).style("height", diameter + "px");
 
-}
+};
 StoryWords.prototype.generateSelectWord = function () {
     var para = d3.select("#div_words").selectAll("p")
         .data(this.sectionsWords)
@@ -181,16 +180,29 @@ StoryWords.prototype.generateSelectWord = function () {
         });
 };
 StoryWords.prototype.highlightWords = function (filteredStr) {
+    if (!this.words){return false;}
+    this.reString = filteredStr.split("").join("|");;
+    this.lastCallTime = new Date().getTime();
+    if(!this.wordEngineRunning){ 
+        this.wordEngineRunning = true;
+        this.wordEngine();
+    }
+};
+StoryWords.prototype.wordEngine = function(){
     var $this = this;
-    if (!this.words)return false;
-    this.words.style('background-color', function (d, i) {
-        var reStr;
-        reStr = filteredStr.split("").join("|");
-        var r = new RegExp(reStr, 'i');
-        var color = (r.test(d)) ?
-            $this.wordConfig.backgroundColorOn :
-            $this.wordConfig.backgroundColorOff;
+    var timeSinceLastCall = new Date().getTime() - this.lastCallTime;
+    if(this.lastCallTime!=null && timeSinceLastCall>1000){
+        this.wordEngineRunning = false;
+    }
+    if(this.wordEngineRunning){
+        this.words.html(  function (d, i) {
+            var d2 =d.replace( new RegExp("(" + $this.reString + ")", "ig" ), '<em style="color:#f40">$1</em>')
+            return d2;
+        });
+        setTimeout(function(){$this.wordEngine.call($this)} , 1000);
+    }
+}
+StoryWords.prototype.turnOffWordEngine = function(){
+    this.wordEngineRunning = false;
 
-        return color;
-    });
 };

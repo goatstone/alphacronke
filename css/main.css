@@ -1,6 +1,6 @@
 
 body {
-    background-color: #333;
+    background-color: azure;
     font-family: sans-serif, Helvetica, Verdana;
     height: 100%
 }
@@ -194,14 +194,13 @@ goatstone.ui.SelectStyle
     padding: 3px;
     opacity: 1;
     fontSize: .9em;
-    background-color: #ccc;
-
+    /*background-color: #ccc;*/
 }
 
 #div_words p {
     float: left;
     padding: 3px;
-    background-color: #444;
+    /*background-color: #444;*/
     margin: 1px;
 
 }

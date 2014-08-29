@@ -104,6 +104,9 @@ function AlphaRange() {
         })
         .on("brushstart", function () {
             return 1;
+        }) 
+        .on("brushend", function () {
+            return 1;
         });
     brushArc = d3.svg.arc()
         .outerRadius(35 / 2)
