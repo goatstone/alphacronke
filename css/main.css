@@ -1,3 +1,4 @@
+/* main.css */
 
 body {
     background-color: azure;
@@ -5,33 +6,36 @@ body {
     height: 100%
 }
 
-.panel svg{
+/* goatstone.ui.container.Panel */
+.panel svg.main-background{
+    position: absolute;
+    top:0;
+    left: 0;
+    /*background-color: red;*/
+    stroke:red;
+    cursor: move;
+}
+.panel svg.main-background line{
+    background-color: red;
+    stroke:blue;
+}
+.panel svg.close-button{
     float:right;
     cursor: pointer;
 }
-.panel svg line:hover{
+.panel svg.close-button line:hover{
     stroke:#4a4;
 }
+.panel .handle{
+    position: relative;
+    height: 20px;
+}
+/* END goatstone.ui.container.Panel */
 
 /*
 goatstone.ui.SelectStyle
  */
-#select-style .handle {
-    height: 20px;
-    cursor: move;
-    background: linear-gradient(to top,
-    rgba(220, 220, 220, .5) 0%,
-    rgba(50, 50, 250, 1) 10%,
-    rgba(220, 220, 220, .5) 20%,
-    rgba(50, 50, 250, 1) 30%,
-    rgba(220, 220, 220, .5) 40%,
-    rgba(50, 50, 250, 1) 50%,
-    rgba(220, 220, 220, .5) 60%,
-    rgba(50, 50, 250, 1) 70%,
-    rgba(220, 220, 220, .5) 80%,
-    rgba(50, 50, 250, 1) 90%,
-    rgba(220, 220, 220, 1) 100%);
-}
+
 #select-style .widget-body{
     margin: 6px 0;
 }
@@ -117,23 +121,6 @@ goatstone.ui.SelectStyle
     visibility: hidden;
 }
 
-#story-parts .handle {
-    height: 20px;
-    cursor: move;
-    background: linear-gradient(to top,
-    rgba(220, 220, 220, .5) 0%,
-    rgba(50, 50, 250, 1) 10%,
-    rgba(220, 220, 220, .5) 20%,
-    rgba(50, 50, 250, 1) 30%,
-    rgba(220, 220, 220, .5) 40%,
-    rgba(50, 50, 250, 1) 50%,
-    rgba(220, 220, 220, .5) 60%,
-    rgba(50, 50, 250, 1) 70%,
-    rgba(220, 220, 220, .5) 80%,
-    rgba(50, 50, 250, 1) 90%,
-    rgba(220, 220, 220, 1) 100%);
-
-}
 #story-parts .widget-body{
     margin: 6px 0;
 }
@@ -164,24 +151,6 @@ goatstone.ui.SelectStyle
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
     z-index: 0;
-}
-
-#dd .handle {
-    height: 20px;
-    cursor: move;
-    background: linear-gradient(to top,
-    rgba(220, 220, 220, .5) 0%,
-    rgba(50, 50, 250, 1) 10%,
-    rgba(220, 220, 220, .5) 20%,
-    rgba(50, 50, 250, 1) 30%,
-    rgba(220, 220, 220, .5) 40%,
-    rgba(50, 50, 250, 1) 50%,
-    rgba(220, 220, 220, .5) 60%,
-    rgba(50, 50, 250, 1) 70%,
-    rgba(220, 220, 220, .5) 80%,
-    rgba(50, 50, 250, 1) 90%,
-    rgba(220, 220, 220, 1) 100%);
-
 }
 
 /* END AlphaRange */
@@ -239,23 +208,6 @@ goatstone.ui.SelectStyle
     margin: 5px;
 }
 
-#message .handle {
-    height: 20px;
-    cursor: move;
-    background: linear-gradient(to top,
-    rgba(220, 220, 220, .5) 0%,
-    rgba(50, 50, 250, 1) 10%,
-    rgba(220, 220, 220, .5) 20%,
-    rgba(50, 50, 250, 1) 30%,
-    rgba(220, 220, 220, .5) 40%,
-    rgba(50, 50, 250, 1) 50%,
-    rgba(220, 220, 220, .5) 60%,
-    rgba(50, 50, 250, 1) 70%,
-    rgba(220, 220, 220, .5) 80%,
-    rgba(50, 50, 250, 1) 90%,
-    rgba(220, 220, 220, 1) 100%)
-}
-
 #message .handle .panel-close-button{
     background-color: #e99;
     cursor: pointer;
@@ -280,6 +232,3 @@ goatstone.ui.SelectStyle
     float: right;
 }
 /* END Message */
-
-
-
