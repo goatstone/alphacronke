@@ -6,14 +6,7 @@
  * */
 
 function AlphaRange() {
-    this.$root = document.querySelector('#dd');
-    this.$body = document.querySelector('body');
-    this.$handle = this.$root.querySelector('.handle');
 
-    this.ordialScale;
-    this.ordinalGroup;
-    this.brush;
-    this.onSelectCallback = null;
     this.config = {
         width: 410,
         height: 35,
@@ -35,35 +28,57 @@ function AlphaRange() {
             }
         }
     };
-    this.displayWidth = 390;
-    var displayStart = 20, height = 60, width = 390;
-    var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-    var svgTag;
-    var linearScale;
+    this.dDivDims = [
+        {x: 20, y: window.innerHeight - 140}
+    ];
+
+    this.$root = document.querySelector('#dd');
+    this.$body = document.querySelector('body');
+    this.$handle = this.$root.querySelector('.handle');
+
+    this.ordinalScale;
+    this.ordinalGroup;
+    this.linearScale;
+
+    this.brush;
+    this.onSelectCallback = null;
+
+    this.alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    this.selectedElements = null;
+
+    this.linearScale = d3.scale.linear().range([20, 390]);
+    this.ordinalScale = d3.scale
+        .ordinal()
+        .domain(this.alphabet)
+        .rangeBands([0, 1], 0, 0);
+
+    this.initDraw();
+
+    // call the parent Panel setDrag()
+    this.setDrag();
+
+}
+
+AlphaRange.prototype = Object.create(Panel.prototype);
+
+AlphaRange.prototype.initDraw = function(){
+    var $this  =this;
     var brushArc;
     var brushGroup;
-    var $this = this;
+    var svgTag;
 
-    var dDivDims =  [{x: 20, y: window.innerHeight  - 140}];
-    this.$root.style.left =  dDivDims[0].x  +"px";
-    this.$root.style.top =  dDivDims[0].y + 'px';
+    this.$root.style.left = this.dDivDims[0].x + "px";
+    this.$root.style.top = this.dDivDims[0].y + 'px';
     this.$root.style.visibility = 'visible';
 
     var dDiv = d3.select("#dd")
         .selectAll("div#alpha-range")
-        .data(dDivDims)
+        .data(this.dDivDims)
         .enter().append("div");
 
     dDiv.append("div")
         .attr("id", "scale_background");
 
-    this.ordialScale = d3.scale
-        .ordinal()
-        .domain(alphabet)
-        .rangeBands([this.config.scaleSymbols.listStartX, this.config.scaleSymbols.listWidth], 0, 0);
-
-    linearScale = d3.scale.linear()
-        .range([this.config.scaleSymbols.listStartX, this.config.scaleSymbols.listWidth]);
 
     svgTag = d3.select("#dd")
         .append("svg")
@@ -80,14 +95,14 @@ function AlphaRange() {
     this.ordinalGroup = svgTag.append("g");
     this.ordinalGroup
         .selectAll("text")
-        .data(alphabet)
+        .data(this.alphabet)
         .enter()
         .append("text")
         .text(function (d) {
             return d;
         })
         .attr("x", function (d) {
-            return $this.ordialScale(d);
+            return  20+ $this.ordinalScale(d) * 363;
         })
         .attr("y", function (d) {
             return $this.config.height / 2;
@@ -96,15 +111,15 @@ function AlphaRange() {
 
     // Assemble the d3 brush, the selector component.
     this.brush = d3.svg.brush()
-        .x(linearScale)
+        .x(this.linearScale)
         .extent([.5, .6])
         .on("brush", function () {
-            $this.move();
+            $this.setSelectedElements();
             return 1;
         })
         .on("brushstart", function () {
             return 1;
-        }) 
+        })
         .on("brushend", function () {
             return 1;
         });
@@ -128,42 +143,50 @@ function AlphaRange() {
         .attr("height", this.config.height)
         .attr("y", 0);
 
-    this.setDrag();
-
 }
 
-AlphaRange.prototype = Object.create(Panel.prototype);
-
-AlphaRange.prototype.toString = function () {
-    return this.name + " : " + this.version;
-};
-
-AlphaRange.prototype.addSelectListener = function(callBack){
+AlphaRange.prototype.addSelectListener = function (callBack) {
     this.onSelectCallback = callBack;
 };
 
-AlphaRange.prototype.move = function () {
-    var brushExtent = this.brush.extent();
-    var filteredStr = "";
-    var $this = this;
+AlphaRange.prototype.setSelectedElements = function () {
 
+    var brushExtent = this.brush.extent();
+    console.log(brushExtent)
+    var $this = this;
+    this.selectedElements = '';
+
+    this.alphabet.forEach(function (e, i) {
+//        console.log($this.ordinalScale(e))
+
+        if ($this.ordinalScale(e) >= brushExtent[0] && $this.ordinalScale(e) <= brushExtent[1]) {
+            $this.selectedElements += e;
+        }
+    })
+    console.log($this.selectedElements)
+
+    if (this.onSelectCallback !== null) {
+        this.onSelectCallback($this.selectedElements);
+    }
+
+    this.draw();
+
+}
+
+AlphaRange.prototype.draw = function () {
+    var $this = this;
     this.ordinalGroup
         .selectAll("text")
         .text(function (d) {
             return  d;
         })
         .attr("fill", function (d) {
-            var dScaled = ($this.ordialScale(d) / ($this.config.scaleSymbols.listWidth) );
-            if (dScaled >= brushExtent[0] && dScaled <= brushExtent[1]) {
-                filteredStr += d;
-                return $this.config.scaleSymbols.colorOn;
+            if ($this.selectedElements.indexOf(d) !== -1) {
+                return 'red';
             }
             else {
-                return $this.config.scaleSymbols.colorOff;
+                return 'black';
             }
         });
 
-        if(this.onSelectCallback !== null){
-            this.onSelectCallback(filteredStr);
-        }
 };

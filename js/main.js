@@ -65,11 +65,11 @@ window.addEventListener("load", function () {
 
     storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
         storyWords.setSection(this.value);
-        alphaRange.move();
+//        alphaRange.setSelectedElements();
     })
     storyWords.fetchText(function () {
         storyWords.setSection('intro');
-        alphaRange.move();
+        alphaRange.setSelectedElements();
     });
 
     alphaRange.addSelectListener(
