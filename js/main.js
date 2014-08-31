@@ -20,6 +20,7 @@ window.addEventListener("load", function () {
     message = new Message();
     selectStyle = new SelectStyle();
 
+    // selectStyle
     selectStyle.$styleOpts.addEventListener('change', function (e) {
 
         storyWords.setStyle(this.value)
@@ -28,12 +29,9 @@ window.addEventListener("load", function () {
         }
         else if (this.value === 'alphaSelect') {
             alphaRange.$root.style.visibility = 'visible'
-            alphaRange.move();
+            alphaRange.setSelectedElements();
+            //alphaRange.move();
         }
-    })
-
-    message.$closePanel.addEventListener('click', function () {
-        message.$root.style.visibility = 'hidden';
     })
 
    // actionBar 
@@ -57,21 +55,38 @@ window.addEventListener("load", function () {
     actionMenu.$root.addEventListener('mousedown', function(e){
         e.stopPropagation();
     })
-    actionMenu.$showAbout.addEventListener('click', function(e){
+    actionMenu.$a.addEventListener('click', function(e){
+        e.stopPropagation();
+        selectStyle.$root.style.visibility = 'visible';
+        actionMenu.$root.style.visibility = 'hidden';
+    })
+    actionMenu.$b.addEventListener('click', function(e){
+        e.stopPropagation();
+        storyPartSelect.$root.style.visibility = 'visible';
+        actionMenu.$root.style.visibility = 'hidden';
+    })
+    actionMenu.$c.addEventListener('click', function(e){
+        e.stopPropagation();
+        alphaRange.$root.style.visibility = 'visible';
+        actionMenu.$root.style.visibility = 'hidden';
+    })
+    actionMenu.$d.addEventListener('click', function(e){
         e.stopPropagation();
         message.$root.style.visibility = 'visible';
-        actionMenu.$root.style.visibility = 'hidden';                            
+        actionMenu.$root.style.visibility = 'hidden';
     })
 
+    // storyPartSelect
     storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
         storyWords.setSection(this.value);
-//        alphaRange.setSelectedElements();
+        alphaRange.setSelectedElements();
     })
     storyWords.fetchText(function () {
         storyWords.setSection('intro');
         alphaRange.setSelectedElements();
     });
 
+    // alphaRange
     alphaRange.addSelectListener(
         function (filteredStr) {
             storyWords.highlightWords(filteredStr);

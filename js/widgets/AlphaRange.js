@@ -152,18 +152,15 @@ AlphaRange.prototype.addSelectListener = function (callBack) {
 AlphaRange.prototype.setSelectedElements = function () {
 
     var brushExtent = this.brush.extent();
-    console.log(brushExtent)
     var $this = this;
     this.selectedElements = '';
 
     this.alphabet.forEach(function (e, i) {
-//        console.log($this.ordinalScale(e))
 
         if ($this.ordinalScale(e) >= brushExtent[0] && $this.ordinalScale(e) <= brushExtent[1]) {
             $this.selectedElements += e;
         }
     })
-    console.log($this.selectedElements)
 
     if (this.onSelectCallback !== null) {
         this.onSelectCallback($this.selectedElements);

@@ -5,6 +5,14 @@ body {
     height: 100%
 }
 
+.panel svg{
+    float:right;
+    cursor: pointer;
+}
+.panel svg line:hover{
+    stroke:#4a4;
+}
+
 /*
 goatstone.ui.SelectStyle
  */
