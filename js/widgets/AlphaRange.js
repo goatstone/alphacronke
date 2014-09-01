@@ -69,7 +69,7 @@ AlphaRange.prototype.initDraw = function(){
 
     this.$root.style.left = this.dDivDims[0].x + "px";
     this.$root.style.top = this.dDivDims[0].y + 'px';
-    this.$root.style.visibility = 'visible';
+//    this.$root.style.visibility = 'visible';
 
     var dDiv = d3.select("#dd")
         .selectAll("div#alpha-range")

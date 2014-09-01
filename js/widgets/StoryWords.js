@@ -26,13 +26,12 @@ function StoryWords() {
     this.wordEngineRunning = false;
     this.reString = null;
     this.lastCallTime = null;
+    this.size = 700;
 }
 
 StoryWords.prototype.setStyle = function(styleName){
     this.selectedStyle = styleName;
-
     this.clearContent();
-    console.log(this.selectedStyle)
     this.generateBGround();
 
 }
@@ -58,7 +57,8 @@ StoryWords.prototype.fetchText = function (callBack) {
         $this.storyParts.partTwo = sections.slice(75, 129);
         $this.storyParts.partThree = sections.slice(130, 172);
 
-        $this.setSection('intro')
+        $this.setSection('intro');
+        $this.setStyle('bubble');
 
         sections = null;
         storyText = null;
@@ -69,6 +69,12 @@ StoryWords.prototype.fetchText = function (callBack) {
         return true;
     });
 };
+// setSize StoryWords
+StoryWords.prototype.setSize = function(size){
+    this.size = size;
+    this.generateBubbleWord(Number(size));
+}
+
 StoryWords.prototype.clearContent = function(){
     d3.select("#div_words").selectAll("p").remove();
     d3.select("body").selectAll("svg.bubble").remove();
@@ -76,7 +82,7 @@ StoryWords.prototype.clearContent = function(){
 StoryWords.prototype.generateBGround = function(){
     if(this.selectedStyle === 'bubble'){
         this.setBubbleWordData();
-        this.generateBubbleWord();
+        this.generateBubbleWord(window.innerHeight);
     }
     else if(this.selectedStyle === 'alphaSelect'){
         this.generateSelectWord();
@@ -121,9 +127,12 @@ StoryWords.prototype.setBubbleWordData = function () {
     }
 };
 StoryWords.prototype.generateBubbleWord = function () {
-    var diameter = 2260,
+    // TODO : make this a prop
+    document.querySelector('#select-chart-size').style.display = 'block';
+
+    var diameter = this.size;
     //format = d3.format(",d"),
-        color = d3.scale.category20c();
+    var color = d3.scale.category20c();
 
     var bubble = d3.layout.pack()
         .sort(null)
@@ -167,6 +176,8 @@ StoryWords.prototype.generateBubbleWord = function () {
 
 };
 StoryWords.prototype.generateSelectWord = function () {
+    document.querySelector('#select-chart-size').style.display = 'none';
+
     var para = d3.select("#div_words").selectAll("p")
         .data(this.sectionsWords)
         .enter().append("p");

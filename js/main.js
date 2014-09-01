@@ -6,11 +6,11 @@ window.addEventListener("load", function () {
 
     var alphaRange;
     var message;
-    var storyWords;
     var storyPartSelect;
     var actionBar;
     var actionMenu;
     var selectStyle;
+    var storyWords;
 
     actionBar = new ActionBar();
     actionMenu = new ActionMenu();
@@ -30,47 +30,46 @@ window.addEventListener("load", function () {
         else if (this.value === 'alphaSelect') {
             alphaRange.$root.style.visibility = 'visible'
             alphaRange.setSelectedElements();
-            //alphaRange.move();
         }
     })
 
-   // actionBar 
-    actionBar.$showMenu.addEventListener('mousedown', function(e){
+    // actionBar
+    actionBar.$showMenu.addEventListener('mousedown', function (e) {
         e.stopPropagation();
-        if(!actionMenu.$root.style.visibility || actionMenu.$root.style.visibility === 'hidden'){
-            actionMenu.$root.style.visibility = 'visible';            
+        if (!actionMenu.$root.style.visibility || actionMenu.$root.style.visibility === 'hidden') {
+            actionMenu.$root.style.visibility = 'visible';
         }
-        else{
-            actionMenu.$root.style.visibility = 'hidden';            
+        else {
+            actionMenu.$root.style.visibility = 'hidden';
         }
         return true;
     })
 
     // actionMenu
-    actionMenu.$body.addEventListener('mousedown', function(){
-        if( actionMenu.$root.style.visibility === 'visible'){
-            actionMenu.$root.style.visibility = 'hidden';            
-        } 
+    actionMenu.$body.addEventListener('mousedown', function () {
+        if (actionMenu.$root.style.visibility === 'visible') {
+            actionMenu.$root.style.visibility = 'hidden';
+        }
     })
-    actionMenu.$root.addEventListener('mousedown', function(e){
+    actionMenu.$root.addEventListener('mousedown', function (e) {
         e.stopPropagation();
     })
-    actionMenu.$a.addEventListener('click', function(e){
+    actionMenu.$a.addEventListener('click', function (e) {
         e.stopPropagation();
         selectStyle.$root.style.visibility = 'visible';
         actionMenu.$root.style.visibility = 'hidden';
     })
-    actionMenu.$b.addEventListener('click', function(e){
+    actionMenu.$b.addEventListener('click', function (e) {
         e.stopPropagation();
         storyPartSelect.$root.style.visibility = 'visible';
         actionMenu.$root.style.visibility = 'hidden';
     })
-    actionMenu.$c.addEventListener('click', function(e){
+    actionMenu.$c.addEventListener('click', function (e) {
         e.stopPropagation();
         alphaRange.$root.style.visibility = 'visible';
         actionMenu.$root.style.visibility = 'hidden';
     })
-    actionMenu.$d.addEventListener('click', function(e){
+    actionMenu.$d.addEventListener('click', function (e) {
         e.stopPropagation();
         message.$root.style.visibility = 'visible';
         actionMenu.$root.style.visibility = 'hidden';
@@ -82,9 +81,13 @@ window.addEventListener("load", function () {
         alphaRange.setSelectedElements();
     })
     storyWords.fetchText(function () {
-        storyWords.setSection('intro');
         alphaRange.setSelectedElements();
     });
+
+    ///svg-size : TODO part of generalControl
+    document.querySelector('#svg-size').addEventListener("input", function (e) {
+        storyWords.setSize(Number(this.value))
+    })
 
     // alphaRange
     alphaRange.addSelectListener(
