@@ -6,13 +6,13 @@
 function Controller() {
     var $this = this;
     this.id = "Controller";
+
     this.model = new Model();
     this.styles = ['bubble', 'selectWord'];
     this.settings = {size: 700, style: this.styles[0], section: "intro", letterRange: "nop"}
+    this.initModel();
 
-    // needs initModel to return
-    this.storyWords;
-
+    this.storyWords = new StoryWords( );
     this.storyPartSelect = new StoryPartSelect();
     this.alphaRange = new AlphaRange();
     this.message = new Message();
@@ -46,12 +46,26 @@ function Controller() {
     ];
     this.actionBar = new ActionBar();
     this.actionMenu = new ActionMenu(actionMenuModel);
-
-    this.initModel();
     this.initActionBar();
-    this.initControl();
 
+    // User events
+    this.selectStyle.$styleOpts.addEventListener('change', function (e) {
+        $this.settings.style = this.value;
+    })
+    this.storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
+        $this.settings.section = this.value;
+    })
+    this.storyPartSelect.$selectChartSizeButton.addEventListener('change', function (e) {
+        $this.settings.size = Number(this.value);
+    })
+//    document.querySelector('#svg-size').addEventListener("input", function (e) {
+//        $this.settings.size = Number(this.value);
+//    })
+    this.alphaRange.addSelectListener( function (filteredStr) {
+        $this.settings.letterRange = filteredStr;
+    });
 
+    // Application Settings events
     var observer = new ObjectObserver(this.settings);
     observer.open(function (added, removed, changed, getOldValueFn) {
         Object.keys(changed).forEach(function (property) {
@@ -64,53 +78,29 @@ function Controller() {
                     $this.storyWords.setStyle(v)
                     if (v === 'bubble') {
                         $this.alphaRange.$root.style.visibility = 'hidden';
+                        $this.storyPartSelect.$selectChartSizeContainer.style.display = 'block';
                     }
                     else if (v === 'alphaSelect') {
                         $this.alphaRange.$root.style.visibility = 'visible'
-                        $this.alphaRange.setSelectedElements();
+                        $this.storyPartSelect.$selectChartSizeContainer.style.display = 'none';
                         $this.storyWords.highlightWords($this.alphaRange.selectedElements);
-                    }
+                     }
                     break;
                 case 'section':
-                    $this.storyWords.setSection(v);
+                    $this.storyWords.setSection($this.model.story[v]);
+                    $this.storyWords.highlightWords($this.alphaRange.selectedElements);
                     break;
                 case 'letterRange':
                     $this.storyWords.highlightWords(v);
                     break;
             }
-//            property; // a property on obj which has changed value.
-//            changed[property]; // its value
-//            getOldValueFn(property); // its old value
         });
     });
 
 }
 
-// init the UI controls
-Controller.prototype.initControl = function () {
-    var $this = this;
-    // selectStyle
-    this.selectStyle.$styleOpts.addEventListener('change', function (e) {
-        $this.settings.style = this.value;
-    })
-    // storyPartSelect
-    this.storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
-        $this.settings.section = this.value;
-    })
-    ///svg-size : TODO part of generalControl
-    document.querySelector('#svg-size').addEventListener("input", function (e) {
-        $this.settings.size = Number(this.value);
-    })
-    // alphaRange
-    this.alphaRange.addSelectListener(
-        function (filteredStr) {
-            $this.settings.letterRange = filteredStr;
-        });
-
-};
 // init the ActionBar and its ActionMenu
 Controller.prototype.initActionBar = function () {
-
     var $this = this;
 
     // actionBar
@@ -150,7 +140,11 @@ Controller.prototype.initModel = function () {
         sections = null;
         storyText = null;
 
-        $this.storyWords = new StoryWords($this.model.story);
+        $this.storyWords.setSection($this.model.story['intro']);
+        $this.storyWords.setStyle('bubble');
+        $this.storyPartSelect.$selectChartSizeContainer.style.visibility = 'visible';
+
+
     });
 }
 

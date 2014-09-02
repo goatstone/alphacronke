@@ -42,11 +42,13 @@ function AlphaRange() {
     this.linearScale;
 
     this.brush;
+    this.initExtent = [.5,.9];
     this.onSelectCallback = null;
 
     this.alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
     this.selectedElements = "";
     this.prevSelectedElements = null;
+
 
     this.linearScale = d3.scale.linear().range([20, 390]);
     this.ordinalScale = d3.scale
@@ -58,6 +60,7 @@ function AlphaRange() {
 
     // call the parent Panel setDrag()
     this.setDrag();
+    this.setSelectedElements();
 
 }
 
@@ -114,7 +117,7 @@ AlphaRange.prototype.initDraw = function(){
     // Assemble the d3 brush, the selector component.
     this.brush = d3.svg.brush()
         .x(this.linearScale)
-        .extent([.5, .6])
+        .extent(this.initExtent)
         .on("brush", function () {
             $this.setSelectedElements();
             return 1;

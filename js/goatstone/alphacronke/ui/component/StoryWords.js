@@ -6,15 +6,10 @@
 
  Usage:
  var storyWords = new StoryWords();
- storyWords.fetchText(function () {
- alphaRange.move();
- });
 
  * */
 
-function StoryWords(storyParts) {
-
-    this.storyParts = storyParts;
+function StoryWords( ) {
 
     this.words;
     this.sectionsWords = [];
@@ -25,14 +20,8 @@ function StoryWords(storyParts) {
     this.bubbleData = {children: []};
     this.styleTypes = ['bubble', 'alphaSelect'];
     this.selectedStyle = this.styleTypes[1];
-    this.selectedStoryPart = null;
-    this.wordEngineRunning = false;
     this.reString = null;
-    this.lastCallTime = null;
     this.size = 700;
-
-    this.setSection('intro');
-    this.setStyle('bubble');
 
 }
 StoryWords.prototype.setStyle = function(styleName){
@@ -45,11 +34,9 @@ StoryWords.prototype.setSize = function(size){
     this.size = size;
     this.generateBubbleWord(Number(size));
 }
-StoryWords.prototype.setSection = function (storiesK) {
+StoryWords.prototype.setSection = function (storiesPart) {
     var $this = this;
-
-    this.selectedStoryPart = storiesK;
-    var storyPart = this.storyParts[storiesK];
+    var storyPart = storiesPart;
 
     this.clearContent();
     this.sectionsWords = [];
@@ -94,8 +81,6 @@ StoryWords.prototype.generateBGround = function(){
 
 }
 StoryWords.prototype.generateBubbleWord = function () {
-    // TODO : make this a prop
-    document.querySelector('#select-chart-size').style.display = 'block';
 
     var diameter = this.size;
     //format = d3.format(",d"),
@@ -143,7 +128,6 @@ StoryWords.prototype.generateBubbleWord = function () {
 
 };
 StoryWords.prototype.generateSelectWord = function () {
-    document.querySelector('#select-chart-size').style.display = 'none';
 
     var para = d3.select("#div_words").selectAll("p")
         .data(this.sectionsWords)
