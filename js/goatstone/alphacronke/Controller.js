@@ -7,6 +7,8 @@ function Controller() {
     var $this = this;
     this.id = "Controller";
     this.model = new Model();
+    this.styles = ['bubble', 'selectWord'];
+    this.settings = {size: 700, style: this.styles[0], section: "intro", letterRange: "nop"}
 
     // needs initModel to return
     this.storyWords;
@@ -16,10 +18,8 @@ function Controller() {
     this.message = new Message();
     this.selectStyle = new SelectStyle();
 
-    this.initModel();
-
-    var actionMenuModel =  [
-          {
+    var actionMenuModel = [
+        {
             title: 'About AlphaCronke',
             action: function () {
                 $this.message.$root.style.visibility = 'visible';
@@ -43,47 +43,68 @@ function Controller() {
                 $this.selectStyle.$root.style.visibility = 'visible';
             }
         }
-    ] ;
-
+    ];
     this.actionBar = new ActionBar();
     this.actionMenu = new ActionMenu(actionMenuModel);
 
+    this.initModel();
     this.initActionBar();
     this.initControl();
 
+
+    var observer = new ObjectObserver(this.settings);
+    observer.open(function (added, removed, changed, getOldValueFn) {
+        Object.keys(changed).forEach(function (property) {
+            var v = changed[property];
+            switch (property) {
+                case 'size':
+                    $this.storyWords.setSize(v);
+                    break;
+                case 'style':
+                    $this.storyWords.setStyle(v)
+                    if (v === 'bubble') {
+                        $this.alphaRange.$root.style.visibility = 'hidden';
+                    }
+                    else if (v === 'alphaSelect') {
+                        $this.alphaRange.$root.style.visibility = 'visible'
+                        $this.alphaRange.setSelectedElements();
+                        $this.storyWords.highlightWords($this.alphaRange.selectedElements);
+                    }
+                    break;
+                case 'section':
+                    $this.storyWords.setSection(v);
+                    break;
+                case 'letterRange':
+                    $this.storyWords.highlightWords(v);
+                    break;
+            }
+//            property; // a property on obj which has changed value.
+//            changed[property]; // its value
+//            getOldValueFn(property); // its old value
+        });
+    });
+
 }
+
 // init the UI controls
 Controller.prototype.initControl = function () {
     var $this = this;
-
     // selectStyle
     this.selectStyle.$styleOpts.addEventListener('change', function (e) {
-
-        $this.storyWords.setStyle(this.value)
-        if (this.value === 'bubble') {
-            $this.alphaRange.$root.style.visibility = 'hidden';
-        }
-        else if (this.value === 'alphaSelect') {
-            $this.alphaRange.$root.style.visibility = 'visible'
-            $this.alphaRange.setSelectedElements();
-        }
+        $this.settings.style = this.value;
     })
-
     // storyPartSelect
     this.storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
-        $this.storyWords.setSection(this.value);
-        $this.alphaRange.setSelectedElements();
+        $this.settings.section = this.value;
     })
-
     ///svg-size : TODO part of generalControl
     document.querySelector('#svg-size').addEventListener("input", function (e) {
-        $this.storyWords.setSize(Number(this.value))
+        $this.settings.size = Number(this.value);
     })
-
     // alphaRange
     this.alphaRange.addSelectListener(
         function (filteredStr) {
-            $this.storyWords.highlightWords(filteredStr);
+            $this.settings.letterRange = filteredStr;
         });
 
 };
@@ -95,7 +116,7 @@ Controller.prototype.initActionBar = function () {
     // actionBar
     this.actionBar.$showMenu.addEventListener('mousedown', function (e) {
         e.stopPropagation();
-        if (  $this.actionMenu.$root.style.visibility !== 'visible') {
+        if ($this.actionMenu.$root.style.visibility !== 'visible') {
             $this.actionMenu.$root.style.visibility = 'visible';
         }
         else {
@@ -130,7 +151,6 @@ Controller.prototype.initModel = function () {
         storyText = null;
 
         $this.storyWords = new StoryWords($this.model.story);
-
     });
 }
 
