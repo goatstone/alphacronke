@@ -9,7 +9,6 @@ function Controller() {
 
     this.model = new Model();
     this.styles = ['bubble', 'selectWord'];
-    this.settings = {size: 700, style: this.styles[0], section: "intro", letterRange: "nop"}
     this.initModel();
 
     this.storyWords = new StoryWords( );
@@ -50,51 +49,26 @@ function Controller() {
 
     // User events
     this.selectStyle.$styleOpts.addEventListener('change', function (e) {
-        $this.settings.style = this.value;
-    })
+        $this.storyWords.setStyle(this.value)
+        if (this.value === 'bubble') {
+            $this.alphaRange.$root.style.visibility = 'hidden';
+            $this.storyPartSelect.$selectChartSizeContainer.style.display = 'block';
+        }
+        else if (this.value === 'alphaSelect') {
+            $this.alphaRange.$root.style.visibility = 'visible'
+            $this.storyPartSelect.$selectChartSizeContainer.style.display = 'none';
+            $this.storyWords.highlightWords($this.alphaRange.selectedElements);
+        }
+     })
     this.storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
-        $this.settings.section = this.value;
+        $this.storyWords.setSection($this.model.story[this.value]);
+        $this.storyWords.highlightWords($this.alphaRange.selectedElements);
     })
     this.storyPartSelect.$selectChartSizeButton.addEventListener('change', function (e) {
-        $this.settings.size = Number(this.value);
+        $this.storyWords.setSize(Number(this.value));
     })
-//    document.querySelector('#svg-size').addEventListener("input", function (e) {
-//        $this.settings.size = Number(this.value);
-//    })
     this.alphaRange.addSelectListener( function (filteredStr) {
-        $this.settings.letterRange = filteredStr;
-    });
-
-    // Application Settings events
-    var observer = new ObjectObserver(this.settings);
-    observer.open(function (added, removed, changed, getOldValueFn) {
-        Object.keys(changed).forEach(function (property) {
-            var v = changed[property];
-            switch (property) {
-                case 'size':
-                    $this.storyWords.setSize(v);
-                    break;
-                case 'style':
-                    $this.storyWords.setStyle(v)
-                    if (v === 'bubble') {
-                        $this.alphaRange.$root.style.visibility = 'hidden';
-                        $this.storyPartSelect.$selectChartSizeContainer.style.display = 'block';
-                    }
-                    else if (v === 'alphaSelect') {
-                        $this.alphaRange.$root.style.visibility = 'visible'
-                        $this.storyPartSelect.$selectChartSizeContainer.style.display = 'none';
-                        $this.storyWords.highlightWords($this.alphaRange.selectedElements);
-                     }
-                    break;
-                case 'section':
-                    $this.storyWords.setSection($this.model.story[v]);
-                    $this.storyWords.highlightWords($this.alphaRange.selectedElements);
-                    break;
-                case 'letterRange':
-                    $this.storyWords.highlightWords(v);
-                    break;
-            }
-        });
+        $this.storyWords.highlightWords(filteredStr);
     });
 
 }
@@ -114,7 +88,6 @@ Controller.prototype.initActionBar = function () {
         }
         return true;
     })
-
 
 };
 // init the Model
@@ -143,7 +116,6 @@ Controller.prototype.initModel = function () {
         $this.storyWords.setSection($this.model.story['intro']);
         $this.storyWords.setStyle('bubble');
         $this.storyPartSelect.$selectChartSizeContainer.style.visibility = 'visible';
-
 
     });
 }
