@@ -16,9 +16,36 @@ window.addEventListener("load", function () {
     actionMenu = new ActionMenu();
     storyPartSelect = new StoryPartSelect();
     alphaRange = new AlphaRange();
-    storyWords = new StoryWords();
     message = new Message();
     selectStyle = new SelectStyle();
+
+
+    var $this = this;
+
+    d3.text("datum/dickory_cronke.txt", function (unparsedData) {
+
+        var sections = [];
+        var txtStart = 738;
+        var textEnd = 59570;
+        var storyText = unparsedData.substr(txtStart, textEnd);
+        var storyParts = {intro: null, partOne: null, partTwo: null, partThree: null};
+        // remove \r characters
+        storyText = storyText.replace(/\r/g, "");
+        // chang all single \n into a single space
+        storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
+
+        sections = storyText.split(/[\n][\n]/g);
+        storyParts.intro = sections.slice(0, 16);
+        storyParts.partOne = sections.slice(17, 74);
+        storyParts.partTwo = sections.slice(75, 129);
+        storyParts.partThree = sections.slice(130, 172);
+
+        sections = null;
+        storyText = null;
+
+        storyWords = new StoryWords(storyParts);
+
+    });
 
     // selectStyle
     selectStyle.$styleOpts.addEventListener('change', function (e) {
@@ -80,9 +107,9 @@ window.addEventListener("load", function () {
         storyWords.setSection(this.value);
         alphaRange.setSelectedElements();
     })
-    storyWords.fetchText(function () {
-        alphaRange.setSelectedElements();
-    });
+//    storyWords.fetchText(function () {
+//        alphaRange.setSelectedElements();
+//    });
 
     ///svg-size : TODO part of generalControl
     document.querySelector('#svg-size').addEventListener("input", function (e) {

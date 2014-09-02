@@ -11,14 +11,16 @@
 
  * */
 
-function StoryWords() {
+function StoryWords(storyParts) {
+
+    this.storyParts = storyParts;
+
     this.words;
     this.sectionsWords = [];
     this.wordConfig = {
         "backgroundColorOff": "#444",
         "backgroundColorOn": "#ccc"
     };
-    this.storyParts = {};
     this.bubbleData = {children: []};
     this.styleTypes = ['bubble', 'alphaSelect'];
     this.selectedStyle = this.styleTypes[1];
@@ -27,54 +29,21 @@ function StoryWords() {
     this.reString = null;
     this.lastCallTime = null;
     this.size = 700;
-}
 
+    this.setSection('intro');
+    this.setStyle('bubble');
+
+}
 StoryWords.prototype.setStyle = function(styleName){
     this.selectedStyle = styleName;
     this.clearContent();
     this.generateBGround();
 
 }
-
-StoryWords.prototype.fetchText = function (callBack) {
-    var $this = this;
-
-    d3.text("datum/dickory_cronke.txt", function (unparsedData) {
-
-        var sections = [];
-        var txtStart = 738;
-        var textEnd = 59570;
-        var storyText = unparsedData.substr(txtStart, textEnd);
-
-        // remove \r characters
-        storyText = storyText.replace(/\r/g, "");
-        // chang all single \n into a single space
-        storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
-
-        sections = storyText.split(/[\n][\n]/g);
-        $this.storyParts.intro = sections.slice(0, 16);
-        $this.storyParts.partOne = sections.slice(17, 74);
-        $this.storyParts.partTwo = sections.slice(75, 129);
-        $this.storyParts.partThree = sections.slice(130, 172);
-
-        $this.setSection('intro');
-        $this.setStyle('bubble');
-
-        sections = null;
-        storyText = null;
-
-        if (callBack) {
-            callBack();
-        }
-        return true;
-    });
-};
-// setSize StoryWords
 StoryWords.prototype.setSize = function(size){
     this.size = size;
     this.generateBubbleWord(Number(size));
 }
-
 StoryWords.prototype.clearContent = function(){
     d3.select("#div_words").selectAll("p").remove();
     d3.select("body").selectAll("svg.bubble").remove();
