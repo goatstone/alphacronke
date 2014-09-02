@@ -3,120 +3,139 @@
 
  * */
 
-window.addEventListener("load", function () {
+function Controller(){
 
-    var alphaRange;
-    var message;
-    var storyPartSelect;
-    var actionBar;
-    var actionMenu;
-    var selectStyle;
-    var storyWords;
+    this.id = "Controller";
+    this.model = new Model();
 
-    actionBar = new ActionBar();
-    actionMenu = new ActionMenu();
-    storyPartSelect = new StoryPartSelect();
-    alphaRange = new AlphaRange();
-    message = new Message();
-    selectStyle = new SelectStyle();
+    // needs initModel to return
+    this.storyWords;
 
+    this.actionBar = new ActionBar();
+    this.actionMenu = new ActionMenu();
+    this.storyPartSelect = new StoryPartSelect();
+    this.alphaRange = new AlphaRange();
+    this.message = new Message();
+    this.selectStyle = new SelectStyle();
 
+    this.initModel();
+    this.initActionBar();
+    this.initControl();
+
+}
+// init the UI controls
+Controller.prototype.initControl = function(){
     var $this = this;
 
-    d3.text("datum/dickory_cronke.txt", function (unparsedData) {
-
-        var sections = [];
-        var txtStart = 738;
-        var textEnd = 59570;
-        var storyText = unparsedData.substr(txtStart, textEnd);
-        var storyParts = {intro: null, partOne: null, partTwo: null, partThree: null};
-        // remove \r characters
-        storyText = storyText.replace(/\r/g, "");
-        // chang all single \n into a single space
-        storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
-
-        sections = storyText.split(/[\n][\n]/g);
-        storyParts.intro = sections.slice(0, 16);
-        storyParts.partOne = sections.slice(17, 74);
-        storyParts.partTwo = sections.slice(75, 129);
-        storyParts.partThree = sections.slice(130, 172);
-
-        sections = null;
-        storyText = null;
-
-        storyWords = new StoryWords(storyParts);
-
-    });
-
     // selectStyle
-    selectStyle.$styleOpts.addEventListener('change', function (e) {
+    this.selectStyle.$styleOpts.addEventListener('change', function (e) {
 
-        storyWords.setStyle(this.value)
+        $this.storyWords.setStyle(this.value)
         if (this.value === 'bubble') {
-            alphaRange.$root.style.visibility = 'hidden';
+            $this.alphaRange.$root.style.visibility = 'hidden';
         }
         else if (this.value === 'alphaSelect') {
-            alphaRange.$root.style.visibility = 'visible'
-            alphaRange.setSelectedElements();
+            $this.alphaRange.$root.style.visibility = 'visible'
+            $this.alphaRange.setSelectedElements();
         }
     })
 
+    // storyPartSelect
+    this.storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
+        $this.storyWords.setSection(this.value);
+        $this.alphaRange.setSelectedElements();
+    })
+
+    ///svg-size : TODO part of generalControl
+    document.querySelector('#svg-size').addEventListener("input", function (e) {
+        $this.storyWords.setSize(Number(this.value))
+    })
+
+    // alphaRange
+    this.alphaRange.addSelectListener(
+        function (filteredStr) {
+            $this.storyWords.highlightWords(filteredStr);
+        });
+
+};
+// init the ActionBar and its ActionMenu
+Controller.prototype.initActionBar = function(){
+
+    var $this = this;
+
     // actionBar
-    actionBar.$showMenu.addEventListener('mousedown', function (e) {
+    this.actionBar.$showMenu.addEventListener('mousedown', function (e) {
         e.stopPropagation();
-        if (!actionMenu.$root.style.visibility || actionMenu.$root.style.visibility === 'hidden') {
-            actionMenu.$root.style.visibility = 'visible';
+        if (!$this.actionMenu.$root.style.visibility || $this.actionMenu.$root.style.visibility === 'hidden') {
+            $this.actionMenu.$root.style.visibility = 'visible';
         }
         else {
-            actionMenu.$root.style.visibility = 'hidden';
+            $this.actionMenu.$root.style.visibility = 'hidden';
         }
         return true;
     })
 
     // actionMenu
-    actionMenu.$body.addEventListener('mousedown', function () {
-        if (actionMenu.$root.style.visibility === 'visible') {
-            actionMenu.$root.style.visibility = 'hidden';
+    this.actionMenu.$body.addEventListener('mousedown', function () {
+        if ($this.actionMenu.$root.style.visibility === 'visible') {
+            $this.actionMenu.$root.style.visibility = 'hidden';
         }
     })
-    actionMenu.$root.addEventListener('mousedown', function (e) {
+    this.actionMenu.$root.addEventListener('mousedown', function (e) {
         e.stopPropagation();
     })
-    actionMenu.$a.addEventListener('click', function (e) {
+    this.actionMenu.$a.addEventListener('click', function (e) {
         e.stopPropagation();
-        selectStyle.$root.style.visibility = 'visible';
-        actionMenu.$root.style.visibility = 'hidden';
+        $this.selectStyle.$root.style.visibility = 'visible';
+        $this.actionMenu.$root.style.visibility = 'hidden';
     })
-    actionMenu.$b.addEventListener('click', function (e) {
+    this.actionMenu.$b.addEventListener('click', function (e) {
         e.stopPropagation();
-        storyPartSelect.$root.style.visibility = 'visible';
-        actionMenu.$root.style.visibility = 'hidden';
+        $this.storyPartSelect.$root.style.visibility = 'visible';
+        $this.actionMenu.$root.style.visibility = 'hidden';
     })
-    actionMenu.$c.addEventListener('click', function (e) {
+    this.actionMenu.$c.addEventListener('click', function (e) {
         e.stopPropagation();
-        alphaRange.$root.style.visibility = 'visible';
-        actionMenu.$root.style.visibility = 'hidden';
+        $this.alphaRange.$root.style.visibility = 'visible';
+        $this.actionMenu.$root.style.visibility = 'hidden';
     })
-    actionMenu.$d.addEventListener('click', function (e) {
+    this.actionMenu.$d.addEventListener('click', function (e) {
         e.stopPropagation();
-        message.$root.style.visibility = 'visible';
-        actionMenu.$root.style.visibility = 'hidden';
+        $this.message.$root.style.visibility = 'visible';
+        $this.actionMenu.$root.style.visibility = 'hidden';
     })
 
-    // storyPartSelect
-    storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
-        storyWords.setSection(this.value);
-        alphaRange.setSelectedElements();
-    })
+};
+// init the Model
+Controller.prototype.initModel = function(){
+    var $this = this;
+    d3.text("/datum/dickory_cronke.txt", function (unparsedData) {
 
-    ///svg-size : TODO part of generalControl
-    document.querySelector('#svg-size').addEventListener("input", function (e) {
-        storyWords.setSize(Number(this.value))
-    })
+        var sections = [];
+        var txtStart = 738;
+        var textEnd = 59570;
+        var storyText = unparsedData.substr(txtStart, textEnd);
+         // remove \r characters
+        storyText = storyText.replace(/\r/g, "");
+        // chang all single \n into a single space
+        storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
 
-    // alphaRange
-    alphaRange.addSelectListener(
-        function (filteredStr) {
-            storyWords.highlightWords(filteredStr);
-        });
+        sections = storyText.split(/[\n][\n]/g);
+        $this.model.story.intro = sections.slice(0, 16);
+        $this.model.story.partOne = sections.slice(17, 74);
+        $this.model.story.partTwo = sections.slice(75, 129);
+        $this.model.story.partThree = sections.slice(130, 172);
+
+        sections = null;
+        storyText = null;
+
+        $this.storyWords = new StoryWords($this.model.story);
+
+    });
+}
+
+window.addEventListener("load", function () {
+
+    var c = new Controller();
+
 });
