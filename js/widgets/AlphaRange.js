@@ -44,7 +44,8 @@ function AlphaRange() {
     this.onSelectCallback = null;
 
     this.alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-    this.selectedElements = null;
+    this.selectedElements = "";
+    this.prevSelectedElements = null;
 
     this.linearScale = d3.scale.linear().range([20, 390]);
     this.ordinalScale = d3.scale
@@ -144,32 +145,6 @@ AlphaRange.prototype.initDraw = function(){
         .attr("y", 0);
 
 }
-
-AlphaRange.prototype.addSelectListener = function (callBack) {
-    this.onSelectCallback = callBack;
-};
-
-AlphaRange.prototype.setSelectedElements = function () {
-
-    var brushExtent = this.brush.extent();
-    var $this = this;
-    this.selectedElements = '';
-
-    this.alphabet.forEach(function (e, i) {
-
-        if ($this.ordinalScale(e) >= brushExtent[0] && $this.ordinalScale(e) <= brushExtent[1]) {
-            $this.selectedElements += e;
-        }
-    })
-
-    if (this.onSelectCallback !== null) {
-        this.onSelectCallback($this.selectedElements);
-    }
-
-    this.draw();
-
-}
-
 AlphaRange.prototype.draw = function () {
     var $this = this;
     this.ordinalGroup
@@ -185,5 +160,26 @@ AlphaRange.prototype.draw = function () {
                 return 'black';
             }
         });
-
 };
+AlphaRange.prototype.addSelectListener = function (callBack) {
+    this.onSelectCallback = callBack;
+};
+AlphaRange.prototype.setSelectedElements = function () {
+    var $this = this;
+    var brushExtent = this.brush.extent();
+    this.selectedElements = '';
+    this.alphabet.forEach(function (e, i) {
+        if ($this.ordinalScale(e) >= brushExtent[0] && $this.ordinalScale(e) <= brushExtent[1]) {
+            $this.selectedElements += e;
+        }
+    })
+    if(this.selectedElements === this.prevSelectedElements){
+        return;
+    }
+    this.prevSelectedElements = this.selectedElements;
+    if (this.onSelectCallback !== null) {
+        this.onSelectCallback($this.selectedElements);
+    }
+    this.draw();
+}
+

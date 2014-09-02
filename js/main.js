@@ -107,9 +107,6 @@ window.addEventListener("load", function () {
         storyWords.setSection(this.value);
         alphaRange.setSelectedElements();
     })
-//    storyWords.fetchText(function () {
-//        alphaRange.setSelectedElements();
-//    });
 
     ///svg-size : TODO part of generalControl
     document.querySelector('#svg-size').addEventListener("input", function (e) {

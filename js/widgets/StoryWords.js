@@ -44,20 +44,6 @@ StoryWords.prototype.setSize = function(size){
     this.size = size;
     this.generateBubbleWord(Number(size));
 }
-StoryWords.prototype.clearContent = function(){
-    d3.select("#div_words").selectAll("p").remove();
-    d3.select("body").selectAll("svg.bubble").remove();
-}
-StoryWords.prototype.generateBGround = function(){
-    if(this.selectedStyle === 'bubble'){
-        this.setBubbleWordData();
-        this.generateBubbleWord(window.innerHeight);
-    }
-    else if(this.selectedStyle === 'alphaSelect'){
-        this.generateSelectWord();
-    }
-
-}
 StoryWords.prototype.setSection = function (storiesK) {
     var $this = this;
 
@@ -95,6 +81,17 @@ StoryWords.prototype.setBubbleWordData = function () {
         this.bubbleData.children.push(t);
     }
 };
+
+StoryWords.prototype.generateBGround = function(){
+    if(this.selectedStyle === 'bubble'){
+        this.setBubbleWordData();
+        this.generateBubbleWord(window.innerHeight);
+    }
+    else if(this.selectedStyle === 'alphaSelect'){
+        this.generateSelectWord();
+    }
+
+}
 StoryWords.prototype.generateBubbleWord = function () {
     // TODO : make this a prop
     document.querySelector('#select-chart-size').style.display = 'block';
@@ -159,30 +156,18 @@ StoryWords.prototype.generateSelectWord = function () {
             return d;
         });
 };
+
 StoryWords.prototype.highlightWords = function (filteredStr) {
     if (!this.words){return false;}
+    $this = this;
     this.reString = filteredStr.split("").join("|");;
-    this.lastCallTime = new Date().getTime();
-    if(!this.wordEngineRunning){ 
-        this.wordEngineRunning = true;
-        this.wordEngine();
-    }
-};
-StoryWords.prototype.wordEngine = function(){
-    var $this = this;
-    var timeSinceLastCall = new Date().getTime() - this.lastCallTime;
-    if(this.lastCallTime!=null && timeSinceLastCall>1000){
-        this.wordEngineRunning = false;
-    }
-    if(this.wordEngineRunning){
-        this.words.html(  function (d, i) {
-            var d2 =d.replace( new RegExp("(" + $this.reString + ")", "ig" ), '<em style="color:#f40">$1</em>')
-            return d2;
-        });
-        setTimeout(function(){$this.wordEngine.call($this)} , 1000);
-    }
-}
-StoryWords.prototype.turnOffWordEngine = function(){
-    this.wordEngineRunning = false;
+    this.words.html(  function (d, i) {
+        var d2 =d.replace( new RegExp("(" + $this.reString + ")", "ig" ), '<em style="color:#f40">$1</em>')
+        return d2;
+    });
+ };
 
-};
+StoryWords.prototype.clearContent = function(){
+    d3.select("#div_words").selectAll("p").remove();
+    d3.select("body").selectAll("svg.bubble").remove();
+}
