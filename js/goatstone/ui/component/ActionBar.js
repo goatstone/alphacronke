@@ -1,4 +1,6 @@
-/* Message.js  
+/*
+ goatstone.ui.component.ActionBar
+
  */
 
 function ActionBar() {

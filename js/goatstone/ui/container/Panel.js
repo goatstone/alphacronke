@@ -1,4 +1,6 @@
-/* Panel.js  
+/*
+ goatstone.ui.container.Panel.js
+
  */
 
 function Panel() {

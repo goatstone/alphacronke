@@ -1,4 +1,6 @@
-/* Message.js  
+/*
+ goatstone.alphacronke.ui.component.SelectStyle
+
  */
 
 function SelectStyle() {

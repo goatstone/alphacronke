@@ -1,4 +1,6 @@
-/* StoryPartSelect.js
+/*
+ goatstone.alphacronke.ui.component.StoryPartSelect
+
  */
 
 function StoryPartSelect() {

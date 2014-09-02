@@ -1,5 +1,6 @@
 /*
- * AlphaRange.js
+ goatstone.ui.component.AlphaRange
+
  * A Widget that presents the user with the letters of the alphabet and
  * enables selection of a range of letters.
  * Goatstone : 5.20.2014

@@ -1,5 +1,6 @@
 /*
- main.js
+ goatstone.alphacronke.Controller
+
  * */
 
 window.addEventListener("load", function () {

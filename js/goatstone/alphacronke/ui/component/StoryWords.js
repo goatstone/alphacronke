@@ -1,5 +1,6 @@
 /*
- StoryWords.js
+ goatstone.alphacronke.ui.component.StoryWords
+
  Display text and provide a method to modify its appearance.
  - goatstone: 8.2014
 
