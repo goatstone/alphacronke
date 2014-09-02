@@ -3,28 +3,57 @@
 
  * */
 
-function Controller(){
-
+function Controller() {
+    var $this = this;
     this.id = "Controller";
     this.model = new Model();
 
     // needs initModel to return
     this.storyWords;
 
-    this.actionBar = new ActionBar();
-    this.actionMenu = new ActionMenu();
     this.storyPartSelect = new StoryPartSelect();
     this.alphaRange = new AlphaRange();
     this.message = new Message();
     this.selectStyle = new SelectStyle();
 
     this.initModel();
+
+    var actionMenuModel =  [
+          {
+            title: 'About AlphaCronke',
+            action: function () {
+                $this.message.$root.style.visibility = 'visible';
+            }
+        },
+        {
+            title: 'Select a Section',
+            action: function () {
+                $this.storyPartSelect.$root.style.visibility = 'visible';
+            }
+        },
+        {
+            title: 'Letter Select',
+            action: function () {
+                $this.alphaRange.$root.style.visibility = 'visible';
+            }
+        },
+        {
+            title: 'Select Style',
+            action: function () {
+                $this.selectStyle.$root.style.visibility = 'visible';
+            }
+        }
+    ] ;
+
+    this.actionBar = new ActionBar();
+    this.actionMenu = new ActionMenu(actionMenuModel);
+
     this.initActionBar();
     this.initControl();
 
 }
 // init the UI controls
-Controller.prototype.initControl = function(){
+Controller.prototype.initControl = function () {
     var $this = this;
 
     // selectStyle
@@ -59,14 +88,14 @@ Controller.prototype.initControl = function(){
 
 };
 // init the ActionBar and its ActionMenu
-Controller.prototype.initActionBar = function(){
+Controller.prototype.initActionBar = function () {
 
     var $this = this;
 
     // actionBar
     this.actionBar.$showMenu.addEventListener('mousedown', function (e) {
         e.stopPropagation();
-        if (!$this.actionMenu.$root.style.visibility || $this.actionMenu.$root.style.visibility === 'hidden') {
+        if (  $this.actionMenu.$root.style.visibility !== 'visible') {
             $this.actionMenu.$root.style.visibility = 'visible';
         }
         else {
@@ -75,39 +104,10 @@ Controller.prototype.initActionBar = function(){
         return true;
     })
 
-    // actionMenu
-    this.actionMenu.$body.addEventListener('mousedown', function () {
-        if ($this.actionMenu.$root.style.visibility === 'visible') {
-            $this.actionMenu.$root.style.visibility = 'hidden';
-        }
-    })
-    this.actionMenu.$root.addEventListener('mousedown', function (e) {
-        e.stopPropagation();
-    })
-    this.actionMenu.$a.addEventListener('click', function (e) {
-        e.stopPropagation();
-        $this.selectStyle.$root.style.visibility = 'visible';
-        $this.actionMenu.$root.style.visibility = 'hidden';
-    })
-    this.actionMenu.$b.addEventListener('click', function (e) {
-        e.stopPropagation();
-        $this.storyPartSelect.$root.style.visibility = 'visible';
-        $this.actionMenu.$root.style.visibility = 'hidden';
-    })
-    this.actionMenu.$c.addEventListener('click', function (e) {
-        e.stopPropagation();
-        $this.alphaRange.$root.style.visibility = 'visible';
-        $this.actionMenu.$root.style.visibility = 'hidden';
-    })
-    this.actionMenu.$d.addEventListener('click', function (e) {
-        e.stopPropagation();
-        $this.message.$root.style.visibility = 'visible';
-        $this.actionMenu.$root.style.visibility = 'hidden';
-    })
 
 };
 // init the Model
-Controller.prototype.initModel = function(){
+Controller.prototype.initModel = function () {
     var $this = this;
     d3.text("/datum/dickory_cronke.txt", function (unparsedData) {
 
@@ -115,7 +115,7 @@ Controller.prototype.initModel = function(){
         var txtStart = 738;
         var textEnd = 59570;
         var storyText = unparsedData.substr(txtStart, textEnd);
-         // remove \r characters
+        // remove \r characters
         storyText = storyText.replace(/\r/g, "");
         // chang all single \n into a single space
         storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
