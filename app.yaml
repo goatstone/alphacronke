@@ -6,6 +6,7 @@ api_version: go1
 handlers:
 - url: /static
   static_dir: static
+
 - url: /css
   static_dir: css
   mime_type: text/css
@@ -21,18 +22,15 @@ handlers:
   static_files:  about/index.html
   upload:  about/index.html
 
-- url: /test/*
-  static_files:  tests/SpecRunner.html
-  upload:  tests/SpecRunner.html
-  # static_files:  index.html
-  # upload:  index.html
+- url: /test/lib
+  static_dir: tests/lib/jasmine-2.0.2
+
+- url: /test
+  static_dir: tests
 
 - url: /test/spec
   static_dir: tests/spec
   mime_type: application/javascript
-
-- url: /test/lib
-  static_dir: jasmine/lib/jasmine-2.0.0
 
 - url: /.*
   script: _go_app
