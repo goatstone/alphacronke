@@ -3,8 +3,41 @@
 
  */
 
-function Panel() {
+function Panel(rootDiv) {
+    if(rootDiv){
+        this.setDom(rootDiv);
+        this.setDrag();
+    }
 }
+Panel.prototype.setDom = function(rootDiv){
+
+    this.$root = document.querySelector(rootDiv);
+    this.$handle = this.$root.querySelector('.handle');
+    this.$body = document.querySelector('body');
+
+    this.setDrag();
+    this.show();
+
+ };
+Panel.prototype.addComponent = function(component){
+    this.$root.appendChild(component.$root);
+};
+Panel.prototype.show = function(){
+
+    this.$root.style.visibility = 'visible';
+
+};
+ Panel.prototype.hide = function(){
+
+    this.$root.style.visibility = 'hidden';
+
+};
+ Panel.prototype.position = function(x,y){
+
+    this.$root.style.left =   x+'px';
+    this.$root.style.top =   y+'px';
+
+ };
 // setDrag
 Panel.prototype.setDrag = function () {
 

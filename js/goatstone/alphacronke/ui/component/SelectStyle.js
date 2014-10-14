@@ -3,21 +3,28 @@
 
  */
 
-function SelectStyle() {
+function SelectStyle(rootDiv) {
 
-//    var dDivDims =  {x: window.innerWidth - 350, y: window.innerHeight  - 140};
+	var $root = this.setRoot(rootDiv)
 
-    this.$root = document.querySelector('#select-style');
-    this.$body = document.querySelector('body');
-    this.$handle = this.$root.querySelector('.handle');
-    this.$styleOpts = this.$root.querySelector('#styles');
-    this.$closePanel = this.$root.querySelector('.panel-close-button');
+    // this.$styleOpts =  $root.querySelector('#styles');
+    // this.$closePanel =  $root.querySelector('.panel-close-button');
+    var $this = this;
+    $root.addEventListener('change', function (e) {
+	   $this.select(this.value);
+  
+  //      $this.storyWords.setStyle(this.value)
+     //    if (this.value === 'bubble') {
+     //        $this.alphaRange.$root.style.visibility = 'hidden';
+     //        $this.storyPartSelect.$selectChartSizeContainer.style.display = 'block';
+     //    }
+     //    else if (this.value === 'alphaSelect') {
+     //        $this.alphaRange.$root.style.visibility = 'visible'
+     //        $this.storyPartSelect.$selectChartSizeContainer.style.display = 'none';
+     //        $this.storyWords.highlightWords($this.alphaRange.selectedElements);
+     //    }
+     });
 
-    this.$root.style.visibility = 'visible';
-//    this.$root.style.top =   dDivDims.y+'px';
-//    this.$root.style.left =  dDivDims.x+'px';
-
-    this.setDrag();
 }
 
-SelectStyle.prototype = Object.create(Panel.prototype);
+SelectStyle.prototype = Object.create(Component.prototype);

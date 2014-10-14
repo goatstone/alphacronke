@@ -6,7 +6,7 @@
  * Goatstone : 5.20.2014
  * */
 
-function AlphaRange() {
+function AlphaRange(rootDiv ) {
 
     this.config = {
         width: 410,
@@ -33,9 +33,10 @@ function AlphaRange() {
         {x: 20, y: window.innerHeight - 140}
     ];
 
-    this.$root = document.querySelector('#dd');
-    this.$body = document.querySelector('body');
-    this.$handle = this.$root.querySelector('.handle');
+    var $root = this.setRoot(rootDiv)
+    // this.$root = document.querySelector('#dd');
+    // this.$body = document.querySelector('body');
+    // this.$handle = this.$root.querySelector('.handle');
 
     this.ordinalScale;
     this.ordinalGroup;
@@ -59,12 +60,12 @@ function AlphaRange() {
     this.initDraw();
 
     // call the parent Panel setDrag()
-    this.setDrag();
+//    this.setDrag();
     this.setSelectedElements();
 
 }
 
-AlphaRange.prototype = Object.create(Panel.prototype);
+AlphaRange.prototype = Object.create(Component.prototype);
 
 AlphaRange.prototype.initDraw = function(){
     var $this  =this;
@@ -119,13 +120,14 @@ AlphaRange.prototype.initDraw = function(){
         .x(this.linearScale)
         .extent(this.initExtent)
         .on("brush", function () {
-            $this.setSelectedElements();
+            // $this.setSelectedElements();
             return 1;
         })
         .on("brushstart", function () {
             return 1;
         })
         .on("brushend", function () {
+            $this.setSelectedElements();
             return 1;
         });
     brushArc = d3.svg.arc()

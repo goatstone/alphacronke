@@ -8,22 +8,53 @@
 
 <div id="div_words"></div>
 
-<div id="dd"  class="panel">
+<!-- <div id="dd"  class="panel">
     <div class="handle"></div>
 </div>
-
-<div id="message" class="panel">
+ -->
+<div id="panel-b" class="panel">
     <div class="handle"></div>
-
-    <h3>Goatstone: AlphaCronke</h3>
-    <p>Experimental text viewing with the story, 'Dickory Cronke' by Daniel Defoe. </p>
-    <address class="author">Goatstone 2014</address>
-    <a href="/about/" target="new">More Info...</a>
-    <p id="message-main"></p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<div id="dd"  >
+ </div>
 
 </div>
 
-<div id="story-parts"  class="panel">
+
+<div id="panel-a" class="panel">
+    <div class="handle"></div>
+ 
+    <label for="story-parts-opts">Select a section:</label>
+    <select id="story-parts-opts">
+        <option value="intro">Intro and Preface</option>
+        <option value="partOne">Part I</option>
+        <option value="partTwo">Part II</option>
+        <option value="partThree">Part III</option>
+    </select>
+    <br>
+    <label for="styles">Select a dislay style:</label>
+    <select id="styles">
+        <option value="bubble">Bubble</option>
+        <option value="alphaSelect">Word Select</option>
+    </select>
+
+    <div id="select-chart-size">
+        <label for="svg-size">Chart Size: </label>
+        <input value="700" type="range" min="200" max="2000" id="svg-size">
+    </div>
+
+</div>
+
+<div id="message-panel" class="panel">
+    <div class="handle"></div>
+
+    <div id="message" class="component">
+&bsp;&bsp; 
+    </div>
+
+</div>
+
+<!-- <div id="story-parts"  class="panel">
     <div class="handle"></div>
 
     <div class="widget-body">
@@ -42,7 +73,7 @@
     </div>
 
 </div>
-
+ -->
 <div id="action-bar">
     <div class="icon-overflow">
         <svg width="30" height="30" fill="white" stroke="#777"
@@ -66,22 +97,26 @@
 </ul>
 </div>
 
-<div id="select-style"  class="panel">
+<!-- <div id="select-style"  class="panel">
     <div class="handle"></div>
 
     <div class="widget-body">
-        <label for="styles">Select a dislay style:</label>
+        <label for="styles">Select a display style:</label>
         <select id="styles">
             <option value="bubble">Bubble</option>
             <option value="alphaSelect">Word Select</option>
         </select>
     </div>
 </div>
-
+ -->
 <!--<script src="http://d3js.org/d3.v3.min.js"></script>-->
 <script src="/js/lib/d3.min.js"></script>
 
+<script src="/js/goatstone/ui/component/Component.js"></script>
 <script src="/js/goatstone/ui/container/Panel.js"></script>
+
+<script src="/js/goatstone/alphacronke/ui/panel/MessagePanel.js"></script>
+
 <script src="/js/goatstone/ui/component/Message.js"></script>
 <script src="/js/goatstone/ui/component/AlphaRange.js"></script>
 <script src="/js/goatstone/ui/component/ActionBar.js"></script>
@@ -90,6 +125,7 @@
 <script src="/js/goatstone/alphacronke/ui/component/StoryWords.js"></script>
 <script src="/js/goatstone/alphacronke/ui/component/StoryPartSelect.js"></script>
 <script src="/js/goatstone/alphacronke/ui/component/SelectStyle.js"></script>
+<script src="/js/goatstone/alphacronke/ui/component/SelectSize.js"></script>
 
 <script src="/js/goatstone/alphacronke/model/Model.js"></script>
 

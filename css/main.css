@@ -49,7 +49,7 @@ goatstone.ui.SelectStyle
     background-color: #ccc;
     left: 20px;
     padding: 7px;
-    /*visibility: hidden;*/
+    visibility: hidden;
 }
 #select-style ul{
     list-style: none;
@@ -128,11 +128,11 @@ goatstone.ui.SelectStyle
 
 /* AlphaRange */
 #dd {
-    position: fixed;
-    top: 100px;
+    /*position: fixed;*/
+/*    top: 100px;
     left: 20px;
     width: 400px;
-    height: 68px;
+*/    /*height: 68px;*/
     opacity: 1;
     z-index: 200;
     background-color: #ccc;
@@ -145,7 +145,7 @@ goatstone.ui.SelectStyle
     top: 33px;
     width: 400px;
     height: 40px;
-    background-color: #999;
+    background-color: #fff;
     position: absolute;
     border-top-right-radius: 7px;
     border-bottom-left-radius: 7px;
@@ -183,9 +183,28 @@ goatstone.ui.SelectStyle
 }
 
 /* END div_words */
+.panel{
+    position: fixed;
+    display: inline-block;
+    background-color: #ccc;
+    border: 5px solid rgba(200, 200, 200, .3);
+    border-radius: 6px;
+    visibility: hidden;
+    padding: 3px;        
+}
+#panel-a{
+    max-width: 400px;
+    top: 20px;
+    left: 20px;
+}
+#panel-b{
+    max-width: 400px;
+    top: 100px;
+    right: 400px;
+}
 
 /* goatstone.acronke.ui.panel.Message */
-#message {
+#message-panel {
     position: fixed;
     display: inline-block;
     max-width: 400px;
@@ -198,37 +217,40 @@ goatstone.ui.SelectStyle
     padding: 3px;
 }
 
-#message h3 {
+#message-panel h3 {
     font-size: 1em;
     color: #555;
     margin: 3px 0px;
 }
 
-#message #message-main {
+#message-panel #message-main {
     margin: 5px;
 }
 
-#message .handle .panel-close-button{
+#message-panel .handle .panel-close-button{
     background-color: #e99;
     cursor: pointer;
     float:right; 
 }
 
-#message p {
+#message-panel p {
     margin: 7px 0px;
     position: relative;
     font-size: .9em;
 }
 
-#message address {
+#message-panel address {
     margin-top: 3px;
     font-size: .8em;
 
 }
 
-#message a {
+#message-panel a {
     margin-left: 10px;
     font-size: .8em;
     float: right;
+}
+#message {
+    visibility: hidden;
 }
 /* END Message */
