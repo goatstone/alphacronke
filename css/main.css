@@ -192,12 +192,12 @@ goatstone.ui.SelectStyle
     visibility: hidden;
     padding: 3px;        
 }
-#panel-a{
+#panel-alpharange{
     max-width: 400px;
     top: 20px;
     left: 20px;
 }
-#panel-b{
+#panel-a{
     max-width: 400px;
     top: 100px;
     right: 400px;

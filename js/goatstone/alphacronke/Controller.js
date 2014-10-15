@@ -5,65 +5,68 @@
 
 function Controller() {
 
+    // panels
+    var alphaRangePanel, mainPanel, messagePanel;
+    // components
+    var alphaRange, selectSize, storyPartSelect, selectStyle, message;
     var $this = this;
 
+    // model
     this.model = new Model();
     this.initModel();
 
-    var p = new Panel('#panel-a')
-
-    var p2 = new Panel('#panel-b')
-
+    // storyWords
     this.storyWords = new StoryWords( );
 
-    this.alphaRange = new AlphaRange('#dd');
-    this.alphaRange.addSelectListener( function (filteredStr) {
-        console.log(filteredStr)
+    // alphaRange
+    alphaRangePanel = new Panel('#panel-alpharange');
+    alphaRange = new AlphaRange('#dd');
+    alphaRange.addSelectListener( function (filteredStr) {
         $this.storyWords.highlightWords(filteredStr);
     });
 
-    var selectSize = new SelectSize('#select-chart-size');
+    // main selection components
+    mainPanel = new Panel('#panel-a');
+    selectSize = new SelectSize('#select-chart-size');
     selectSize.setCallback(function(selection){
-        console.log(selection)        
         $this.storyWords.setSize(Number(selection));
-    })
-    var storyPartSelect = new StoryPartSelect('#story-parts-opts');
-    storyPartSelect.setCallback(function(selection){
-        console.log(selection)        
-        $this.storyWords.setSection($this.model.story[selection]);
-        $this.storyWords.highlightWords($this.alphaRange.selectedElements);
     });
-
-    var selectStyle = new SelectStyle('#panel-a #styles');
+    storyPartSelect = new StoryPartSelect('#story-parts-opts');
+    storyPartSelect.setCallback(function(selection){
+        $this.storyWords.setSection($this.model.story[selection]);
+        $this.storyWords.highlightWords(alphaRange.selectedElements);
+    });
+    selectStyle = new SelectStyle('#panel-a #styles');
     selectStyle.setCallback(function(selection){
-        console.log(selection)
 
-        $this.storyWords.setStyle(selection)
+        $this.storyWords.setStyle(selection);
 
         if (selection === 'bubble') {
-            p2.hide();
-            //storyPartSelect.$selectChartSizeContainer.style.display = 'block';
+            alphaRange.hide();
+            selectSize.show();
+            alphaRangePanel.hide();
         }
         else if (selection === 'alphaSelect') {
-            // $this.alphaRange.$root.style.visibility = 'visible'
-            //storyPartSelect.$selectChartSizeContainer.style.display = 'none';
-            // $this.storyWords.highlightWords($this.alphaRange.selectedElements);
+            alphaRangePanel.show();
+            alphaRange.show();
+            selectSize.hide();
+            $this.storyWords.highlightWords(alphaRange.selectedElements);
         }
-    })
+    });
     
-    
-    var messagePanel =  new MessagePanel('#message-panel'); // settings {x:1, y:2, w:200, h:200}
+    // message    
+    messagePanel =  new MessagePanel('#message-panel'); // settings {x:1, y:2, w:200, h:200}
     messagePanel.panel.position(window.innerWidth - 450, window.innerHeight -200 );
-    var message = new Message("#message");
+    message = new Message("#message");
 
     message.set( 
         '<h3>' + this.model.about.title + '</h3>' +
-          '<p>'+ this.model.about.description+ '</p>' +  
-          '<address class="author">' + this.model.about.author+'</address>'+  
-          '<a href="/about/" target="new">more...</a>'  
-        )
+        '<p>'+ this.model.about.description+ '</p>' +  
+        '<address class="author">' + this.model.about.author+'</address>'+  
+        '<a href="/about/" target="new">more...</a>'  
+    );
  
-
+    // actionBar actionMenu
     this.actionBar = new ActionBar();
     this.actionMenu = new ActionMenu([
         {
@@ -81,7 +84,7 @@ function Controller() {
         {
             title: 'Letter Select',
             action: function () {
-                $this.alphaRange.$root.style.visibility = 'visible';
+                alphaRange.$root.style.visibility = 'visible';
             }
         },
         {
@@ -109,7 +112,7 @@ Controller.prototype.initActionBar = function () {
             $this.actionMenu.$root.style.visibility = 'hidden';
         }
         return true;
-    })
+    });
 
 };
 // init the Model
@@ -140,34 +143,10 @@ Controller.prototype.initModel = function () {
         // $this.storyPartSelect.$selectChartSizeContainer.style.visibility = 'visible';
 
     });
-}
+};
 
 window.addEventListener("load", function () {
 
     var c = new Controller();
 
 });
-
-    // User events
-    // this.selectStyle.$styleOpts.addEventListener('change', function (e) {
-    //     $this.storyWords.setStyle(this.value)
-    //     if (this.value === 'bubble') {
-    //         $this.alphaRange.$root.style.visibility = 'hidden';
-    //         $this.storyPartSelect.$selectChartSizeContainer.style.display = 'block';
-    //     }
-    //     else if (this.value === 'alphaSelect') {
-    //         $this.alphaRange.$root.style.visibility = 'visible'
-    //         $this.storyPartSelect.$selectChartSizeContainer.style.display = 'none';
-    //         $this.storyWords.highlightWords($this.alphaRange.selectedElements);
-    //     }
-    //  })
-    // this.storyPartSelect.$storyPartsOpts.addEventListener('change', function (e) {
-    //     $this.storyWords.setSection($this.model.story[this.value]);
-    //     $this.storyWords.highlightWords($this.alphaRange.selectedElements);
-    // })
-    // this.storyPartSelect.$selectChartSizeButton.addEventListener('change', function (e) {
-    //     $this.storyWords.setSize(Number(this.value));
-    // })
-    // this.alphaRange.addSelectListener( function (filteredStr) {
-    //     $this.storyWords.highlightWords(filteredStr);
-    // });
