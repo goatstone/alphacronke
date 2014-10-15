@@ -5,9 +5,9 @@
 
 function MessagePanel(rootDiv) {
 
-    this.panel.setDom(rootDiv);
+    this.setDom(rootDiv);
 
 }
 
-MessagePanel.prototype.panel = Object.create(Panel.prototype) ;
+MessagePanel.prototype = Object.create(Panel.prototype) ;
 

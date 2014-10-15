@@ -56,9 +56,8 @@ function Controller() {
     
     // message    
     messagePanel =  new MessagePanel('#message-panel'); // settings {x:1, y:2, w:200, h:200}
-    messagePanel.panel.position(window.innerWidth - 450, window.innerHeight -200 );
+    messagePanel.position(window.innerWidth - 450, window.innerHeight -200 );
     message = new Message("#message");
-
     message.set( 
         '<h3>' + this.model.about.title + '</h3>' +
         '<p>'+ this.model.about.description+ '</p>' +  
@@ -67,54 +66,31 @@ function Controller() {
     );
  
     // actionBar actionMenu
-    this.actionBar = new ActionBar();
-    this.actionMenu = new ActionMenu([
+    this.actionBar = new ActionBar([
         {
             title: 'About AlphaCronke',
             action: function () {
-                $this.message.$root.style.visibility = 'visible';
-            }
-        },
-        {
-            title: 'Select a Section',
-            action: function () {
-                $this.storyPartSelect.$root.style.visibility = 'visible';
+                message.show();
+                messagePanel.show();
             }
         },
         {
             title: 'Letter Select',
             action: function () {
-                alphaRange.$root.style.visibility = 'visible';
+                alphaRange.show();
+                alphaRangePanel.show();
             }
         },
         {
-            title: 'Select Style',
+            title: 'Main Panel',
             action: function () {
-                $this.selectStyle.$root.style.visibility = 'visible';
+                mainPanel.show();
             }
         }
     ]);
-    this.initActionBar();
-
+ 
 }
 
-// init the ActionBar and its ActionMenu
-Controller.prototype.initActionBar = function () {
-    var $this = this;
-
-    // actionBar
-    this.actionBar.$showMenu.addEventListener('mousedown', function (e) {
-        e.stopPropagation();
-        if ($this.actionMenu.$root.style.visibility !== 'visible') {
-            $this.actionMenu.$root.style.visibility = 'visible';
-        }
-        else {
-            $this.actionMenu.$root.style.visibility = 'hidden';
-        }
-        return true;
-    });
-
-};
 // init the Model
 Controller.prototype.initModel = function () {
     var $this = this;

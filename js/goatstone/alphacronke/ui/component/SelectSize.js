@@ -9,8 +9,6 @@ function SelectSize(rootDiv) {
 
     var $this = this;
     $root.querySelector('input').addEventListener('change', function (e) {
-        // console.log(this)
-        // console.log(e.target.value)
 	   $this.select(e.target.value);
      });
 
