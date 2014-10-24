@@ -1,40 +1,10 @@
-/* main.css */
+/* main.css   */
 
 body {
     background-color: azure;
     font-family: sans-serif, Helvetica, Verdana;
     height: 100%
 }
-
-/* goatstone.ui.container.Panel */
-.panel svg.main-background{
-    position: absolute;
-    top:0;
-    left: 0;
-    /*background-color: red;*/
-    stroke:red;
-    cursor: move;
-}
-.panel svg.main-background line{
-    background-color: red;
-    stroke:blue;
-}
-.panel svg.close-button{
-    float:right;
-    cursor: pointer;
-}
-.panel svg.close-button line:hover{
-    stroke:#4a4;
-}
-.panel .handle{
-    position: relative;
-    height: 20px;
-}
-/* END goatstone.ui.container.Panel */
-
-/*
-goatstone.ui.SelectStyle
- */
 
 #select-style .widget-body{
     margin: 6px 0;
@@ -64,6 +34,51 @@ goatstone.ui.SelectStyle
     color: green;
     cursor: pointer;
 }
+
+/* div_words */
+#div_words {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 110%;
+    background-color: inherit;
+    z-index: -1;
+}
+
+#div_words span {
+    float: left;
+    padding: 3px;
+    opacity: 1;
+    fontSize: .9em;
+}
+
+#div_words p {
+    float: left;
+    padding: 3px;
+    /*background-color: #444;*/
+    margin: 1px;
+
+}
+/* END div_words */
+
+/* story-parts */
+#story-parts {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    opacity: 1;
+    z-index: 200;    background-color: #ccc;
+    border-radius: 10px 10px 10px 10px;
+    padding: 7px;
+    visibility: hidden;
+}
+
+#story-parts .widget-body{
+    margin: 6px 0;
+}
+/* END story-parts */
+;
 
 /* goatstone.ui.ActionMenu */
 #action-menu{
@@ -109,22 +124,7 @@ goatstone.ui.SelectStyle
  }
 /* END goatstone.ui.ActionBar */
 
-/* story-parts */
-#story-parts {
-    position: fixed;
-    top: 10px;
-    left: 20px;
-    opacity: 1;
-    z-index: 200;    background-color: #ccc;
-    border-radius: 10px 10px 10px 10px;
-    padding: 7px;
-    visibility: hidden;
-}
 
-#story-parts .widget-body{
-    margin: 6px 0;
-}
-/* END story-parts */
 
 /* AlphaRange */
 #dd {
@@ -155,34 +155,34 @@ goatstone.ui.SelectStyle
 
 /* END AlphaRange */
 
-/* div_words */
-#div_words {
+
+/* goatstone.ui.container.Panel */
+.panel svg.main-background{
     position: absolute;
-    top: 0;
+    top:0;
     left: 0;
-    width: 100%;
-    height: 110%;
-    background-color: inherit;
-    z-index: -1;
+    /*background-color: red;*/
+    stroke:red;
+    cursor: move;
 }
-
-#div_words span {
-    float: left;
-    padding: 3px;
-    opacity: 1;
-    fontSize: .9em;
-    /*background-color: #ccc;*/
+.panel svg.main-background line{
+    background-color: red;
+    stroke:blue;
 }
-
-#div_words p {
-    float: left;
-    padding: 3px;
-    /*background-color: #444;*/
-    margin: 1px;
-
+.panel svg.close-button{
+    float:right;
+    cursor: pointer;
 }
+.panel svg.close-button line:hover{
+    stroke:#4a4;
+}
+.panel .handle{
+    position: relative;
+    height: 20px;
+}
+/* END goatstone.ui.container.Panel */
 
-/* END div_words */
+
 .panel{
     position: fixed;
     display: inline-block;

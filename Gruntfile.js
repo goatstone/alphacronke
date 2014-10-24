@@ -9,7 +9,11 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['./src/goatstone/style/*.css', '<%= jshint.files %>'],
+        files: [
+          './src/goatstone/alphacronke/style/*.css', 
+          './src/goatstone/ui/style/*.css', 
+          '<%= jshint.files %>'
+        ],
         tasks: ['default'],
         options: {
           spawn:false,
@@ -27,7 +31,8 @@ module.exports = function(grunt) {
         dest: 'public/js/<%= pkg.name %>.js'
       },
       css: {
-        src: ['src/goatstone/style/*.css'  ],
+        //   src: ['src/goatstone/style/*.css' ],
+        src: ['src/goatstone/alphacronke/style/*.css', 'src/goatstone/ui/style/*.css' ],
         dest: 'public/css/<%= pkg.name %>.all.css'
       }
     },
