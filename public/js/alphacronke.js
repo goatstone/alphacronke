@@ -124,7 +124,7 @@ window.addEventListener("load", function () {
 
     var c = new Controller();
 
-});;/*
+}); /*
 goatstone.alphacronke.model.Model
         <h3>Goatstone: AlphaCronke</h3>
         <p>Experimental text viewing with the story, 'Dickory Cronke' by Daniel Defoe. </p>
@@ -142,7 +142,7 @@ function Model(){
     	author:'Goatstone 2014', 
     	moreLink:'/about'
     };
-} ;/*
+}  /*
  goatstone.alphacronke.ui.component.SelectStyle
 
  */
@@ -158,7 +158,7 @@ function SelectSize(rootDiv) {
 
 }
 
-SelectSize.prototype = Object.create(Component.prototype);;/*
+SelectSize.prototype = Object.create(Component.prototype); /*
  goatstone.alphacronke.ui.component.SelectStyle
 
  */
@@ -176,7 +176,7 @@ function SelectStyle(rootDiv) {
 
 }
 
-SelectStyle.prototype = Object.create(Component.prototype);;/*
+SelectStyle.prototype = Object.create(Component.prototype); /*
  goatstone.alphacronke.ui.component.StoryPartSelect
 
  */
@@ -191,7 +191,7 @@ function StoryPartSelect(rootDiv) {
 }
 
 StoryPartSelect.prototype = Object.create(Component.prototype);
-;/*
+ /*
  goatstone.alphacronke.ui.component.StoryWords
 
  Display text and provide a method to modify its appearance.
@@ -349,7 +349,7 @@ StoryWords.prototype.clearContent = function(){
     d3.select("#div_words").selectAll("p").remove();
     d3.select("body").selectAll("svg.bubble").remove();
 };
-;/*
+ /*
  goatstone.alphacronke.ui.panel.MessagePanel
 
  */
@@ -362,7 +362,7 @@ function MessagePanel(rootDiv) {
 
 MessagePanel.prototype = Object.create(Panel.prototype) ;
 
-;/*
+ /*
  goatstone.ui.component.ActionBar
 
  */
@@ -394,7 +394,7 @@ ActionBar.prototype.initActionBar = function () {
 };
 
 
-;/*
+ /*
  goatstone.ui.component.ActionMenu
 
  */
@@ -433,7 +433,7 @@ function ActionMenu(actionMenuModel) {
 }
 
 
-;/*
+ /*
  goatstone.ui.component.AlphaRange
 
  * A Widget that presents the user with the letters of the alphabet and
@@ -624,7 +624,7 @@ AlphaRange.prototype.setSelectedElements = function () {
     this.draw();
 };
 
-;/*
+ /*
  goatstone.ui.component.Compoment.js
 
  */
@@ -656,7 +656,7 @@ Component.prototype.setCallback = function(callback){
 
     this.callback = callback;
 
-}; ;/*
+};  /*
  goatstone.ui.component.Message
  extends Component
 
@@ -674,7 +674,7 @@ Message.prototype.set = function(msg){
     this.$root.innerHTML = msg;
 };
 
-;/*
+ /*
  goatstone.ui.container.Panel.js
 
  */

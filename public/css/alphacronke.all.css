@@ -1,4 +1,4 @@
-/* main.css   */
+/* main.css */
 
 body {
     background-color: azure;
@@ -6,35 +6,7 @@ body {
     height: 100%
 }
 
-#select-style .widget-body{
-    margin: 6px 0;
-}
-#select-style{
-    position: fixed;
-    top: 40px;
-    right: 10px;
-    min-width: 100px;
-    max-width: 250px;
-    border-radius: 10px 10px 10px 10px;
-    background-color: #ccc;
-    left: 20px;
-    padding: 7px;
-    visibility: hidden;
-}
-#select-style ul{
-    list-style: none;
-    margin: 6px;
-}
-#select-style li{
-    padding: 5px;
-    margin-left: -40px;
-    cursor: pointer;
-}
-#select-style li:hover{
-    color: green;
-    cursor: pointer;
-}
-
+ 
 /* div_words */
 #div_words {
     position: absolute;
@@ -51,6 +23,7 @@ body {
     padding: 3px;
     opacity: 1;
     fontSize: .9em;
+    /*background-color: #ccc;*/
 }
 
 #div_words p {
@@ -60,25 +33,7 @@ body {
     margin: 1px;
 
 }
-/* END div_words */
-
-/* story-parts */
-#story-parts {
-    position: fixed;
-    top: 10px;
-    left: 20px;
-    opacity: 1;
-    z-index: 200;    background-color: #ccc;
-    border-radius: 10px 10px 10px 10px;
-    padding: 7px;
-    visibility: hidden;
-}
-
-#story-parts .widget-body{
-    margin: 6px 0;
-}
-/* END story-parts */
-;
+ 
 
 /* goatstone.ui.ActionMenu */
 #action-menu{
@@ -124,7 +79,7 @@ body {
  }
 /* END goatstone.ui.ActionBar */
 
-;
+ 
 
 /* AlphaRange */
 #dd {
@@ -155,7 +110,7 @@ body {
 
 /* END AlphaRange */
 
-;
+ 
 /* goatstone.ui.container.Panel */
 .panel svg.main-background{
     position: absolute;

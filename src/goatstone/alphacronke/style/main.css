@@ -1,4 +1,4 @@
-/* main.css   */
+/* main.css */
 
 body {
     background-color: azure;
@@ -6,75 +6,3 @@ body {
     height: 100%
 }
 
-#select-style .widget-body{
-    margin: 6px 0;
-}
-#select-style{
-    position: fixed;
-    top: 40px;
-    right: 10px;
-    min-width: 100px;
-    max-width: 250px;
-    border-radius: 10px 10px 10px 10px;
-    background-color: #ccc;
-    left: 20px;
-    padding: 7px;
-    visibility: hidden;
-}
-#select-style ul{
-    list-style: none;
-    margin: 6px;
-}
-#select-style li{
-    padding: 5px;
-    margin-left: -40px;
-    cursor: pointer;
-}
-#select-style li:hover{
-    color: green;
-    cursor: pointer;
-}
-
-/* div_words */
-#div_words {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 110%;
-    background-color: inherit;
-    z-index: -1;
-}
-
-#div_words span {
-    float: left;
-    padding: 3px;
-    opacity: 1;
-    fontSize: .9em;
-}
-
-#div_words p {
-    float: left;
-    padding: 3px;
-    /*background-color: #444;*/
-    margin: 1px;
-
-}
-/* END div_words */
-
-/* story-parts */
-#story-parts {
-    position: fixed;
-    top: 10px;
-    left: 20px;
-    opacity: 1;
-    z-index: 200;    background-color: #ccc;
-    border-radius: 10px 10px 10px 10px;
-    padding: 7px;
-    visibility: hidden;
-}
-
-#story-parts .widget-body{
-    margin: 6px 0;
-}
-/* END story-parts */
