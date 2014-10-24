@@ -1,4 +1,2 @@
-js/lib/
+node_modules/
 .idea/
-tests/spec/
-tests/lib/

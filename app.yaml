@@ -4,16 +4,10 @@ runtime: go
 api_version: go1
 
 handlers:
-# - url: /static
-#   static_dir: static
 
 - url: /css
   static_dir: public/css
   mime_type: text/css
-
-# - url: /src
-#   static_dir: src
-#   mime_type: application/javascript
 
 - url: /js
   static_dir: public/js
