@@ -8,7 +8,7 @@ function Controller() {
     // panels
     var alphaRangePanel, mainPanel, messagePanel;
     // components
-    var alphaRange, selectSize, storyPartSelect, selectStyle, message;
+    var   selectSize, storyPartSelect, selectStyle, message;
     var $this = this;
 
     // model
@@ -20,8 +20,8 @@ function Controller() {
 
     // alphaRange
     alphaRangePanel = new Panel('#panel-alpharange');
-    alphaRange = new AlphaRange('#dd');
-    alphaRange.addSelectListener( function (filteredStr) {
+    this.alphaRange = new AlphaRange('#dd');
+    this.alphaRange.addSelectListener( function (filteredStr) {
         $this.storyWords.highlightWords(filteredStr);
     });
 
@@ -34,7 +34,7 @@ function Controller() {
     storyPartSelect = new StoryPartSelect('#story-parts-opts');
     storyPartSelect.setCallback(function(selection){
         $this.storyWords.setSection($this.model.story[selection]);
-        $this.storyWords.highlightWords(alphaRange.selectedElements);
+        $this.storyWords.highlightWords($this.alphaRange.selectedElements);
     });
     selectStyle = new SelectStyle('#panel-a #styles');
     selectStyle.setCallback(function(selection){
@@ -42,15 +42,15 @@ function Controller() {
         $this.storyWords.setStyle(selection);
 
         if (selection === 'bubble') {
-            alphaRange.hide();
+            $this.alphaRange.hide();
             selectSize.show();
             alphaRangePanel.hide();
         }
         else if (selection === 'alphaSelect') {
             alphaRangePanel.show();
-            alphaRange.show();
+            $this.alphaRange.show();
             selectSize.hide();
-            $this.storyWords.highlightWords(alphaRange.selectedElements);
+            $this.storyWords.highlightWords($this.alphaRange.selectedElements);
         }
     });
     
@@ -115,7 +115,8 @@ Controller.prototype.initModel = function () {
         storyText = null;
 
         $this.storyWords.setSection($this.model.story.intro);
-        $this.storyWords.setStyle('bubble');
+        // $this.storyWords.setStyle('bubble');
+        $this.storyWords.highlightWords($this.alphaRange.selectedElements);
 
     });
 };
@@ -322,7 +323,7 @@ StoryWords.prototype.generateBubbleWord = function () {
 };
 StoryWords.prototype.generateSelectWord = function () {
 
-    var para = d3.select("#div_words").selectAll("p")
+    var para = d3.select("#story_words").selectAll("p")
         .data(this.sectionsWords)
         .enter().append("p");
     this.words = para.selectAll("span")
@@ -346,7 +347,7 @@ StoryWords.prototype.highlightWords = function (filteredStr) {
  };
 
 StoryWords.prototype.clearContent = function(){
-    d3.select("#div_words").selectAll("p").remove();
+    d3.select("#story_words").selectAll("p").remove();
     d3.select("body").selectAll("svg.bubble").remove();
 };
  /*

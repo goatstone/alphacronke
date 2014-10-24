@@ -1,27 +1,12 @@
 
-/* div_words */
-#div_words {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 110%;
-    background-color: inherit;
-    z-index: -1;
-}
 
-#div_words span {
+#story_words span {
     float: left;
     padding: 3px;
-    opacity: 1;
-    fontSize: .9em;
-    /*background-color: #ccc;*/
 }
 
-#div_words p {
+#story_words p {
     float: left;
     padding: 3px;
-    /*background-color: #444;*/
-    margin: 1px;
-
+    margin: 1px; 
 }

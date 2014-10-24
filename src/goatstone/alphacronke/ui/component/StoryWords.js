@@ -129,7 +129,7 @@ StoryWords.prototype.generateBubbleWord = function () {
 };
 StoryWords.prototype.generateSelectWord = function () {
 
-    var para = d3.select("#div_words").selectAll("p")
+    var para = d3.select("#story_words").selectAll("p")
         .data(this.sectionsWords)
         .enter().append("p");
     this.words = para.selectAll("span")
@@ -153,6 +153,6 @@ StoryWords.prototype.highlightWords = function (filteredStr) {
  };
 
 StoryWords.prototype.clearContent = function(){
-    d3.select("#div_words").selectAll("p").remove();
+    d3.select("#story_words").selectAll("p").remove();
     d3.select("body").selectAll("svg.bubble").remove();
 };
