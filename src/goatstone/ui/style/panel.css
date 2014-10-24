@@ -1,0 +1,99 @@
+
+/* goatstone.ui.container.Panel */
+.panel svg.main-background{
+    position: absolute;
+    top:0;
+    left: 0;
+    /*background-color: red;*/
+    stroke:red;
+    cursor: move;
+}
+.panel svg.main-background line{
+    background-color: red;
+    stroke:blue;
+}
+.panel svg.close-button{
+    float:right;
+    cursor: pointer;
+}
+.panel svg.close-button line:hover{
+    stroke:#4a4;
+}
+.panel .handle{
+    position: relative;
+    height: 20px;
+}
+/* END goatstone.ui.container.Panel */
+
+
+.panel{
+    position: fixed;
+    display: inline-block;
+    background-color: #ccc;
+    border: 5px solid rgba(200, 200, 200, .3);
+    border-radius: 6px;
+    visibility: hidden;
+    padding: 3px;        
+}
+#panel-alpharange{
+    max-width: 400px;
+    top: 20px;
+    left: 20px;
+}
+#panel-a{
+    max-width: 400px;
+    top: 100px;
+    right: 400px;
+}
+
+/* goatstone.acronke.ui.panel.Message */
+#message-panel {
+    position: fixed;
+    display: inline-block;
+    max-width: 400px;
+    top: 20px;
+    right: 20px;
+    background-color: #ccc;
+    border: 5px solid rgba(200, 200, 200, .3);
+    border-radius: 6px;
+    visibility: hidden;
+    padding: 3px;
+}
+
+#message-panel h3 {
+    font-size: 1em;
+    color: #555;
+    margin: 3px 0px;
+}
+
+#message-panel #message-main {
+    margin: 5px;
+}
+
+#message-panel .handle .panel-close-button{
+    background-color: #e99;
+    cursor: pointer;
+    float:right; 
+}
+
+#message-panel p {
+    margin: 7px 0px;
+    position: relative;
+    font-size: .9em;
+}
+
+#message-panel address {
+    margin-top: 3px;
+    font-size: .8em;
+
+}
+
+#message-panel a {
+    margin-left: 10px;
+    font-size: .8em;
+    float: right;
+}
+#message {
+    visibility: hidden;
+}
+/* END Message */

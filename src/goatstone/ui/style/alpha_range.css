@@ -1,0 +1,31 @@
+
+
+/* AlphaRange */
+#dd {
+    /*position: fixed;*/
+/*    top: 100px;
+    left: 20px;
+    width: 400px;
+*/    /*height: 68px;*/
+    opacity: 1;
+    z-index: 200;
+    background-color: #ccc;
+    border-radius: 6px;
+    padding: 7px;
+    visibility: hidden;
+}
+
+#dd #scale_background {
+    top: 33px;
+    width: 400px;
+    height: 40px;
+    background-color: #fff;
+    position: absolute;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    z-index: 0;
+}
+
+/* END AlphaRange */
+

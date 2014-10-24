@@ -682,7 +682,6 @@ Message.prototype.set = function(msg){
 function Panel(rootDiv) {
     if(rootDiv){
         this.setDom(rootDiv);
-        this.setDrag();
     }
 }
 Panel.prototype.setDom = function(rootDiv){
