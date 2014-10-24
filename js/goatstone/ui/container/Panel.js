@@ -85,7 +85,7 @@ Panel.prototype.initBackground = function () {
         line.setAttribute("x2", width);
         line.setAttribute("y2", y);
 
-        svg.appendChild(line)
+        svg.appendChild(line);
         linesTotal--;
         y += 5;
 
@@ -109,7 +109,7 @@ Panel.prototype.initCloseButton = function () {
     svg.addEventListener('click', function () {
         $this.$root.style.visibility = 'hidden';
 
-    })
+    });
 
     var line = document.createElementNS("http://www.w3.org/2000/svg", 'line');
     line.setAttribute("x1", "0");
@@ -125,8 +125,8 @@ Panel.prototype.initCloseButton = function () {
     line2.setAttribute("y2", "20");
     line2.style.strokeWidth = "5px";
 
-    svg.appendChild(line)
-    svg.appendChild(line2)
+    svg.appendChild(line);
+    svg.appendChild(line2);
 
     this.$handle.appendChild(svg);
 

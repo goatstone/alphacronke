@@ -114,9 +114,8 @@ Controller.prototype.initModel = function () {
         sections = null;
         storyText = null;
 
-        $this.storyWords.setSection($this.model.story['intro']);
+        $this.storyWords.setSection($this.model.story.intro);
         $this.storyWords.setStyle('bubble');
-        // $this.storyPartSelect.$selectChartSizeContainer.style.visibility = 'visible';
 
     });
 };

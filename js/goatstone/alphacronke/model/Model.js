@@ -15,5 +15,5 @@ function Model(){
     	description: "Experimental text viewing with the story, 'Dickory Cronke' by Daniel Defoe.", 
     	author:'Goatstone 2014', 
     	moreLink:'/about'
-    }
-}
+    };
+} 

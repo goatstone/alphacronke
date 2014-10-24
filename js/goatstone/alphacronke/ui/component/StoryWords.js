@@ -29,11 +29,11 @@ StoryWords.prototype.setStyle = function(styleName){
     this.clearContent();
     this.generateBGround();
 
-}
+};
 StoryWords.prototype.setSize = function(size){
     this.size = size;
     this.generateBubbleWord(Number(size));
-}
+};
 StoryWords.prototype.setSection = function (storiesPart) {
     var $this = this;
     var storyPart = storiesPart;
@@ -51,7 +51,7 @@ StoryWords.prototype.setBubbleWordData = function () {
     var bwd = {};
     //var $this = this;
     this.bubbleData.children = [];
-    var blackList = ['', 'a', 'the', 'and', 'in', 'of', 'to', 'that', 'is', 'be', 'if', 'as', 'his', 'this']
+    var blackList = ['', 'a', 'the', 'and', 'in', 'of', 'to', 'that', 'is', 'be', 'if', 'as', 'his', 'this'];
     this.sectionsWords.forEach(function (e, i) {
         e.forEach(function (e, i) {
             if(blackList.indexOf(e) !== -1 ){}
@@ -61,7 +61,7 @@ StoryWords.prototype.setBubbleWordData = function () {
             else {
                 bwd[e.toLowerCase()]++;
             }
-        })
+        });
     });
 
     for (var b in bwd) {
@@ -79,7 +79,7 @@ StoryWords.prototype.generateBGround = function(){
         this.generateSelectWord();
     }
 
-}
+};
 StoryWords.prototype.generateBubbleWord = function () {
 
     var diameter = this.size;
@@ -145,9 +145,9 @@ StoryWords.prototype.generateSelectWord = function () {
 StoryWords.prototype.highlightWords = function (filteredStr) {
     if (!this.words){return false;}
     $this = this;
-    this.reString = filteredStr.split("").join("|");;
+    this.reString = filteredStr.split("").join("|");
     this.words.html(  function (d, i) {
-        var d2 =d.replace( new RegExp("(" + $this.reString + ")", "ig" ), '<em style="color:#f40">$1</em>')
+        var d2 =d.replace( new RegExp("(" + $this.reString + ")", "ig" ), '<em style="color:#f40">$1</em>');
         return d2;
     });
  };
@@ -155,4 +155,4 @@ StoryWords.prototype.highlightWords = function (filteredStr) {
 StoryWords.prototype.clearContent = function(){
     d3.select("#div_words").selectAll("p").remove();
     d3.select("body").selectAll("svg.bubble").remove();
-}
+};

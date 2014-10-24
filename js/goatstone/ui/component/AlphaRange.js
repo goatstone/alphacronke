@@ -33,7 +33,7 @@ function AlphaRange(rootDiv ) {
         {x: 20, y: window.innerHeight - 140}
     ];
 
-    var $root = this.setRoot(rootDiv)
+    var $root = this.setRoot(rootDiv);
     // this.$root = document.querySelector('#dd');
     // this.$body = document.querySelector('body');
     // this.$handle = this.$root.querySelector('.handle');
@@ -150,7 +150,7 @@ AlphaRange.prototype.initDraw = function(){
         .attr("height", this.config.height)
         .attr("y", 0);
 
-}
+};
 AlphaRange.prototype.draw = function () {
     var $this = this;
     this.ordinalGroup
@@ -178,7 +178,7 @@ AlphaRange.prototype.setSelectedElements = function () {
         if ($this.ordinalScale(e) >= brushExtent[0] && $this.ordinalScale(e) <= brushExtent[1]) {
             $this.selectedElements += e;
         }
-    })
+    });
     if(this.selectedElements === this.prevSelectedElements){
         return;
     }
@@ -187,5 +187,5 @@ AlphaRange.prototype.setSelectedElements = function () {
         this.onSelectCallback($this.selectedElements);
     }
     this.draw();
-}
+};
 

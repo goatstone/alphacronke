@@ -6,7 +6,7 @@
 
 function Message(rootDiv) {
 
-	this.setRoot(rootDiv)
+	this.setRoot(rootDiv);
 
 }
 

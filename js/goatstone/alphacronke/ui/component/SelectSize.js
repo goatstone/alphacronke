@@ -5,7 +5,7 @@
 
 function SelectSize(rootDiv) {
 
-	var $root = this.setRoot(rootDiv)
+	var $root = this.setRoot(rootDiv);
 
     var $this = this;
     $root.querySelector('input').addEventListener('change', function (e) {

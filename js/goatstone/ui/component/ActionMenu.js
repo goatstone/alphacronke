@@ -28,10 +28,10 @@ function ActionMenu(actionMenuModel) {
         if ($this.$root.style.visibility === 'visible') {
             $this.$root.style.visibility = 'hidden';
         }
-    })
+    });
     this.$root.addEventListener('mousedown', function (e) {
         e.stopPropagation();
-    })
+    });
 
 }
 

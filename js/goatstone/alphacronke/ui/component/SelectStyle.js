@@ -5,7 +5,7 @@
 
 function SelectStyle(rootDiv) {
 
-	var $root = this.setRoot(rootDiv)
+	var $root = this.setRoot(rootDiv);
 
     var $this = this;
     $root.addEventListener('change', function (e) {
