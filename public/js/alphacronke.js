@@ -408,23 +408,24 @@ function ActionMenu(actionMenuModel) {
     for (var i = 0; i < actionMenuModel.length; i++) {
         var tN = document.createTextNode(actionMenuModel[i].title);
         var li = document.createElement('LI');
+        var indexAttr = document.createAttribute("data-index");
+        indexAttr.value = i;
+        li.setAttributeNode(indexAttr);
         li.appendChild(tN);
-        this.$root.querySelector('ul.action-menu-main').appendChild(li);
-
-        (function (_td, i) {
-            _td.addEventListener('click', function(e ){
-                e.stopPropagation();
-                actionMenuModel[i].action()  ;
-                $this.$root.style.visibility = 'hidden';
-            });
-        })(li, i);
+        this.$root.querySelector('ul.action-menu-main').appendChild(li);    
     }
+    
+    this.$root.querySelector('ul').addEventListener("click",function(e){
+        var liIndex = e.target.dataset.index ;
+        actionMenuModel[liIndex].action();
+    });
 
     this.$body.addEventListener('mousedown', function () {
         if ($this.$root.style.visibility === 'visible') {
             $this.$root.style.visibility = 'hidden';
         }
     });
+
     this.$root.addEventListener('mousedown', function (e) {
         e.stopPropagation();
     });
@@ -455,11 +456,11 @@ function AlphaRange(rootDiv ) {
         selector: {
             arc: {
                 color: d3.rgb(20, 100, 225), //30,100,255
-                opacity: .6
+                opacity: 0.6
             },
             selectedWindow: {
                 color: d3.rgb(250, 0, 0),
-                opacity: .3
+                opacity: 0.3
             }
         }
     };
@@ -477,7 +478,7 @@ function AlphaRange(rootDiv ) {
     this.linearScale;
 
     this.brush;
-    this.initExtent = [.5,.9];
+    this.initExtent = [0.5, 0.9];
     this.onSelectCallback = null;
 
     this.alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
@@ -528,7 +529,7 @@ AlphaRange.prototype.initDraw = function(){
             "left": "0px",
             "top": "7px",
             "position": "relative",
-            "opacity": .5
+            "opacity": 0.5
         });
 
     // SVG group to represent the ordinal scale

@@ -21,11 +21,11 @@ function AlphaRange(rootDiv ) {
         selector: {
             arc: {
                 color: d3.rgb(20, 100, 225), //30,100,255
-                opacity: .6
+                opacity: 0.6
             },
             selectedWindow: {
                 color: d3.rgb(250, 0, 0),
-                opacity: .3
+                opacity: 0.3
             }
         }
     };
@@ -43,7 +43,7 @@ function AlphaRange(rootDiv ) {
     this.linearScale;
 
     this.brush;
-    this.initExtent = [.5,.9];
+    this.initExtent = [0.5, 0.9];
     this.onSelectCallback = null;
 
     this.alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
@@ -94,7 +94,7 @@ AlphaRange.prototype.initDraw = function(){
             "left": "0px",
             "top": "7px",
             "position": "relative",
-            "opacity": .5
+            "opacity": 0.5
         });
 
     // SVG group to represent the ordinal scale

@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['./css/*.css', '<%= jshint.files %>'],
+        files: ['./src/goatstone/style/*.css', '<%= jshint.files %>'],
         tasks: ['default'],
         options: {
           spawn:false,
@@ -44,7 +44,8 @@ module.exports = function(grunt) {
     jshint: {
       files: ['Gruntfile.js', 'src/goatstone/**/*.js'],
       options: {
-        // options here to override JSHint defaults
+        //  options here to override JSHint defaults
+        "-W030":true, 
         globals: {
           jQuery: true,
           console: true,
@@ -60,8 +61,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  // Default task(s).
-  //  grunt.registerTask('default', ['jshint', 'watch', 'concat', 'uglify']);
+  // Default task(s). 
+   // grunt.registerTask('default', ['jshint', 'watch', 'concat', 'uglify']);
   grunt.registerTask('default', ['jshint',   'concat', 'uglify']);
 
 };
