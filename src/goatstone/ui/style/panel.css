@@ -1,16 +1,11 @@
-
-/* goatstone.ui.container.Panel */
-.panel svg.main-background{
-    position: absolute;
-    top:0;
-    left: 0;
-    /*background-color: red;*/
-    stroke:red;
-    cursor: move;
-}
-.panel svg.main-background line{
-    background-color: red;
-    stroke:blue;
+.panel{
+    position: fixed;
+    /*display: inline-block;*/
+    background-color: #ccc;
+    border: 5px solid rgba(200, 200, 200, .3);
+    border-radius: 6px;
+    visibility: hidden;
+    padding: 3px;        
 }
 .panel svg.close-button{
     float:right;
@@ -25,29 +20,8 @@
 }
 /* END goatstone.ui.container.Panel */
 
-
-.panel{
-    position: fixed;
-    display: inline-block;
-    background-color: #ccc;
-    border: 5px solid rgba(200, 200, 200, .3);
-    border-radius: 6px;
-    visibility: hidden;
-    padding: 3px;        
-}
-#panel-alpharange{
-    max-width: 400px;
-    top: 20px;
-    left: 20px;
-}
-#panel-a{
-    max-width: 400px;
-    top: 100px;
-    right: 400px;
-}
-
 /* goatstone.acronke.ui.panel.Message */
-#message-panel {
+/*#message-panel {
     position: fixed;
     display: inline-block;
     max-width: 400px;
@@ -96,4 +70,4 @@
 #message {
     visibility: hidden;
 }
-/* END Message */
+*//* END Message */

@@ -1,46 +1,57 @@
 /*
  goatstone.ui.container.Panel.js
-
+ 
  */
 
-function Panel(rootDiv) {
+function Panel(rootDiv, settings) {
+
     if(rootDiv){
-        this.setDom(rootDiv);
+
+        this.$root = document.querySelector(rootDiv);
+        var handleWidth = this.$root.offsetWidth - 40;
+
+        this.$handle = this.$root.querySelector('.handle');
+        this.$body = document.querySelector('body');
+
+
+        if( typeof settings === 'object' && settings.handleBg){
+            this.$handle.appendChild(settings.handleBg());
+        }
+        else{
+            this.$handle.appendChild(this.defaultBackground({
+                width:handleWidth
+            }));                
+        }   
+        if( typeof settings === 'object' && settings.closeIcon){
+            this.$handle.appendChild(settings.closeIcon());
+        }   
+        else{
+            this.$handle.appendChild(this.defaultCloseButton());                
+        }   
+     
+        this.setDrag();
+        this.show();
     }
 }
-Panel.prototype.setDom = function(rootDiv){
-
-    this.$root = document.querySelector(rootDiv);
-    this.$handle = this.$root.querySelector('.handle');
-    this.$body = document.querySelector('body');
-
-    this.setDrag();
-    this.show();
-
- };
-Panel.prototype.addComponent = function(component){
-    this.$root.appendChild(component.$root);
-};
 Panel.prototype.show = function(){
-
     this.$root.style.visibility = 'visible';
-
+    for(var i=0; i< this.$root.children.length; i++){
+        this.$root.children[i].style.visibility = 'visible';
+    }
 };
  Panel.prototype.hide = function(){
-
     this.$root.style.visibility = 'hidden';
-
+    for(var i=0; i< this.$root.children.length; i++){
+        this.$root.children[i].style.visibility = 'hidden';
+    }
 };
- Panel.prototype.position = function(x,y){
-
+Panel.prototype.position = function(x,y){
     this.$root.style.left =   x+'px';
     this.$root.style.top =   y+'px';
-
  };
 // setDrag
 Panel.prototype.setDrag = function () {
 
-    // make this panel draggable
     this.mOffsets = [];
     this.handleEvent = function (e) {
         switch (e.type) {
@@ -61,21 +72,21 @@ Panel.prototype.setDrag = function () {
     this.$handle.addEventListener('mousedown', this, false);
     this.$handle.addEventListener('mouseup', this, false);
 
-    this.initCloseButton();
-    this.initBackground();
-
 };
-// initBackground
-Panel.prototype.initBackground = function () {
-    var width = this.$root.offsetWidth - 40;
+Panel.prototype.defaultBackground = function (settings) {
+    var width = settings.width; 
     var svg = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
     var y = 2;
     var linesTotal = 4;
 
-    svg.setAttribute("class", "main-background");
     svg.setAttribute("width", width);
     svg.setAttribute("height", "30");
+    svg.setAttribute("stroke", "blue");
     svg.style.strokeWidth = "2px";
+    svg.style.position = "absolute";
+    svg.style.top = "0px";
+    svg.style.left = "0px";
+    svg.style.cursor = "move";
 
     while(linesTotal > 0){
         var line = document.createElementNS("http://www.w3.org/2000/svg", 'line');
@@ -89,12 +100,9 @@ Panel.prototype.initBackground = function () {
         y += 5;
 
     }
-
-    this.$handle.appendChild(svg);
-
+    return svg;
 };
-// initCloseButton, set up the button used to hide the panel
-Panel.prototype.initCloseButton = function () {
+Panel.prototype.defaultCloseButton = function () {
 
     var $this = this;
 
@@ -106,7 +114,7 @@ Panel.prototype.initCloseButton = function () {
     svg.style.strokeWidth = "5px";
 
     svg.addEventListener('click', function () {
-        $this.$root.style.visibility = 'hidden';
+        $this.hide();
 
     });
 
@@ -127,6 +135,5 @@ Panel.prototype.initCloseButton = function () {
     svg.appendChild(line);
     svg.appendChild(line2);
 
-    this.$handle.appendChild(svg);
-
+    return svg;
 };

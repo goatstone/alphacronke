@@ -19,14 +19,35 @@ function Controller() {
     this.storyWords = new StoryWords( );
 
     // alphaRange
-    alphaRangePanel = new Panel('#panel-alpharange');
+
     this.alphaRange = new AlphaRange('#dd');
     this.alphaRange.addSelectListener( function (filteredStr) {
         $this.storyWords.highlightWords(filteredStr);
     });
 
+
+    alphaRangePanel = new Panel('#panel-alpharange');
+    alphaRangePanel.position(100,200);
+
     // main selection components
-    mainPanel = new Panel('#panel-a');
+    // mainPanel = new Panel('#panel-a', { 
+    //     handleBg:function(){
+    //         var message = 'hello';
+    //         var node = document.createElement('DIV');
+    //         var txt = document.createTextNode(message);
+    //         node.appendChild(txt);
+    //         return node;
+    //     },
+    //     closeIcon:function(){
+    //         var message = 'X';
+    //         var node = document.createElement('DIV');
+    //         var txt = document.createTextNode(message);
+    //         node.appendChild(txt);
+    //         return node;
+    //     }
+    // });
+    mainPanel = new Panel('#panel-a' );
+
     selectSize = new SelectSize('#select-chart-size');
     selectSize.setCallback(function(selection){
         $this.storyWords.setSize(Number(selection));
@@ -55,8 +76,6 @@ function Controller() {
     });
     
     // message    
-    messagePanel =  new MessagePanel('#message-panel'); // settings {x:1, y:2, w:200, h:200}
-    messagePanel.position(window.innerWidth - 450, window.innerHeight -200 );
     message = new Message("#message");
     message.set( 
         '<h3>' + this.model.about.title + '</h3>' +
@@ -64,6 +83,8 @@ function Controller() {
         '<address class="author">' + this.model.about.author+'</address>'+  
         '<a href="/about/" target="new">more...</a>'  
     );
+    messagePanel =  new Panel('#message-panel'); //  settings {x:1, y:2, w:200, h:200}
+    messagePanel.position(window.innerWidth - 400, window.innerHeight -200 );
  
     // actionBar actionMenu
     this.actionBar = new ActionBar([
@@ -77,7 +98,7 @@ function Controller() {
         {
             title: 'Letter Select',
             action: function () {
-                alphaRange.show();
+                $this.alphaRange.show();
                 alphaRangePanel.show();
             }
         },
