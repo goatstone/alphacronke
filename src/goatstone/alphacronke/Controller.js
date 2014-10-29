@@ -1,6 +1,6 @@
 /*
  goatstone.alphacronke.Controller
-
+ 
  * */
 
 function Controller() {
@@ -13,39 +13,46 @@ function Controller() {
 
     // model
     this.model = new Model();
-    this.initModel();
 
     // storyWords
     this.storyWords = new StoryWords( );
-
+ 
     // alphaRange
-
     this.alphaRange = new AlphaRange('#dd');
     this.alphaRange.addSelectListener( function (filteredStr) {
         $this.storyWords.highlightWords(filteredStr);
     });
-
-
     alphaRangePanel = new Panel('#panel-alpharange');
     alphaRangePanel.position(100,200);
 
-    // main selection components
-    // mainPanel = new Panel('#panel-a', { 
-    //     handleBg:function(){
-    //         var message = 'hello';
-    //         var node = document.createElement('DIV');
-    //         var txt = document.createTextNode(message);
-    //         node.appendChild(txt);
-    //         return node;
-    //     },
-    //     closeIcon:function(){
-    //         var message = 'X';
-    //         var node = document.createElement('DIV');
-    //         var txt = document.createTextNode(message);
-    //         node.appendChild(txt);
-    //         return node;
-    //     }
-    // });
+    // get a book file from the Gutenberg Library #2051
+    new ProjectGutenberg().get('datum/dickory_cronke.txt')
+        .then(function(data){
+            var sections = [];
+            var txtStart = 738;
+            var textEnd = 59570;
+            var storyText = data.substr(txtStart, textEnd);
+            // remove \r characters
+            storyText = storyText.replace(/\r/g, "");
+            // chang all single \n into a single space
+            storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
+
+            sections = storyText.split(/[\n][\n]/g);
+            $this.model.story.intro = sections.slice(0, 16);
+            $this.model.story.partOne = sections.slice(17, 74);
+            $this.model.story.partTwo = sections.slice(75, 129);
+            $this.model.story.partThree = sections.slice(130, 172);
+
+            sections = null;
+            storyText = null;
+
+            $this.storyWords.setSection($this.model.story.intro);
+            // $this.storyWords.setStyle('bubble');
+            $this.storyWords.highlightWords($this.alphaRange.selectedElements);
+
+        },function(err){
+        });
+
     mainPanel = new Panel('#panel-a' );
 
     selectSize = new SelectSize('#select-chart-size');
@@ -109,41 +116,10 @@ function Controller() {
             }
         }
     ]);
- 
 }
-
-// init the Model
-Controller.prototype.initModel = function () {
-    var $this = this;
-    d3.text("/datum/dickory_cronke.txt", function (unparsedData) {
-
-        var sections = [];
-        var txtStart = 738;
-        var textEnd = 59570;
-        var storyText = unparsedData.substr(txtStart, textEnd);
-        // remove \r characters
-        storyText = storyText.replace(/\r/g, "");
-        // chang all single \n into a single space
-        storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
-
-        sections = storyText.split(/[\n][\n]/g);
-        $this.model.story.intro = sections.slice(0, 16);
-        $this.model.story.partOne = sections.slice(17, 74);
-        $this.model.story.partTwo = sections.slice(75, 129);
-        $this.model.story.partThree = sections.slice(130, 172);
-
-        sections = null;
-        storyText = null;
-
-        $this.storyWords.setSection($this.model.story.intro);
-        // $this.storyWords.setStyle('bubble');
-        $this.storyWords.highlightWords($this.alphaRange.selectedElements);
-
-    });
-};
 
 window.addEventListener("load", function () {
 
-    var c = new Controller();
+    new Controller();
 
 });
