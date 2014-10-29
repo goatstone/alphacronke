@@ -3,7 +3,27 @@
 
  * */
 
+function  bubbleMode  ( msg, data ){
+    console.log( 'bubbleMode...',msg, data );
+    console.log( this );
+    console.log( this.alphaRange );
+    console.log( msg, data );
+}
+
+function wordSelectMode( msg, data ){
+    console.log( 'wordSelectMode...',msg, data );
+    console.log( msg, data );
+}
+
+////PubSub.publish( 'mode', {mode:'bubble'} );
+//PubSub.publish( 'bubbleMode', {state:'on'});
+//PubSub.publish( 'wordSelectMode', {state:'on'});
+
 function Controller() {
+
+    //PubSub.subscribe( 'bubbleMode',  bubbleMode.bind(this.prototype) );
+    //PubSub.publish( 'bubbleMode', {state:'on'});
+    //this.cb();
 
     // model
     var model = new Model();
@@ -113,7 +133,10 @@ function Controller() {
         }
     ]);
 }
-
+Controller.prototype.cb = function(){
+    console.log('cb');
+    console.log(this);
+};
 window.addEventListener("load", function () {
 
     new Controller();
