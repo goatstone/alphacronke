@@ -9,8 +9,10 @@
 
  * */
 
-function StoryWords( ) {
+function StoryWords(model) {
 
+    this.model = model;
+    this.alphaRange = 'a';
     this.words;
     this.sectionsWords = [];
     this.wordConfig = {
@@ -24,19 +26,42 @@ function StoryWords( ) {
     this.size = 700;
 
 }
-StoryWords.prototype.setStyle = function(styleName){
+StoryWords.prototype.setAlphaRange = function(alphaRange){
+       this.alphaRange = alphaRange;
+};
+StoryWords.prototype.subscribe = function (topic) {
+    var self = this;
+    var topics = {};
+    topics.size = function (topic, data) {
+        self.setSize(data.value);
+    };
+    topics.mode = function (topic, data) {
+        self.setStyle(data.value);
+        self.highlightWords(self.alphaRange);
+        //self.highlightWords(model.alphaRange);
+    };
+    topics.section = function(topic, data){
+        self.setSection( data.value );
+    };
+    topics.alphaRange = function(topic, data){
+        self.setAlphaRange(data.value);
+        self.highlightWords(data.value);
+    };
+    PubSub.subscribe(topic, topics[topic]);
+};
+StoryWords.prototype.setStyle = function (styleName) {
     this.selectedStyle = styleName;
     this.clearContent();
     this.generateBGround();
 
 };
-StoryWords.prototype.setSize = function(size){
+StoryWords.prototype.setSize = function (size) {
     this.size = size;
     this.generateBubbleWord(Number(size));
 };
 StoryWords.prototype.setSection = function (storiesPart) {
     var $this = this;
-    var storyPart = storiesPart;
+    var storyPart = this.model.story[storiesPart];
 
     this.clearContent();
     this.sectionsWords = [];
@@ -46,6 +71,8 @@ StoryWords.prototype.setSection = function (storiesPart) {
     });
 
     this.generateBGround();
+    this.highlightWords(this.alphaRange);
+
 };
 StoryWords.prototype.setBubbleWordData = function () {
     var bwd = {};
@@ -54,7 +81,8 @@ StoryWords.prototype.setBubbleWordData = function () {
     var blackList = ['', 'a', 'the', 'and', 'in', 'of', 'to', 'that', 'is', 'be', 'if', 'as', 'his', 'this'];
     this.sectionsWords.forEach(function (e, i) {
         e.forEach(function (e, i) {
-            if(blackList.indexOf(e) !== -1 ){}
+            if (blackList.indexOf(e) !== -1) {
+            }
             else if (!bwd[e.toLowerCase()]) {
                 bwd[e.toLowerCase()] = 1;
             }
@@ -65,17 +93,17 @@ StoryWords.prototype.setBubbleWordData = function () {
     });
 
     for (var b in bwd) {
-        var t = {name: b + "", value: bwd[b] + "" };
+        var t = {name: b + "", value: bwd[b] + ""};
         this.bubbleData.children.push(t);
     }
 };
 
-StoryWords.prototype.generateBGround = function(){
-    if(this.selectedStyle === 'bubble'){
+StoryWords.prototype.generateBGround = function () {
+    if (this.selectedStyle === 'bubble') {
         this.setBubbleWordData();
         this.generateBubbleWord(window.innerHeight);
     }
-    else if(this.selectedStyle === 'alphaSelect'){
+    else if (this.selectedStyle === 'alphaSelect') {
         this.generateSelectWord();
     }
 
@@ -143,16 +171,18 @@ StoryWords.prototype.generateSelectWord = function () {
 };
 
 StoryWords.prototype.highlightWords = function (filteredStr) {
-    if (!this.words){return false;}
+    if (!this.words) {
+        return false;
+    }
     $this = this;
     this.reString = filteredStr.split("").join("|");
-    this.words.html(  function (d, i) {
-        var d2 =d.replace( new RegExp("(" + $this.reString + ")", "ig" ), '<em style="color:#f40">$1</em>');
+    this.words.html(function (d, i) {
+        var d2 = d.replace(new RegExp("(" + $this.reString + ")", "ig"), '<em style="color:#f40">$1</em>');
         return d2;
     });
- };
+};
 
-StoryWords.prototype.clearContent = function(){
+StoryWords.prototype.clearContent = function () {
     d3.select("#story_words").selectAll("p").remove();
     d3.select("body").selectAll("svg.bubble").remove();
 };

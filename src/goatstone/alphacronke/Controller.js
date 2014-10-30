@@ -1,4 +1,4 @@
- /*
+/*
  goatstone.alphacronke.Controller
 
  * */
@@ -7,21 +7,23 @@ function Controller() {
 
     // model
     var model = new Model();
-
     // panels
     var alphaRangePanel, mainPanel, messagePanel;
-
     // components
     var storyWords, alphaRange, selectSize, storyPartSelect, selectStyle, message;
 
-    storyWords = new StoryWords();
-
     alphaRange = new AlphaRange('#dd');
-    alphaRange.addSelectListener(function (filteredStr) {
-        storyWords.highlightWords(filteredStr);
-    });
+    alphaRange.subscribe('mode');
     alphaRangePanel = new Panel('#panel-alpharange');
     alphaRangePanel.position(100, 200);
+    alphaRange.setPanel(alphaRangePanel); // TODO : remove reference, close panel on its own
+
+    storyWords = new StoryWords(model);
+    storyWords.subscribe('size');
+    storyWords.subscribe('mode');
+    storyWords.subscribe('section');
+    storyWords.subscribe('alphaRange');
+    PubSub.publish('alphaRange', {value:alphaRange.selectedElements});
 
     // get a book file from the Gutenberg Library #2051
     new ProjectGutenberg().get('datum/dickory_cronke.txt')
@@ -34,20 +36,15 @@ function Controller() {
             storyText = storyText.replace(/\r/g, "");
             // chang all single \n into a single space
             storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
-
             sections = storyText.split(/[\n][\n]/g);
             model.story.intro = sections.slice(0, 16);
             model.story.partOne = sections.slice(17, 74);
             model.story.partTwo = sections.slice(75, 129);
             model.story.partThree = sections.slice(130, 172);
-
             sections = null;
             storyText = null;
-
-            storyWords.setSection(model.story.intro);
-            // storyWords.setStyle('bubble');
-            storyWords.highlightWords(alphaRange.selectedElements);
-
+            //storyWords.setSection('partOne');
+            PubSub.publish('section', {value:'intro'});
         }, function (err) {
         });
 
@@ -55,39 +52,19 @@ function Controller() {
 
     selectSize = new SelectSize('#select-chart-size');
     selectSize.subscribe('mode');
-    selectSize.setCallback(function (selection) { 
-        storyWords.setSize(Number(selection));
-        PubSub.publish('size', {value:selection});
-    });
 
-    storyPartSelect = new StoryPartSelect('#story-parts-opts');
-    storyPartSelect.setCallback(function (selection) {
-        storyWords.setSection(model.story[selection]);
-        storyWords.highlightWords(alphaRange.selectedElements);
-     });
+    new StoryPartSelect('#story-parts-opts');
 
-    selectStyle = new SelectStyle('#panel-a #styles');
-    selectStyle.setCallback(function (selection) {
-        storyWords.setStyle(selection);
-        if (selection === 'bubble') {
-            alphaRange.hide();
-            alphaRangePanel.hide();
-        }
-        else if (selection === 'alphaSelect') {
-            alphaRangePanel.show();
-            alphaRange.show();
-            storyWords.highlightWords(alphaRange.selectedElements);
-        }
-    });
+    new SelectStyle('#panel-a #styles');
 
     message = new Message("#message");
     message.subscribe('size');
     message.subscribe('mode');
     message.set(
-            '<h3>' + model.about.title + '</h3>' +
-            '<p>' + model.about.description + '</p>' +
-            '<address class="author">' + model.about.author + '</address>' +
-            '<a href="/about/" target="new">more...</a>'
+        '<h3>' + model.about.title + '</h3>' +
+        '<p>' + model.about.description + '</p>' +
+        '<address class="author">' + model.about.author + '</address>' +
+        '<a href="/about/" target="new">more...</a>'
     );
     messagePanel = new Panel('#message-panel');
     messagePanel.position(window.innerWidth - 400, window.innerHeight - 200);
@@ -96,7 +73,7 @@ function Controller() {
         {
             title: 'About AlphaCronke',
             action: function () {
-                message.show();
+                message.show();   // TODO make this PubSub.publish('message' {value:'show'})
                 messagePanel.show();
             }
         },
@@ -120,15 +97,13 @@ window.addEventListener("load", function () {
     new Controller();
 });
 
-function SelectLetter(){
+function SelectLetter() {
 }
-SelectLetter.prototype.subscribe = function(topic){
-    // mode is set
-    // size is set
-    PubSub.subscribe('size', function(topic, data){
-        console.log('size :::: ');
-        console.log( topic, data );
-    });    
+SelectLetter.prototype.subscribe = function (topic) {
+    PubSub.subscribe('section', function (topic, data) {
+        //console.log('section  :::: ');
+        //console.log(topic, data);
+    });
 };
-var sl =  new SelectLetter();
+var sl = new SelectLetter();
 sl.subscribe('size');

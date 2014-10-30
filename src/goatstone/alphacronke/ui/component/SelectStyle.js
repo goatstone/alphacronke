@@ -10,12 +10,8 @@ function SelectStyle(rootDiv) {
     var $this = this;
     $root.addEventListener('change', function (e) {
 
-	   $this.select(this.value);
-
   		PubSub.publish('mode', {value:this.value});
-     
      });
-
 }
 
 SelectStyle.prototype = Object.create(Component.prototype);

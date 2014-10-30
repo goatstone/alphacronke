@@ -8,6 +8,7 @@
 
 function AlphaRange(rootDiv ) {
 
+    this.panel;
     this.config = {
         width: 410,
         height: 35,
@@ -67,6 +68,24 @@ function AlphaRange(rootDiv ) {
 
 AlphaRange.prototype = Object.create(Component.prototype);
 
+AlphaRange.prototype.subscribe = function(topic){
+    var self = this;
+    PubSub.subscribe('mode', function(topic, data){
+        if(data.value  === 'bubble'){
+            self.hide();
+            self.panel.hide();
+        }
+        else if(data.value  === 'alphaSelect'){
+            self.show();
+            self.panel.show();
+        }
+
+    });
+
+};
+AlphaRange.prototype.setPanel = function(panel){
+    this.panel = panel;
+};
 AlphaRange.prototype.initDraw = function(){
     var $this  =this;
     var brushArc;
@@ -128,6 +147,7 @@ AlphaRange.prototype.initDraw = function(){
         })
         .on("brushend", function () {
             $this.setSelectedElements();
+            PubSub.publish('alphaRange', {value:$this.selectedElements});
             return 1;
         });
     brushArc = d3.svg.arc()

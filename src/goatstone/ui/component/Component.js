@@ -21,13 +21,3 @@ Component.prototype.show = function(){
     this.$root.style.visibility = 'hidden';
 
 };
-Component.prototype.select = function(selection){
-
-    this.callback(selection);
-
-};
-Component.prototype.setCallback = function(callback){
-
-    this.callback = callback;
-
-}; 

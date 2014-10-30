@@ -9,8 +9,8 @@ function SelectSize(rootDiv) {
 
     var $this = this;
     $root.querySelector('input').addEventListener('change', function (e) {
-	   $this.select(e.target.value);
-     });
+        PubSub.publish('size', {value:e.target.value});
+    });
 }
 
 SelectSize.prototype = Object.create(Component.prototype);
