@@ -1,29 +1,9 @@
-/*
+ /*
  goatstone.alphacronke.Controller
 
  * */
 
-function  bubbleMode  ( msg, data ){
-    console.log( 'bubbleMode...',msg, data );
-    console.log( this );
-    console.log( this.alphaRange );
-    console.log( msg, data );
-}
-
-function wordSelectMode( msg, data ){
-    console.log( 'wordSelectMode...',msg, data );
-    console.log( msg, data );
-}
-
-////PubSub.publish( 'mode', {mode:'bubble'} );
-//PubSub.publish( 'bubbleMode', {state:'on'});
-//PubSub.publish( 'wordSelectMode', {state:'on'});
-
 function Controller() {
-
-    //PubSub.subscribe( 'bubbleMode',  bubbleMode.bind(this.prototype) );
-    //PubSub.publish( 'bubbleMode', {state:'on'});
-    //this.cb();
 
     // model
     var model = new Model();
@@ -74,33 +54,35 @@ function Controller() {
     mainPanel = new Panel('#panel-a');
 
     selectSize = new SelectSize('#select-chart-size');
-    selectSize.setCallback(function (selection) {
+    selectSize.subscribe('mode');
+    selectSize.setCallback(function (selection) { 
         storyWords.setSize(Number(selection));
+        PubSub.publish('size', {value:selection});
     });
 
     storyPartSelect = new StoryPartSelect('#story-parts-opts');
     storyPartSelect.setCallback(function (selection) {
         storyWords.setSection(model.story[selection]);
         storyWords.highlightWords(alphaRange.selectedElements);
-    });
+     });
 
     selectStyle = new SelectStyle('#panel-a #styles');
     selectStyle.setCallback(function (selection) {
         storyWords.setStyle(selection);
         if (selection === 'bubble') {
             alphaRange.hide();
-            selectSize.show();
             alphaRangePanel.hide();
         }
         else if (selection === 'alphaSelect') {
             alphaRangePanel.show();
             alphaRange.show();
-            selectSize.hide();
             storyWords.highlightWords(alphaRange.selectedElements);
         }
     });
 
     message = new Message("#message");
+    message.subscribe('size');
+    message.subscribe('mode');
     message.set(
             '<h3>' + model.about.title + '</h3>' +
             '<p>' + model.about.description + '</p>' +
@@ -133,11 +115,20 @@ function Controller() {
         }
     ]);
 }
-Controller.prototype.cb = function(){
-    console.log('cb');
-    console.log(this);
-};
 window.addEventListener("load", function () {
 
     new Controller();
 });
+
+function SelectLetter(){
+}
+SelectLetter.prototype.subscribe = function(topic){
+    // mode is set
+    // size is set
+    PubSub.subscribe('size', function(topic, data){
+        console.log('size :::: ');
+        console.log( topic, data );
+    });    
+};
+var sl =  new SelectLetter();
+sl.subscribe('size');
