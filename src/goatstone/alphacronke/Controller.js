@@ -141,21 +141,31 @@ function Controller() {
         '<a href="/about/" target="new">more...</a>'
     );
     messagePanel = new Panel('#message-panel', {x: 300, y: 0});
+    messagePanel.subscribe([
+        {
+            topic: "messagePanel",
+            callback: function (topic, data) {
+                if (data.value === 'show') {
+                    messagePanel.show();
+                }
+                else if (data.value === 'hide') {
+                    messagePanel.hide();
+                }
+            }
+        }]);
 
     // ActionBar
     new ActionBar([
         {
             title: 'About AlphaCronke',
             action: function () {
-                message.show();   // TODO make this PubSub.publish('message' {value:'show'})
-                messagePanel.show();
+                PubSub.publish('messagePanel', {value: 'show'});
             }
         },
         {
             title: 'Letter Select',
             action: function () {
-                alphaRange.show();
-                alphaRangePanel.show();
+                PubSub.publish('alphaRangePanel', {value: 'show'});
             }
         },
         {
@@ -169,17 +179,5 @@ function Controller() {
     PubSub.publish('mode', {value: 'alphaSelect'});
 }
 window.addEventListener("load", function () {
-
     new Controller();
 });
-
-function SelectLetter() {
-}
-SelectLetter.prototype.subscribe = function (topic) {
-    PubSub.subscribe('section', function (topic, data) {
-        //console.log('section  :::: ');
-        //console.log(topic, data);
-    });
-};
-var sl = new SelectLetter();
-sl.subscribe('size');
