@@ -1,11 +1,11 @@
 /*
  goatstone.ui.container.Panel.js
- 
+
  */
 
 function Panel(rootDiv, settings) {
 
-    if(rootDiv){
+    if (rootDiv) {
 
         this.$root = document.querySelector(rootDiv);
         var handleWidth = this.$root.offsetWidth - 40;
@@ -14,41 +14,61 @@ function Panel(rootDiv, settings) {
         this.$body = document.querySelector('body');
 
 
-        if( typeof settings === 'object' && settings.handleBg){
+        if (typeof settings === 'object' && settings.handleBg) {
             this.$handle.appendChild(settings.handleBg());
         }
-        else{
+        else {
             this.$handle.appendChild(this.defaultBackground({
-                width:handleWidth
-            }));                
-        }   
-        if( typeof settings === 'object' && settings.closeIcon){
+                width: handleWidth
+            }));
+        }
+        if (typeof settings === 'object' && settings.closeIcon) {
             this.$handle.appendChild(settings.closeIcon());
-        }   
-        else{
-            this.$handle.appendChild(this.defaultCloseButton());                
-        }   
-     
+        }
+        else {
+            this.$handle.appendChild(this.defaultCloseButton());
+        }
+        // x and y setting if they exist
+        if (typeof settings === 'object' && settings.x) {
+            this.$root.style.left = settings.x + 'px';
+        }
+        if (typeof settings === 'object' && settings.y) {
+            this.$root.style.top = settings.y + 'px';
+        }
+
         this.setDrag();
         this.show();
     }
 }
-Panel.prototype.show = function(){
+/* subscribe expects and object in this form:
+[{
+    topic: 'mode',
+    callback: function (topic, data) {
+        console.log('A topic message has been sent');
+    }
+}];
+*/
+Panel.prototype.subscribe = function (topics) {
+    PubSub.subscribe(topics[0].topic, function (topic, data) {
+        topics[0].callback(topic, data);
+    });
+};
+Panel.prototype.show = function () {
     this.$root.style.visibility = 'visible';
-    for(var i=0; i< this.$root.children.length; i++){
+    for (var i = 0; i < this.$root.children.length; i++) {
         this.$root.children[i].style.visibility = 'visible';
     }
 };
- Panel.prototype.hide = function(){
+Panel.prototype.hide = function () {
     this.$root.style.visibility = 'hidden';
-    for(var i=0; i< this.$root.children.length; i++){
+    for (var i = 0; i < this.$root.children.length; i++) {
         this.$root.children[i].style.visibility = 'hidden';
     }
 };
-Panel.prototype.position = function(x,y){
-    this.$root.style.left =   x+'px';
-    this.$root.style.top =   y+'px';
- };
+Panel.prototype.position = function (x, y) {
+    this.$root.style.left = x + 'px';
+    this.$root.style.top = y + 'px';
+};
 // setDrag
 Panel.prototype.setDrag = function () {
 
@@ -74,7 +94,7 @@ Panel.prototype.setDrag = function () {
 
 };
 Panel.prototype.defaultBackground = function (settings) {
-    var width = settings.width; 
+    var width = settings.width;
     var svg = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
     var y = 2;
     var linesTotal = 4;
@@ -88,7 +108,7 @@ Panel.prototype.defaultBackground = function (settings) {
     svg.style.left = "0px";
     svg.style.cursor = "move";
 
-    while(linesTotal > 0){
+    while (linesTotal > 0) {
         var line = document.createElementNS("http://www.w3.org/2000/svg", 'line');
         line.setAttribute("x1", "0");
         line.setAttribute("y1", y);

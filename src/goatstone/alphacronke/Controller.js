@@ -13,17 +13,26 @@ function Controller() {
     var storyWords, alphaRange, selectSize, storyPartSelect, selectStyle, message;
 
     alphaRange = new AlphaRange('#dd');
-    alphaRange.subscribe('mode');
-    alphaRangePanel = new Panel('#panel-alpharange');
-    alphaRangePanel.position(100, 200);
-    alphaRange.setPanel(alphaRangePanel); // TODO : remove reference, close panel on its own
+    alphaRangePanel = new Panel('#panel-alpharange', {x: 10, y: window.innerHeight - 140});
+    alphaRangePanel.subscribe([{
+        topic: 'mode',
+        callback: function (topic, data) {
+            if (data.value === 'alphaSelect') {
+                alphaRangePanel.show();
+            }
+            else {
+                alphaRangePanel.hide();
+            }
+        }
+    }]);
 
+    // storyWords
     storyWords = new StoryWords(model);
     storyWords.subscribe('size');
     storyWords.subscribe('mode');
     storyWords.subscribe('section');
     storyWords.subscribe('alphaRange');
-    PubSub.publish('alphaRange', {value:alphaRange.selectedElements});
+    PubSub.publish('alphaRange', {value: alphaRange.selectedElements});
 
     // get a book file from the Gutenberg Library #2051
     new ProjectGutenberg().get('datum/dickory_cronke.txt')
@@ -43,12 +52,22 @@ function Controller() {
             model.story.partThree = sections.slice(130, 172);
             sections = null;
             storyText = null;
-            //storyWords.setSection('partOne');
-            PubSub.publish('section', {value:'intro'});
+            PubSub.publish('section', {value: 'intro'});
         }, function (err) {
         });
 
     mainPanel = new Panel('#panel-a');
+    mainPanel.subscribe([{
+        topic: 'mainPanel',
+        callback: function (topic, data) {
+            if (data.value === 'show') {
+                mainPanel.show();
+            }
+            else if (data.value === 'hide') {
+                mainPanel.hide();
+            }
+        }
+    }]);
 
     selectSize = new SelectSize('#select-chart-size');
     selectSize.subscribe('mode');
@@ -87,7 +106,7 @@ function Controller() {
         {
             title: 'Main Panel',
             action: function () {
-                mainPanel.show();
+                PubSub.publish('mainPanel', {value: 'show'});
             }
         }
     ]);

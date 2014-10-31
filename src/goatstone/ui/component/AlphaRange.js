@@ -8,7 +8,6 @@
 
 function AlphaRange(rootDiv ) {
 
-    this.panel;
     this.config = {
         width: 410,
         height: 35,
@@ -35,10 +34,6 @@ function AlphaRange(rootDiv ) {
     ];
 
     var $root = this.setRoot(rootDiv);
-    // this.$root = document.querySelector('#dd');
-    // this.$body = document.querySelector('body');
-    // this.$handle = this.$root.querySelector('.handle');
-
     this.ordinalScale;
     this.ordinalGroup;
     this.linearScale;
@@ -59,11 +54,7 @@ function AlphaRange(rootDiv ) {
         .rangeBands([0, 1], 0, 0);
 
     this.initDraw();
-
-    // call the parent Panel setDrag()
-//    this.setDrag();
     this.setSelectedElements();
-
 }
 
 AlphaRange.prototype = Object.create(Component.prototype);
@@ -73,11 +64,9 @@ AlphaRange.prototype.subscribe = function(topic){
     PubSub.subscribe('mode', function(topic, data){
         if(data.value  === 'bubble'){
             self.hide();
-            self.panel.hide();
         }
         else if(data.value  === 'alphaSelect'){
             self.show();
-            self.panel.show();
         }
 
     });
