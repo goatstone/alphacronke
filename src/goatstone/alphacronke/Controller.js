@@ -74,7 +74,13 @@ function Controller() {
 
     new StoryPartSelect('#story-parts-opts');
 
-    new SelectStyle('#panel-a #styles');
+    selectStyle = new SelectStyle('#panel-a #styles');
+    selectStyle.subscribe([{
+        topic: 'mode',
+        callback: function (topic, data) {
+            selectStyle.selectValue(data.value);
+        }
+    }]);
 
     message = new Message("#message");
     message.subscribe('size');
@@ -110,6 +116,8 @@ function Controller() {
             }
         }
     ]);
+
+    PubSub.publish('mode', {value: 'bubble'});
 }
 window.addEventListener("load", function () {
 

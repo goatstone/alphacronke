@@ -5,13 +5,14 @@
 
 function SelectStyle(rootDiv) {
 
-	var $root = this.setRoot(rootDiv);
-
+    this.$root = this.setRoot(rootDiv);
     var $this = this;
-    $root.addEventListener('change', function (e) {
-
-  		PubSub.publish('mode', {value:this.value});
-     });
+    this.$root.addEventListener('change', function (e) {
+        PubSub.publish('mode', {value: this.value});
+    });
 }
-
 SelectStyle.prototype = Object.create(Component.prototype);
+SelectStyle.prototype.selectValue = function(value){
+
+    this.$root.value = value ;
+};
