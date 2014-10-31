@@ -6,7 +6,6 @@
 function SelectStyle(rootDiv) {
 
     this.$root = this.setRoot(rootDiv);
-    var $this = this;
     this.$root.addEventListener('change', function (e) {
         PubSub.publish('mode', {value: this.value});
     });

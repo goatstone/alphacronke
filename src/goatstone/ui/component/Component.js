@@ -20,7 +20,9 @@ Component.prototype.setRoot = function (rootDiv) {
  }];
  */
 Component.prototype.subscribe = function (topics) {
-    //console.log(topics);
+    if (!(topics instanceof Array)) {
+        throw 'Topics must be an array.';
+    }
     topics.forEach(
         function (e) {
             PubSub.subscribe(e.topic, function (topic, data) {

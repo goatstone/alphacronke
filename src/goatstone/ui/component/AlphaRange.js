@@ -58,20 +58,6 @@ function AlphaRange(rootDiv ) {
 }
 
 AlphaRange.prototype = Object.create(Component.prototype);
-
-AlphaRange.prototype.subscribe = function(topic){
-    var self = this;
-    PubSub.subscribe('mode', function(topic, data){
-        if(data.value  === 'bubble'){
-            self.hide();
-        }
-        else if(data.value  === 'alphaSelect'){
-            self.show();
-        }
-
-    });
-
-};
 AlphaRange.prototype.setPanel = function(panel){
     this.panel = panel;
 };

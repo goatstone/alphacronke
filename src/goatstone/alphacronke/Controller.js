@@ -12,6 +12,7 @@ function Controller() {
     // components
     var storyWords, alphaRange, selectSize, storyPartSelect, selectStyle, message;
 
+    // alphaRange
     alphaRange = new AlphaRange('#dd');
     alphaRangePanel = new Panel('#panel-alpharange', {x: 10, y: window.innerHeight - 140});
     alphaRangePanel.subscribe([{
@@ -38,8 +39,8 @@ function Controller() {
         {
             topic: "mode",
             callback: function (topic, data) {
+                storyWords.setAlphaRange(alphaRange.selectedElements);
                 storyWords.setStyle(data.value);
-                storyWords.highlightWords(alphaRange.selectedElements);
             }
         },
         {
@@ -78,6 +79,7 @@ function Controller() {
         }, function (err) {
         });
 
+    // mainPanel
     mainPanel = new Panel('#panel-a');
     mainPanel.subscribe([{
         topic: 'mainPanel',
@@ -91,11 +93,24 @@ function Controller() {
         }
     }]);
 
+    // selectSize
     selectSize = new SelectSize('#select-chart-size');
-    selectSize.subscribe('mode');
+    selectSize.subscribe([{
+        topic: "mode",
+        callback: function (topic, data) {
+            if (data.value === 'bubble') {
+                selectSize.show();
+            }
+            else if (data.value === 'alphaSelect') {
+                selectSize.hide();
+            }
+        }
+    }]);
 
+    // StoryPartSelect
     new StoryPartSelect('#story-parts-opts');
 
+    // selectStyle
     selectStyle = new SelectStyle('#panel-a #styles');
     selectStyle.subscribe([{
         topic: 'mode',
@@ -104,18 +119,30 @@ function Controller() {
         }
     }]);
 
+    // message, messagePanel
     message = new Message("#message");
-    message.subscribe('size');
-    message.subscribe('mode');
+    message.subscribe([
+        {
+            topic: "size",
+            callback: function (topic, data) {
+                message.appendStatus('size: ' + data.value);
+            }
+        },
+        {
+            topic: "mode",
+            callback: function (topic, data) {
+                message.appendStatus('mode: ' + data.value);
+            }
+        }]);
     message.set(
         '<h3>' + model.about.title + '</h3>' +
         '<p>' + model.about.description + '</p>' +
         '<address class="author">' + model.about.author + '</address>' +
         '<a href="/about/" target="new">more...</a>'
     );
-    messagePanel = new Panel('#message-panel');
-    messagePanel.position(window.innerWidth - 400, window.innerHeight - 200);
+    messagePanel = new Panel('#message-panel', {x: 300, y: 0});
 
+    // ActionBar
     new ActionBar([
         {
             title: 'About AlphaCronke',
