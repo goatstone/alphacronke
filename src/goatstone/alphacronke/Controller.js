@@ -28,11 +28,33 @@ function Controller() {
 
     // storyWords
     storyWords = new StoryWords(model);
-    storyWords.subscribe('size');
-    storyWords.subscribe('mode');
-    storyWords.subscribe('section');
-    storyWords.subscribe('alphaRange');
-    PubSub.publish('alphaRange', {value: alphaRange.selectedElements});
+    storyWords.subscribe([
+        {
+            topic: "size",
+            callback: function (topic, data) {
+                storyWords.setSize(data.value);
+            }
+        },
+        {
+            topic: "mode",
+            callback: function (topic, data) {
+                storyWords.setStyle(data.value);
+                storyWords.highlightWords(alphaRange.selectedElements);
+            }
+        },
+        {
+            topic: "section",
+            callback: function (topic, data) {
+                storyWords.setSection(data.value);
+            }
+        },
+        {
+            topic: "alphaRange",
+            callback: function (topic, data) {
+                storyWords.setAlphaRange(data.value);
+                storyWords.highlightWords(data.value);
+            }
+        }]);
 
     // get a book file from the Gutenberg Library #2051
     new ProjectGutenberg().get('datum/dickory_cronke.txt')
@@ -117,7 +139,7 @@ function Controller() {
         }
     ]);
 
-    PubSub.publish('mode', {value: 'bubble'});
+    PubSub.publish('mode', {value: 'alphaSelect'});
 }
 window.addEventListener("load", function () {
 

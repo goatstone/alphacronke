@@ -24,36 +24,15 @@ function StoryWords(model) {
     this.selectedStyle = this.styleTypes[1];
     this.reString = null;
     this.size = 700;
-
 }
+StoryWords.prototype = Object.create(Component.prototype);
 StoryWords.prototype.setAlphaRange = function(alphaRange){
        this.alphaRange = alphaRange;
-};
-StoryWords.prototype.subscribe = function (topic) {
-    var self = this;
-    var topics = {};
-    topics.size = function (topic, data) {
-        self.setSize(data.value);
-    };
-    topics.mode = function (topic, data) {
-        self.setStyle(data.value);
-        self.highlightWords(self.alphaRange);
-        //self.highlightWords(model.alphaRange);
-    };
-    topics.section = function(topic, data){
-        self.setSection( data.value );
-    };
-    topics.alphaRange = function(topic, data){
-        self.setAlphaRange(data.value);
-        self.highlightWords(data.value);
-    };
-    PubSub.subscribe(topic, topics[topic]);
 };
 StoryWords.prototype.setStyle = function (styleName) {
     this.selectedStyle = styleName;
     this.clearContent();
     this.generateBGround();
-
 };
 StoryWords.prototype.setSize = function (size) {
     this.size = size;

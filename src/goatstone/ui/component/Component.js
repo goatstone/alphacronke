@@ -4,13 +4,13 @@
  */
 
 function Component() {
- }
- Component.prototype.setRoot = function(rootDiv){
+}
+Component.prototype.setRoot = function (rootDiv) {
 
     this.$root = document.querySelector(rootDiv);
     this.show();
     return this.$root;
- };
+};
 /* subscribe expects and object in this form:
  [{
  topic: 'mode',
@@ -20,16 +20,21 @@ function Component() {
  }];
  */
 Component.prototype.subscribe = function (topics) {
-    PubSub.subscribe(topics[0].topic, function (topic, data) {
-        topics[0].callback(topic, data);
-    });
+    //console.log(topics);
+    topics.forEach(
+        function (e) {
+            PubSub.subscribe(e.topic, function (topic, data) {
+                e.callback(topic, data);
+            });
+        }
+    );
 };
-Component.prototype.show = function(){
+Component.prototype.show = function () {
 
     this.$root.style.visibility = 'visible';
 
 };
- Component.prototype.hide = function(){
+Component.prototype.hide = function () {
 
     this.$root.style.visibility = 'hidden';
 
