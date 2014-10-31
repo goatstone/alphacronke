@@ -64,36 +64,43 @@ body {
  }
 /* END goatstone.ui.ActionBar */
 
- 
-
-/* AlphaRange */
-#dd {
-    /*position: fixed;*/
-/*    top: 100px;
-    left: 20px;
-    width: 400px;
-*/    /*height: 68px;*/
+ /*
+    alpha-range .css
+*/
+#alpha-range {
     opacity: 1;
     z-index: 200;
-    background-color: #ccc;
+    background-color: #fff;
     border-radius: 6px;
     padding: 7px;
     visibility: hidden;
+    margin: 5px 0 0 0 ;
 }
 
-#dd #scale_background {
-    top: 33px;
-    width: 400px;
-    height: 40px;
-    background-color: #fff;
-    position: absolute;
-    border-top-right-radius: 7px;
-    border-bottom-left-radius: 7px;
-    border-bottom-right-radius: 7px;
-    z-index: 0;
+/*#alpha-range #scale_background {*/
+    /*top: 25px;*/
+    /*width: 400px;*/
+    /*height: 40px;*/
+    /*background-color: #fff;*/
+    /*position: absolute;*/
+    /*border-radius: 6px;*/
+    /*z-index: 0;*/
+/*}*/
+
+#alpha-range svg {
+    left: 0px;
+    top: 0px;
+    position: relative;
+    opacity: 0.5;
+    /*top: 25px;*/
+    /*width: 400px;*/
+    /*height: 40px;*/
+    /*background-color: #fff;*/
+    /*position: absolute;*/
+    /*border-radius: 6px;*/
+    /*z-index: 0;*/
 }
 
-/* END AlphaRange */
 
  
 #message{

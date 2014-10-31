@@ -13,8 +13,8 @@ function Controller() {
     var storyWords, alphaRange, selectSize, storyPartSelect, selectStyle, message;
 
     // alphaRange
-    alphaRange = new AlphaRange('#dd');
-    alphaRangePanel = new Panel('#panel-alpharange', {x: 10, y: window.innerHeight - 140});
+    alphaRange = new AlphaRange('#alpha-range');
+    alphaRangePanel = new Panel('#panel-alpharange', {x: 100, y: window.innerHeight - 140});
     alphaRangePanel.subscribe([{
         topic: 'mode',
         callback: function (topic, data) {

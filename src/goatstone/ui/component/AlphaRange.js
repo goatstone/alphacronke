@@ -6,11 +6,11 @@
  * Goatstone : 5.20.2014
  * */
 
-function AlphaRange(rootDiv ) {
+function AlphaRange(rootDiv) {
 
     this.config = {
         width: 410,
-        height: 35,
+        height: 25,
         color: d3.rgb(30, 30, 30),
         scaleSymbols: {
             colorOn: d3.rgb(255, 255, 255),
@@ -20,7 +20,7 @@ function AlphaRange(rootDiv ) {
         },
         selector: {
             arc: {
-                color: d3.rgb(20, 100, 225), //30,100,255
+                color: d3.rgb(20, 100, 225),
                 opacity: 0.6
             },
             selectedWindow: {
@@ -29,9 +29,6 @@ function AlphaRange(rootDiv ) {
             }
         }
     };
-    this.dDivDims = [
-        {x: 20, y: window.innerHeight - 140}
-    ];
 
     var $root = this.setRoot(rootDiv);
     this.ordinalScale;
@@ -58,38 +55,19 @@ function AlphaRange(rootDiv ) {
 }
 
 AlphaRange.prototype = Object.create(Component.prototype);
-AlphaRange.prototype.setPanel = function(panel){
+AlphaRange.prototype.setPanel = function (panel) {
     this.panel = panel;
 };
-AlphaRange.prototype.initDraw = function(){
-    var $this  =this;
+AlphaRange.prototype.initDraw = function () {
+    var $this = this;
     var brushArc;
     var brushGroup;
     var svgTag;
 
-    this.$root.style.left = this.dDivDims[0].x + "px";
-    this.$root.style.top = this.dDivDims[0].y + 'px';
-//    this.$root.style.visibility = 'visible';
-
-    var dDiv = d3.select("#dd")
-        .selectAll("div#alpha-range")
-        .data(this.dDivDims)
-        .enter().append("div");
-
-    dDiv.append("div")
-        .attr("id", "scale_background");
-
-
-    svgTag = d3.select("#dd")
+    svgTag = d3.select("#alpha-range")
         .append("svg")
         .attr("width", this.config.width)
-        .attr("height", this.config.height)
-        .style({
-            "left": "0px",
-            "top": "7px",
-            "position": "relative",
-            "opacity": 0.5
-        });
+        .attr("height", this.config.height);
 
     // SVG group to represent the ordinal scale
     this.ordinalGroup = svgTag.append("g");
@@ -102,7 +80,7 @@ AlphaRange.prototype.initDraw = function(){
             return d;
         })
         .attr("x", function (d) {
-            return  20+ $this.ordinalScale(d) * 363;
+            return 20 + $this.ordinalScale(d) * 363;
         })
         .attr("y", function (d) {
             return $this.config.height / 2;
@@ -122,7 +100,7 @@ AlphaRange.prototype.initDraw = function(){
         })
         .on("brushend", function () {
             $this.setSelectedElements();
-            PubSub.publish('alphaRange', {value:$this.selectedElements});
+            PubSub.publish('alphaRange', {value: $this.selectedElements});
             return 1;
         });
     brushArc = d3.svg.arc()
@@ -151,7 +129,7 @@ AlphaRange.prototype.draw = function () {
     this.ordinalGroup
         .selectAll("text")
         .text(function (d) {
-            return  d;
+            return d;
         })
         .attr("fill", function (d) {
             if ($this.selectedElements.indexOf(d) !== -1) {
@@ -174,7 +152,7 @@ AlphaRange.prototype.setSelectedElements = function () {
             $this.selectedElements += e;
         }
     });
-    if(this.selectedElements === this.prevSelectedElements){
+    if (this.selectedElements === this.prevSelectedElements) {
         return;
     }
     this.prevSelectedElements = this.selectedElements;
