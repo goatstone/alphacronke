@@ -1,77 +1,75 @@
 /* Gruntfile.js
-*/
+ */
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
-  grunt.initConfig({
+    grunt.initConfig({
 
-    pkg: grunt.file.readJSON('package.json'),
+        pkg: grunt.file.readJSON('package.json'),
 
-    watch: {
-      scripts: {
-        files: [
-          './src/goatstone/alphacronke/style/*.css', 
-          './src/goatstone/ui/style/main.css',  
-          // './src/goatstone/ui/style/*.css',  
-          '<%= jshint.files %>'
-        ],
-        tasks: ['default'],
-        options: {
-          spawn:false,
-          event:['all'],
-          livereload: true 
+        watch: {
+            scripts: {
+                files: [
+                    './src/goatstone/**/*.css',
+                    '<%= jshint.files %>'
+                ],
+                tasks: ['default'],
+                options: {
+                    spawn: false,
+                    event: ['all'],
+                    livereload: true
+                }
+            }
         },
-      },
-    },
-    concat: {
-      options: {
-        separator: ' '
-      },
-      dist: {
-        src: ['src/goatstone/**/*.js'  ],
-        dest: 'public/js/<%= pkg.name %>.js'
-      },
-      css: {
-        //   src: ['src/goatstone/style/*.css' ],
-        src: [
-        'src/goatstone/alphacronke/style/*.css', 
-        'src/goatstone/ui/style/*.css' 
-        ],
-        dest: 'public/css/<%= pkg.name %>.all.css'
-      }
-    },
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-      },
-      dist: {
-        files: {
-          'public/js/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+        concat: {
+            options: {
+                separator: ' '
+            },
+            dist: {
+                src: ['src/goatstone/**/*.js'],
+                dest: 'public/js/<%= pkg.name %>.js'
+            },
+            css: {
+                //   src: ['src/goatstone/style/*.css' ],
+                src: [
+                    'src/goatstone/alphacronke/style/*.css',
+                    'src/goatstone/ui/style/*.css'
+                ],
+                dest: 'public/css/<%= pkg.name %>.all.css'
+            }
+        },
+        uglify: {
+            options: {
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+            },
+            dist: {
+                files: {
+                    'public/js/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+                }
+            }
+        },
+        jshint: {
+            files: ['Gruntfile.js', 'src/goatstone/**/*.js'],
+            options: {
+                //  options here to override JSHint defaults
+                "-W030": true,
+                globals: {
+                    jQuery: true,
+                    console: true,
+                    module: true,
+                    document: true
+                }
+            }
         }
-      }
-    },
-    jshint: {
-      files: ['Gruntfile.js', 'src/goatstone/**/*.js'],
-      options: {
-        //  options here to override JSHint defaults
-        "-W030":true, 
-        globals: {
-          jQuery: true,
-          console: true,
-          module: true,
-          document: true
-        }
-      }
-    }
-  });
+    });
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
-  // Default task(s). 
-   // grunt.registerTask('default', ['jshint', 'watch', 'concat', 'uglify']);
-  grunt.registerTask('default', ['jshint',   'concat', 'uglify']);
+    // Default task(s).
+    // grunt.registerTask('default', ['jshint', 'watch', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
 
 };

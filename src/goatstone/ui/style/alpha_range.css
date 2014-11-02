@@ -8,31 +8,49 @@
     border-radius: 6px;
     padding: 7px;
     visibility: hidden;
-    margin: 5px 0 0 0 ;
+    margin: 5px 0 0 0;
+    width: 410px;
+    height: 75px;
 }
-
-/*#alpha-range #scale_background {*/
-    /*top: 25px;*/
-    /*width: 400px;*/
-    /*height: 40px;*/
-    /*background-color: #fff;*/
-    /*position: absolute;*/
-    /*border-radius: 6px;*/
-    /*z-index: 0;*/
-/*}*/
 
 #alpha-range svg {
     left: 0px;
     top: 0px;
     position: relative;
-    opacity: 0.5;
-    /*top: 25px;*/
-    /*width: 400px;*/
-    /*height: 40px;*/
-    /*background-color: #fff;*/
-    /*position: absolute;*/
-    /*border-radius: 6px;*/
-    /*z-index: 0;*/
+    background-color: aliceblue;
 }
 
+#alpha-range svg g {
+    fill: red;
+}
 
+#alpha-range svg rect {
+    fill: blue;
+    fill-opacity: .25;
+}
+
+#alpha-range svg text {
+    fill-opacity: 1;
+}
+
+#alpha-range .element-bg {
+    fill: #ccc;
+    fill-opacity: 1;
+}
+
+#alpha-range .element-text {
+    font-weight: 900;
+    fill: #222;
+    fill-opacity: 1;
+    font-size: 32px;
+}
+
+#alpha-range .highlight {
+    fill: red;
+    font-size: 32px;
+}
+
+#alpha-range .lowlight {
+    fill: green;
+    font-size: 32px;
+}

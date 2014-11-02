@@ -39,7 +39,7 @@ function Controller() {
         {
             topic: "mode",
             callback: function (topic, data) {
-                storyWords.setAlphaRange(alphaRange.selectedElements);
+                //storyWords.setAlphaRange(alphaRange.selectedElements);
                 storyWords.setStyle(data.value);
             }
         },
@@ -140,7 +140,7 @@ function Controller() {
         '<address class="author">' + model.about.author + '</address>' +
         '<a href="/about/" target="new">more...</a>'
     );
-    messagePanel = new Panel('#message-panel', {x: 300, y: 0});
+    messagePanel = new Panel('#message-panel', {x: 600, y: 0});
     messagePanel.subscribe([
         {
             topic: "messagePanel",
