@@ -16,8 +16,9 @@ function AlphaRange(rootDiv) {
     //var domainMax = 3.0;
     this.initExtent = [0, 4];
     this.alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-    var allElements = this.alphabet;
-    var domainMax = allElements.length - 1;
+    this.allElements = this.alphabet;
+    this.range = 'abc';
+    var domainMax = this.allElements.length - 1;
     this.linearScale = d3.scale
         .linear()
         .domain([0, domainMax])
@@ -32,7 +33,7 @@ function AlphaRange(rootDiv) {
     this.ordinalGroup = svgTag.append("g");
     this.ordinalGroup
         .selectAll("rect")
-        .data(allElements)
+        .data(this.allElements)
         .enter()
         .append("rect")
         .attr('class', "element-bg")
@@ -46,7 +47,7 @@ function AlphaRange(rootDiv) {
         });
     this.ordinalGroup
         .selectAll("text")
-        .data(allElements)
+        .data(this.allElements)
         .enter()
         .append("text")
         .attr('class', "element-text")
@@ -78,13 +79,7 @@ function AlphaRange(rootDiv) {
             return 1;
         })
         .on("brushend", function () {
-            var extMin = Math.round($this.brush.extent()[0]);
-            var extMax = Math.round($this.brush.extent()[1]);
-            var res = allElements.slice(extMin, extMax + 1).join('');
-            $this.extMin = extMin;
-            $this.extMax = extMax;
-            $this.updateText();
-            PubSub.publish('alphaRange', {value: res});
+            PubSub.publish('alphaRange', {value: $this.setRange()});
             return 1;
         });
     brushArc = d3.svg.arc()
@@ -100,9 +95,25 @@ function AlphaRange(rootDiv) {
         .attr("d", brushArc);
     brushGroup.selectAll("rect")
         .attr("height", this.height)
-        .attr("y", 20 );
+        .attr("y", 20);
+
+    $this.setRange();
+
 }
 AlphaRange.prototype = Object.create(Component.prototype);
+AlphaRange.prototype.setRange = function () {
+    var extMin = Math.round(this.brush.extent()[0]);
+    var extMax = Math.round(this.brush.extent()[1]);
+    var res = this.allElements.slice(extMin, extMax + 1).join('');
+    this.extMin = extMin;
+    this.extMax = extMax;
+    this.range = res;
+    this.updateText();
+    return res;
+};
+AlphaRange.prototype.getRange = function () {
+    return this.range;
+};
 AlphaRange.prototype.updateText = function () {
     var self = this;
     this.ordinalGroup

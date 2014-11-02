@@ -1,12 +1,51 @@
-/* main.css */
+
+#bubble-text {
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+/*#bubble-text span {*/
+    /*float: left;*/
+    /*padding: 3px;*/
+/*}*/
+
+/*#story_words p {*/
+    /*float: left;*/
+    /*padding: 3px;*/
+    /*margin: 1px;*/
+/*}*/
+ 
+#line-text{
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+#line-text span {
+    float: left;
+    padding: 3px;
+}
+
+#line-text p {
+    float: left;
+    padding: 3px;
+    margin: 1px;
+}
+ /* main.css */
 
 body {
-    background-color: azure;
+    background-color: blue;
     font-family: sans-serif, Helvetica, Verdana;
     height: 100%
 }
 
  
+#story_words {
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
 
 #story_words span {
     float: left;
@@ -16,7 +55,7 @@ body {
 #story_words p {
     float: left;
     padding: 3px;
-    margin: 1px; 
+    margin: 1px;
 }
  
 

@@ -27,35 +27,36 @@ function Controller() {
         }
     }]);
 
+
     // storyWords
-    storyWords = new StoryWords(model);
-    storyWords.subscribe([
-        {
-            topic: "size",
-            callback: function (topic, data) {
-                storyWords.setSize(data.value);
-            }
-        },
-        {
-            topic: "mode",
-            callback: function (topic, data) {
-                //storyWords.setAlphaRange(alphaRange.selectedElements);
-                storyWords.setStyle(data.value);
-            }
-        },
-        {
-            topic: "section",
-            callback: function (topic, data) {
-                storyWords.setSection(data.value);
-            }
-        },
-        {
-            topic: "alphaRange",
-            callback: function (topic, data) {
-                storyWords.setAlphaRange(data.value);
-                storyWords.highlightWords(data.value);
-            }
-        }]);
+    //storyWords = new StoryWords(model);
+    //storyWords.subscribe([
+    //    {
+    //        topic: "size",
+    //        callback: function (topic, data) {
+    //            storyWords.setSize(data.value);
+    //        }
+    //    },
+    //    {
+    //        topic: "mode",
+    //        callback: function (topic, data) {
+    //            //storyWords.setAlphaRange(alphaRange.selectedElements);
+    //            storyWords.setStyle(data.value);
+    //        }
+    //    },
+    //    {
+    //        topic: "section",
+    //        callback: function (topic, data) {
+    //            storyWords.setSection(data.value);
+    //        }
+    //    },
+    //    {
+    //        topic: "alphaRange",
+    //        callback: function (topic, data) {
+    //            storyWords.setAlphaRange(data.value);
+    //            storyWords.highlightWords(data.value);
+    //        }
+    //    }]);
 
     // get a book file from the Gutenberg Library #2051
     new ProjectGutenberg().get('datum/dickory_cronke.txt')
@@ -79,8 +80,26 @@ function Controller() {
         }, function (err) {
         });
 
+    // lineText
+    var lineText = new LineText(model);
+    //lineText.setAlphaRange(alphaRange.getRange());
+    lineText.subscribe([
+        {
+            topic: "section",
+            callback: function (topic, data) {
+                lineText.setSection(data.value);
+            }
+        },
+        {
+            topic: "alphaRange",
+            callback: function (topic, data) {
+                lineText.setAlphaRange(data.value);
+            }
+        }
+    ]);
+
     // mainPanel
-    mainPanel = new Panel('#panel-a');
+    mainPanel = new Panel('#panel-a', {x: 300, y: 30});
     mainPanel.subscribe([{
         topic: 'mainPanel',
         callback: function (topic, data) {
@@ -176,7 +195,8 @@ function Controller() {
         }
     ]);
 
-    PubSub.publish('mode', {value: 'alphaSelect'});
+    PubSub.publish('alphaRange', {value: alphaRange.getRange()});
+    //PubSub.publish('mode', {value: 'alphaSelect'});
 }
 window.addEventListener("load", function () {
     new Controller();

@@ -1,16 +1,16 @@
 
-#story_words {
+#line-text{
     position: relative;
     top: 20px;
     left: 20px;
 }
 
-#story_words span {
+#line-text span {
     float: left;
     padding: 3px;
 }
 
-#story_words p {
+#line-text p {
     float: left;
     padding: 3px;
     margin: 1px;
