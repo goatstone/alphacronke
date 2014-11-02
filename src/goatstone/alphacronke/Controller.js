@@ -10,7 +10,7 @@ function Controller() {
     // panels
     var alphaRangePanel, mainPanel, messagePanel;
     // components
-    var storyWords, alphaRange, selectSize, storyPartSelect, selectStyle, message;
+    var storyWords, alphaRange, selectSize, storyPartSelect, selectStyle, message, lineText;
 
     // alphaRange
     alphaRange = new AlphaRange('#alpha-range');
@@ -76,18 +76,20 @@ function Controller() {
             model.story.partThree = sections.slice(130, 172);
             sections = null;
             storyText = null;
+
+            PubSub.publish('messagePanel', {value: 'hide'});
             PubSub.publish('section', {value: 'intro'});
+            PubSub.publish('alphaRange', {value: alphaRange.getRange()});
         }, function (err) {
         });
 
     // lineText
-    var lineText = new LineText(model);
-    //lineText.setAlphaRange(alphaRange.getRange());
+    lineText = new LineText(model);
     lineText.subscribe([
         {
             topic: "section",
             callback: function (topic, data) {
-                lineText.setSection(data.value);
+                lineText.draw(model.story[data.value]);
             }
         },
         {
@@ -194,9 +196,6 @@ function Controller() {
             }
         }
     ]);
-
-    PubSub.publish('alphaRange', {value: alphaRange.getRange()});
-    //PubSub.publish('mode', {value: 'alphaSelect'});
 }
 window.addEventListener("load", function () {
     new Controller();
