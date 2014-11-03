@@ -8,7 +8,8 @@
  var lineText = new LineText();
  * */
 
-function LineText(model) {
+function LineText(rootDiv) {
+    var $root = this.setRoot(rootDiv);
     this.alphaRange;
     this.words;
 }

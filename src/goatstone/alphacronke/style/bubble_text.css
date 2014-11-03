@@ -3,15 +3,10 @@
     position: absolute;
     top: 0px;
     left: 0px;
+    width: 100%;
 }
 
-/*#bubble-text span {*/
-    /*float: left;*/
-    /*padding: 3px;*/
-/*}*/
-
-/*#story_words p {*/
-    /*float: left;*/
-    /*padding: 3px;*/
-    /*margin: 1px;*/
-/*}*/
+#bubble-text svg.bubble {
+    display: block;
+    margin: auto;
+}

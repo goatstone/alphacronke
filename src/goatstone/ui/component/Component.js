@@ -8,7 +8,6 @@ function Component() {
 Component.prototype.setRoot = function (rootDiv) {
 
     this.$root = document.querySelector(rootDiv);
-    this.show();
     return this.$root;
 };
 /* subscribe expects and object in this form:

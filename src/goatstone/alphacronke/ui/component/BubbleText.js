@@ -8,8 +8,8 @@
  var bubbleText = new BubbleText();
  * */
 
-function BubbleText(model) {
-    this.model = model;
+function BubbleText(rootDiv) {
+    var $root = this.setRoot(rootDiv);
     this.bubbleData = {children: []};
     this.size = 700;
 }

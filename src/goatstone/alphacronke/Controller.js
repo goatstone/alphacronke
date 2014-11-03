@@ -15,48 +15,19 @@ function Controller() {
     // alphaRange
     alphaRange = new AlphaRange('#alpha-range');
     alphaRangePanel = new Panel('#panel-alpharange', {x: 100, y: window.innerHeight - 140});
-    alphaRangePanel.subscribe([{
-        topic: 'mode',
-        callback: function (topic, data) {
-            if (data.value === 'alphaSelect') {
-                alphaRangePanel.show();
-            }
-            else {
-                alphaRangePanel.hide();
+    alphaRangePanel.subscribe([
+        {
+            topic: 'mode',
+            callback: function (topic, data) {
+                if (data.value === 'alphaSelect') {
+                    alphaRangePanel.show();
+                }
+                else {
+                    alphaRangePanel.hide();
+                }
             }
         }
-    }]);
-
-
-    // storyWords
-    //storyWords = new StoryWords(model);
-    //storyWords.subscribe([
-    //    {
-    //        topic: "size",
-    //        callback: function (topic, data) {
-    //            storyWords.setSize(data.value);
-    //        }
-    //    },
-    //    {
-    //        topic: "mode",
-    //        callback: function (topic, data) {
-    //            //storyWords.setAlphaRange(alphaRange.selectedElements);
-    //            storyWords.setStyle(data.value);
-    //        }
-    //    },
-    //    {
-    //        topic: "section",
-    //        callback: function (topic, data) {
-    //            storyWords.setSection(data.value);
-    //        }
-    //    },
-    //    {
-    //        topic: "alphaRange",
-    //        callback: function (topic, data) {
-    //            storyWords.setAlphaRange(data.value);
-    //            storyWords.highlightWords(data.value);
-    //        }
-    //    }]);
+    ]);
 
     // get a book file from the Gutenberg Library #2051
     new ProjectGutenberg().get('datum/dickory_cronke.txt')
@@ -80,13 +51,24 @@ function Controller() {
             PubSub.publish('messagePanel', {value: 'hide'});
             PubSub.publish('section', {value: 'intro'});
             PubSub.publish('alphaRange', {value: alphaRange.getRange()});
-            PubSub.publish('mode', {value: 'bubble'});
+            PubSub.publish('mode', {value: 'bubble'}); // alphaSelect bubble
         }, function (err) {
         });
 
     // bubbleText
-    var bubbleText = new BubbleText(model);
+    var bubbleText = new BubbleText('#bubble-text');
     bubbleText.subscribe([
+        {
+            topic: 'mode',
+            callback: function (topic, data) {
+                if (data.value === 'bubble') {
+                    bubbleText.show();
+                }
+                else {
+                    bubbleText.hide();
+                }
+            }
+        },
         {
             topic: "section",
             callback: function (topic, data) {
@@ -102,7 +84,7 @@ function Controller() {
     ]);
 
     // lineText
-    lineText = new LineText(model);
+    lineText = new LineText("#line-text");
     lineText.subscribe([
         {
             topic: "section",
@@ -115,58 +97,65 @@ function Controller() {
             callback: function (topic, data) {
                 lineText.setAlphaRange(data.value);
             }
-        }, {
+        },
+        {
             topic: 'mode',
             callback: function (topic, data) {
-                if (data.value === 'bubble') {
-                    //lineText.hide();
+                if (data.value === 'alphaSelect') {
+                    lineText.show();
                 }
-                //else if (data.value === 'hide') {
-                //    mainPanel.hide();
-                //}
+                else {
+                    lineText.hide();
+                }
             }
         }
     ]);
 
     // mainPanel
     mainPanel = new Panel('#panel-a', {x: 300, y: 30});
-    mainPanel.subscribe([{
-        topic: 'mainPanel',
-        callback: function (topic, data) {
-            if (data.value === 'show') {
-                mainPanel.show();
-            }
-            else if (data.value === 'hide') {
-                mainPanel.hide();
+    mainPanel.subscribe([
+        {
+            topic: 'mainPanel',
+            callback: function (topic, data) {
+                if (data.value === 'show') {
+                    mainPanel.show();
+                }
+                else if (data.value === 'hide') {
+                    mainPanel.hide();
+                }
             }
         }
-    }]);
+    ]);
 
     // selectSize
     selectSize = new SelectSize('#select-chart-size');
-    selectSize.subscribe([{
-        topic: "mode",
-        callback: function (topic, data) {
-            if (data.value === 'bubble') {
-                selectSize.show();
-            }
-            else if (data.value === 'alphaSelect') {
-                selectSize.hide();
+    selectSize.subscribe([
+        {
+            topic: "mode",
+            callback: function (topic, data) {
+                if (data.value === 'bubble') {
+                    selectSize.show();
+                }
+                else if (data.value === 'alphaSelect') {
+                    selectSize.hide();
+                }
             }
         }
-    }]);
+    ]);
 
     // StoryPartSelect
     new StoryPartSelect('#story-parts-opts');
 
     // selectStyle
     selectStyle = new SelectStyle('#panel-a #styles');
-    selectStyle.subscribe([{
-        topic: 'mode',
-        callback: function (topic, data) {
-            selectStyle.selectValue(data.value);
+    selectStyle.subscribe([
+        {
+            topic: 'mode',
+            callback: function (topic, data) {
+                selectStyle.selectValue(data.value);
+            }
         }
-    }]);
+    ]);
 
     // message, messagePanel
     message = new Message("#message");
@@ -182,12 +171,13 @@ function Controller() {
             callback: function (topic, data) {
                 message.appendStatus('mode: ' + data.value);
             }
-        }]);
+        }
+    ]);
     message.set(
-        '<h3>' + model.about.title + '</h3>' +
-        '<p>' + model.about.description + '</p>' +
-        '<address class="author">' + model.about.author + '</address>' +
-        '<a href="/about/" target="new">more...</a>'
+            '<h3>' + model.about.title + '</h3>' +
+            '<p>' + model.about.description + '</p>' +
+            '<address class="author">' + model.about.author + '</address>' +
+            '<a href="/about/" target="new">more...</a>'
     );
     messagePanel = new Panel('#message-panel', {x: 600, y: 0});
     messagePanel.subscribe([
@@ -201,7 +191,8 @@ function Controller() {
                     messagePanel.hide();
                 }
             }
-        }]);
+        }
+    ]);
 
     // ActionBar
     new ActionBar([
