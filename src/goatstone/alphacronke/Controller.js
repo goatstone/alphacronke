@@ -17,6 +17,14 @@ function Controller() {
     alphaRangePanel = new Panel('#panel-alpharange', {x: 100, y: window.innerHeight - 140});
     alphaRangePanel.subscribe([
         {
+            topic: 'alphaRangePanel',
+            callback: function (topic, data) {
+                if (data.value === 'show') {
+                    alphaRangePanel.show();
+                }
+            }
+        },
+        {
             topic: 'mode',
             callback: function (topic, data) {
                 if (data.value === 'alphaSelect') {
@@ -48,10 +56,11 @@ function Controller() {
             sections = null;
             storyText = null;
 
-            PubSub.publish('messagePanel', {value: 'hide'});
             PubSub.publish('section', {value: 'intro'});
             PubSub.publish('alphaRange', {value: alphaRange.getRange()});
             PubSub.publish('mode', {value: 'bubble'}); // alphaSelect bubble
+            PubSub.publish('mainPanel', {value: 'show'}); // alphaSelect bubble
+            PubSub.publish('messagePanel', {value: 'show'});
         }, function (err) {
         });
 
@@ -179,7 +188,7 @@ function Controller() {
             '<address class="author">' + model.about.author + '</address>' +
             '<a href="/about/" target="new">more...</a>'
     );
-    messagePanel = new Panel('#message-panel', {x: 600, y: 0});
+    messagePanel = new Panel('#message-panel', {x: window.innerWidth - 400, y: 70});
     messagePanel.subscribe([
         {
             topic: "messagePanel",

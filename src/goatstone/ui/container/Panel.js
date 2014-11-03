@@ -37,7 +37,6 @@ function Panel(rootDiv, settings) {
         }
 
         this.setDrag();
-        this.show();
     }
 }
 /* subscribe expects and object in this form:
@@ -49,9 +48,16 @@ function Panel(rootDiv, settings) {
 }];
 */
 Panel.prototype.subscribe = function (topics) {
-    PubSub.subscribe(topics[0].topic, function (topic, data) {
-        topics[0].callback(topic, data);
-    });
+    if (!(topics instanceof Array)) {
+        throw 'Topics must be an array.';
+    }
+    topics.forEach(
+        function (e) {
+            PubSub.subscribe(e.topic, function (topic, data) {
+                e.callback(topic, data);
+            });
+        }
+    );
 };
 Panel.prototype.show = function () {
     this.$root.style.visibility = 'visible';
