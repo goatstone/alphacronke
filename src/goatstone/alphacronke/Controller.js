@@ -80,8 +80,26 @@ function Controller() {
             PubSub.publish('messagePanel', {value: 'hide'});
             PubSub.publish('section', {value: 'intro'});
             PubSub.publish('alphaRange', {value: alphaRange.getRange()});
+            PubSub.publish('mode', {value: 'bubble'});
         }, function (err) {
         });
+
+    // bubbleText
+    var bubbleText = new BubbleText(model);
+    bubbleText.subscribe([
+        {
+            topic: "section",
+            callback: function (topic, data) {
+                bubbleText.setData(model.story[data.value]);   // set the data, triggers redraw
+            }
+        },
+        {
+            topic: "size",
+            callback: function (topic, data) {
+                bubbleText.setSize(data.value);
+            }
+        }
+    ]);
 
     // lineText
     lineText = new LineText(model);
@@ -89,13 +107,23 @@ function Controller() {
         {
             topic: "section",
             callback: function (topic, data) {
-                lineText.draw(model.story[data.value]);
+                lineText.draw(model.story[data.value]); // draw, provide data as agrument
             }
         },
         {
             topic: "alphaRange",
             callback: function (topic, data) {
                 lineText.setAlphaRange(data.value);
+            }
+        }, {
+            topic: 'mode',
+            callback: function (topic, data) {
+                if (data.value === 'bubble') {
+                    //lineText.hide();
+                }
+                //else if (data.value === 'hide') {
+                //    mainPanel.hide();
+                //}
             }
         }
     ]);

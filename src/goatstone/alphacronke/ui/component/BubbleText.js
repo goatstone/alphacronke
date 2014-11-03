@@ -1,64 +1,37 @@
 /*
- goatstone.alphacronke.ui.component.StoryWords
+ goatstone.alphacronke.ui.component.BubbleText
 
  Display text and provide a method to modify its appearance.
  - goatstone: 8.2014
 
  Usage:
- var storyWords = new StoryWords();
-
+ var bubbleText = new BubbleText();
  * */
 
 function BubbleText(model) {
-
     this.model = model;
-    this.alphaRange = 'a';
-    this.words;
-    this.sectionsWords = [];
-    this.wordConfig = {
-        "backgroundColorOff": "#444",
-        "backgroundColorOn": "#ccc"
-    };
     this.bubbleData = {children: []};
-    this.styleTypes = ['bubble', 'alphaSelect'];
-    this.selectedStyle = this.styleTypes[1];
-    this.reString = null;
     this.size = 700;
 }
 BubbleText.prototype = Object.create(Component.prototype);
-BubbleText.prototype.setAlphaRange = function(alphaRange){
-       this.alphaRange = alphaRange;
-};
-BubbleText.prototype.setStyle = function (styleName) {
-    this.selectedStyle = styleName;
-    this.clearContent();
-    this.generateBGround();
-};
 BubbleText.prototype.setSize = function (size) {
     this.size = size;
-    this.generateBubbleWord(Number(size));
+    this.draw();
 };
-BubbleText.prototype.setSection = function (storiesPart) {
-    var $this = this;
-    var storyPart = this.model.story[storiesPart];
-
-    this.clearContent();
-    this.sectionsWords = [];
-
-    storyPart.forEach(function (e) {
-        $this.sectionsWords.push(e.split(" "));
-    });
-
-    this.generateBGround();
-    this.highlightWords(this.alphaRange);
-
+BubbleText.prototype.setData = function (data) {
+    var d = this.setBubbleWordData(data);
+    this.draw();
 };
-BubbleText.prototype.setBubbleWordData = function () {
+BubbleText.prototype.setBubbleWordData = function (data) {
     var bwd = {};
-    //var $this = this;
+    var $this = this;
+    var a = [];
+    data.forEach(function (e) {
+        a.push(e.split(" "));
+    });
     this.bubbleData.children = [];
     var blackList = ['', 'a', 'the', 'and', 'in', 'of', 'to', 'that', 'is', 'be', 'if', 'as', 'his', 'this'];
-    this.sectionsWords.forEach(function (e, i) {
+    a.forEach(function (e, i) {
         e.forEach(function (e, i) {
             if (blackList.indexOf(e) !== -1) {
             }
@@ -70,37 +43,21 @@ BubbleText.prototype.setBubbleWordData = function () {
             }
         });
     });
-
     for (var b in bwd) {
         var t = {name: b + "", value: bwd[b] + ""};
         this.bubbleData.children.push(t);
     }
+    return data;
 };
-
-BubbleText.prototype.generateBGround = function () {
-    if (this.selectedStyle === 'bubble') {
-        this.setBubbleWordData();
-        this.generateBubbleWord(window.innerHeight);
-    }
-    else if (this.selectedStyle === 'alphaSelect') {
-        this.generateSelectWord();
-    }
-
-};
-BubbleText.prototype.generateBubbleWord = function () {
-
+BubbleText.prototype.draw = function () {
     var diameter = this.size;
-    //format = d3.format(",d"),
     var color = d3.scale.category20c();
-
     var bubble = d3.layout.pack()
         .sort(null)
         .size([diameter, diameter])
         .padding(1.5);
-
-    d3.select("svg.bubble").remove();
-
-    var svg = d3.select("body").append("svg")
+    d3.select("#bubble-text svg.bubble").remove();
+    var svg = d3.select("#bubble-text").append("svg")
         .attr("width", diameter)
         .attr("height", diameter)
         .attr("class", "bubble");
@@ -115,7 +72,6 @@ BubbleText.prototype.generateBubbleWord = function () {
         .attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
         });
-
     node.append("circle")
         .attr("r", function (d) {
             return d.r;
@@ -123,45 +79,11 @@ BubbleText.prototype.generateBubbleWord = function () {
         .style("fill", function (d) {
             return color(d.name);
         });
-
     node.append("text")
         .attr("dy", ".3em")
         .style("text-anchor", "middle")
         .text(function (d) {
             return d.name;
         });
-
     d3.select(self.frameElement).style("height", diameter + "px");
-
-};
-BubbleText.prototype.generateSelectWord = function () {
-
-    var para = d3.select("#story_words").selectAll("p")
-        .data(this.sectionsWords)
-        .enter().append("p");
-    this.words = para.selectAll("span")
-        .data(function (d) {
-            return d;
-        })
-        .enter().append("span")
-        .text(function (d) {
-            return d;
-        });
-};
-
-BubbleText.prototype.highlightWords = function (filteredStr) {
-    if (!this.words) {
-        return false;
-    }
-    $this = this;
-    this.reString = filteredStr.split("").join("|");
-    this.words.html(function (d, i) {
-        var d2 = d.replace(new RegExp("(" + $this.reString + ")", "ig"), '<em style="color:#f40">$1</em>');
-        return d2;
-    });
-};
-
-BubbleText.prototype.clearContent = function () {
-    d3.select("#story_words").selectAll("p").remove();
-    d3.select("body").selectAll("svg.bubble").remove();
 };
