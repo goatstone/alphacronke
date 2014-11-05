@@ -16,6 +16,9 @@ handlers:
 - url: /datum
   static_dir: datum
 
+- url: /image
+  static_dir: public/image
+
 - url: /about/*
   static_files:  about/index.html
   upload:  about/index.html
