@@ -1,13 +1,14 @@
 /*
  goatstone.alphacronke.ui.component.StoryPartSelect
 
+ require: SubPub
  */
 
-function StoryPartSelect(rootDiv) {
-
-    var $root = this.setRoot(rootDiv);
-    $root.addEventListener('change', function (e) {
-        PubSub.publish('section', {value:this.value});
-    });
-}
-StoryPartSelect.prototype = Object.create(Component.prototype);
+var StoryPartSelect = Component.extend({
+    initialize: function (rootDiv) {
+        this.supr(rootDiv);
+        this.$root.addEventListener('change', function (e) {
+            PubSub.publish('section', {value:this.value});
+        });
+    }
+});

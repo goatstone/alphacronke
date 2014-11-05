@@ -1,14 +1,15 @@
 /*
  goatstone.alphacronke.ui.component.SelectStyle
 
+require : PubSub
  */
 
-function SelectSize(rootDiv) {
+var SelectSize = Component.extend({
+    initialize: function (rootDiv) {
+        this.supr(rootDiv);
+        this.$root.querySelector('input').addEventListener('change', function (e) {
+            PubSub.publish('size', {value: e.target.value});
+        });
 
-    var $root = this.setRoot(rootDiv);
-    $root.querySelector('input').addEventListener('change', function (e) {
-        PubSub.publish('size', {value: e.target.value});
-    });
-}
-SelectSize.prototype = Object.create(Component.prototype);
-
+    }
+});

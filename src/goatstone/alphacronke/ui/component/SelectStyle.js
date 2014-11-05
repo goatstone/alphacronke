@@ -1,17 +1,17 @@
 /*
  goatstone.alphacronke.ui.component.SelectStyle
 
+ require: SubPub
  */
 
-function SelectStyle(rootDiv) {
-
-    this.$root = this.setRoot(rootDiv);
-    this.$root.addEventListener('change', function (e) {
-        PubSub.publish('mode', {value: this.value});
-    });
-}
-SelectStyle.prototype = Object.create(Component.prototype);
-SelectStyle.prototype.selectValue = function(value){
-
-    this.$root.value = value ;
-};
+var SelectStyle = Component.extend({
+    initialize: function (rootDiv) {
+        this.supr(rootDiv);
+        this.$root.addEventListener('change', function (e) {
+            PubSub.publish('mode', {value: this.value});
+        });
+    },
+    selectValue: function (value) {
+        this.$root.value = value;
+    }
+});
