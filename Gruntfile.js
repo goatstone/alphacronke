@@ -29,8 +29,11 @@ module.exports = function (grunt) {
                 src: ['src/goatstone/**/*.js'],
                 dest: 'public/js/<%= pkg.name %>.js'
             },
+            vendor: {
+                src: ['src/vendor/**/*.js'],
+                dest: 'public/js/vendor.js'
+            },
             css: {
-                //   src: ['src/goatstone/style/*.css' ],
                 src: [
                     'src/goatstone/alphacronke/style/*.css',
                     'src/goatstone/ui/style/*.css'
