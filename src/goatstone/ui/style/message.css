@@ -1,5 +1,24 @@
 
-#message{
-	min-width: 200px;
-	max-width: 300px;
+#message {
+    min-width: 200px;
+    max-width: 300px;
+}
+
+#message h3 {
+    margin: 3px;
+    color: #333;
+}
+
+#message p {
+    margin: 3px;
+}
+
+#message a {
+    float: right;
+    font-size: .9em;
+}
+
+address {
+    float: left;
+    color: #333;
 }

@@ -7,3 +7,12 @@ body {
     margin: 0;
 }
 
+#panel-a {
+
+}
+#panel-a input{
+    margin: 5px;
+}
+#panel-a select{
+    margin: 5px;
+}

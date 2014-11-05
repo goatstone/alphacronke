@@ -121,7 +121,7 @@ function Controller() {
     ]);
 
     // mainPanel
-    mainPanel = new Panel('#panel-a', {x: 300, y: 30});
+    mainPanel = new Panel('#panel-a', {x: 10, y: 10});
     mainPanel.subscribe([
         {
             topic: 'mainPanel',
@@ -168,27 +168,13 @@ function Controller() {
 
     // message, messagePanel
     message = new Message("#message");
-    message.subscribe([
-        {
-            topic: "size",
-            callback: function (topic, data) {
-                message.appendStatus('size: ' + data.value);
-            }
-        },
-        {
-            topic: "mode",
-            callback: function (topic, data) {
-                message.appendStatus('mode: ' + data.value);
-            }
-        }
-    ]);
     message.set(
             '<h3>' + model.about.title + '</h3>' +
             '<p>' + model.about.description + '</p>' +
             '<address class="author">' + model.about.author + '</address>' +
             '<a href="/about/" target="new">more...</a>'
     );
-    messagePanel = new Panel('#message-panel', {x: window.innerWidth - 400, y: 70});
+    messagePanel = new Panel('#message-panel', {x: window.innerWidth - 330, y: 70});
     messagePanel.subscribe([
         {
             topic: "messagePanel",

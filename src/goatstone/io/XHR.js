@@ -1,17 +1,14 @@
 //  XHR
-function XHR(){
+function XHR() {
 }
-XHR.prototype.get = function(url){
+XHR.prototype.get = function (url) {
 
-	return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
 
-		$.get(url)
-		.then(function(data, textStatus, jqXHR){
-			resolve(data);	
-		},function(jqXHR, textStatus, errorThrown ){
-			reject( textStatus );
-		});
-					
-	});
+        reqwest(url, function (resp) {
+            resolve(resp);
+        });
+
+    });
 
 };
