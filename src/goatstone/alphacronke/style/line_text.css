@@ -6,11 +6,14 @@
     background-color: #333;
     overflow: auto;
     visibility: hidden;
+    color:#99b;
 }
 
 #line-text span {
     float: left;
     padding: 3px;
+    margin: 1px;
+    border-radius: 3px;
 }
 
 #line-text p {

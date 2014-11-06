@@ -58,7 +58,7 @@ function Controller() {
 
             PubSub.publish('section', {value: 'intro'});
             PubSub.publish('alphaRange', {value: alphaRange.getRange()});
-            PubSub.publish('mode', {value: 'bubble'}); // alphaSelect bubble
+            PubSub.publish('mode', {value: 'alphaSelect'}); // alphaSelect bubble
             PubSub.publish('mainPanel', {value: 'show'}); // alphaSelect bubble
             PubSub.publish('messagePanel', {value: 'show'});
         }, function (err) {

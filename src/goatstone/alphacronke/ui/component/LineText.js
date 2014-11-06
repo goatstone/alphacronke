@@ -4,7 +4,7 @@
  Display text and provide a method to modify its appearance.
  - goatstone: 8.2014
 
-Require: Component PubSub D3
+ Require: Component PubSub D3
 
  Usage:
  var lineText = new LineText();
@@ -18,12 +18,15 @@ var LineText = Component.extend({
         this.highlightWords();
     },
     draw: function (storiesPart) {
-        d3.select("#line-text")
+        var sp = storiesPart.map(function (e) {
+            return e.split(' ');
+        });
+        d3.select(this.$root)
             .selectAll("p")
             .remove();
-        var paragraph = d3.select("#line-text")
+        var paragraph = d3.select(this.$root)
             .selectAll("p")
-            .data(storiesPart)
+            .data(sp)
             .enter()
             .append("p");
         this.words = paragraph
@@ -41,9 +44,15 @@ var LineText = Component.extend({
     highlightWords: function (msg) {
         if (!this.alphaRange)return;
         var reString = this.alphaRange.split("").join("|");
-        this.words.html(function (d, i) {
-            var d2 = d.replace(new RegExp("(" + reString + ")", "ig"), '<em style="color:#f40">$1</em>');
-            return d2;
-        });
+        d3.select(this.$root).selectAll('p').selectAll('span')
+            .style("background-color", function (d, i) {
+                var isSelected = false;
+                isSelected = new RegExp(reString, 'ig').test(d);
+                return isSelected ? '#555' : '#333';
+            })
+            .html(function (d, i) {
+                var d2 = d.replace(new RegExp("(" + reString + ")", "ig"), '<em style="color:#fbb">$1</em>');
+                return d2;
+            });
     }
 });
