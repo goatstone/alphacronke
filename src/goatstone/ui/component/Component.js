@@ -11,15 +11,13 @@ var Component = klass({
     },
     show: function () {
         this.$root.style.visibility = 'visible';
+        this.$root.style.display = 'block';
         for (var i = 0; i < this.$root.children.length; i++) {
             this.$root.children[i].style.visibility = 'visible';
         }
     },
     hide: function () {
-        this.$root.style.visibility = 'hidden';
-        for (var i = 0; i < this.$root.children.length; i++) {
-            this.$root.children[i].style.visibility = 'hidden';
-        }
+        this.$root.style.display = 'none';
     },
     /* subscribe expects and object in this form:
      [{
