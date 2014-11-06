@@ -1,18 +1,25 @@
 /*
  goatstone.ui.component.Component.js
-    require PubSub
+ require PubSub
  */
 
 var Component = klass({
     $root: null,
     initialize: function (rootDiv) {
+        if (!rootDiv) throw "Root Element must be provided.";
         this.$root = document.querySelector(rootDiv);
     },
     show: function () {
         this.$root.style.visibility = 'visible';
+        for (var i = 0; i < this.$root.children.length; i++) {
+            this.$root.children[i].style.visibility = 'visible';
+        }
     },
     hide: function () {
         this.$root.style.visibility = 'hidden';
+        for (var i = 0; i < this.$root.children.length; i++) {
+            this.$root.children[i].style.visibility = 'hidden';
+        }
     },
     /* subscribe expects and object in this form:
      [{
