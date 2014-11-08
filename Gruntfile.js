@@ -7,6 +7,18 @@ module.exports = function (grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        /**
+         * Mocha Unit Tests & Blanket Coverage 
+         */ 
+        blanket_mocha: {
+            all: ["test/test_runner.html"],
+            options: {
+                threshold: 90,
+                run: false
+            }
+        },
+
+
         watch: {
             scripts: {
                 files: [
@@ -74,9 +86,13 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks("grunt-blanket-mocha");
 
     // Default task(s).
     // grunt.registerTask('default', ['jshint', 'watch', 'concat', 'uglify']);
+    grunt.registerTask("tests", ["blanket_mocha"]);
+
+    // grunt.registerTask("default", ["tests"]);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
 
 };

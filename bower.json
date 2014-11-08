@@ -1,0 +1,10 @@
+{
+    "name": "AlphaCronke",
+    "version": "0.9.0",
+    "dependencies": {
+        "requirejs": "~2.1.8",
+        "mocha": "~1.13.0",
+        "chai": "~1.8.0",
+        "blanket": "~1.1.0"
+    }
+}

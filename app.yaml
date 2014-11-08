@@ -23,11 +23,17 @@ handlers:
   static_files:  about/index.html
   upload:  about/index.html
 
+- url: /node_modules
+  static_dir: node_modules
+
+- url: /src
+  static_dir: src
+
 - url: /test/lib
   static_dir: tests/lib/jasmine-2.0.2
 
 - url: /test
-  static_dir: tests
+  static_dir: test
 
 - url: /test/spec
   static_dir: tests/spec
