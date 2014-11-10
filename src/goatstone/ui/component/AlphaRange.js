@@ -6,7 +6,7 @@
  * Goatstone : 5.20.2014
  * */
 
-define(["PubSub", "Component", "D3"], function(PubSub, Component, d3){
+define(["PubSub", "Component", "D3"], function (PubSub, Component, d3) {
 
     function AlphaRange(rootDiv) {
         var $this = this;
@@ -81,6 +81,14 @@ define(["PubSub", "Component", "D3"], function(PubSub, Component, d3){
                 return 1;
             })
             .on("brushend", function () {
+                // snap to round value
+                var min = Math.round($this.brush.extent()[0]);
+                var max = Math.round($this.brush.extent()[1]);
+                // maintain a minimum width in order to select a single character
+                if (min === max) {
+                    max = max + 0.2;
+                }
+                d3.select(this).call($this.brush.extent([min, max]));
                 PubSub.publish('alphaRange', {value: $this.setRange()});
                 return 1;
             });
@@ -102,6 +110,7 @@ define(["PubSub", "Component", "D3"], function(PubSub, Component, d3){
         $this.setRange();
 
     }
+
     AlphaRange.prototype = Object.create(Component.prototype);
     AlphaRange.prototype.setRange = function () {
         var extMin = Math.round(this.brush.extent()[0]);
