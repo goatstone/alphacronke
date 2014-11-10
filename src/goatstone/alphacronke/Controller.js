@@ -39,29 +39,27 @@ function Controller() {
 
     // get a book file from the Gutenberg Library #2051
     new ProjectGutenberg().get('datum/dickory_cronke.txt')
-        .then(function (data) {
-            var sections = [];
-            var txtStart = 738;
-            var textEnd = 59570;
-            var storyText = data.substr(txtStart, textEnd);
-            // remove \r characters
-            storyText = storyText.replace(/\r/g, "");
-            // chang all single \n into a single space
-            storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
-            sections = storyText.split(/[\n][\n]/g);
-            model.story.intro = sections.slice(0, 16);
-            model.story.partOne = sections.slice(17, 74);
-            model.story.partTwo = sections.slice(75, 129);
-            model.story.partThree = sections.slice(130, 172);
-            sections = null;
-            storyText = null;
+        .then(function (textDocument) {
+
+            return new Text()
+                .processStory(textDocument)
+                .then(function (story) {
+                    model.story = story;
+                });
+
+        }, function (err) {
+            throw "Getting text document failure." + err;
+        })
+        .then(function () {
 
             PubSub.publish('section', {value: 'intro'});
             PubSub.publish('alphaRange', {value: alphaRange.getRange()});
             PubSub.publish('mode', {value: 'alphaSelect'}); // alphaSelect bubble
             PubSub.publish('mainPanel', {value: 'show'}); // alphaSelect bubble
             PubSub.publish('messagePanel', {value: 'show'});
-        }, function (err) {
+
+        }, function () {
+            throw "Getting text document failure.";
         });
 
     // bubbleText
