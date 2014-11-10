@@ -2,7 +2,8 @@
 require([], function () {
 
 	require.config({
-		paths: {
+//        baseUrl: '../src',
+        paths: {
 			chai: "vendor/chai/chai"
 		}
 	});

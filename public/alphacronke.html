@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+    <title>Goatstone: AlphaCronke </title>
+    <meta charset="utf-8">
+    <link rel="icon"
+          type="image/png"
+          href="/image/ac_icon.png">
+    <link rel="stylesheet" href="/css/alphacronke.all.css" type="text/css">
+</head>
+<body>
+<div id="line-text"></div>
+<div id="bubble-text"></div>
+
+<div id="story_words"></div>
+
+<div id="panel-alpharange" class="panel">
+    <div class="handle"></div>
+    <div id="alpha-range">
+    </div>
+</div>
+
+<div id="panel-a" class="panel">
+    <div class="handle"></div>
+
+    <label for="story-parts-opts">Select a section:</label>
+    <select id="story-parts-opts">
+        <option value="intro">Intro and Preface</option>
+        <option value="partOne">Part I</option>
+        <option value="partTwo">Part II</option>
+        <option value="partThree">Part III</option>
+    </select>
+    <br>
+    <label for="styles">Select a dislay style:</label>
+    <select id="styles">
+        <option value="bubble">Bubble</option>
+        <option value="alphaSelect">Word Select</option>
+    </select>
+
+    <div id="select-chart-size">
+        <label for="svg-size">Chart Size: </label>
+        <input value="700" type="range" min="200" max="2000" id="svg-size">
+    </div>
+
+</div>
+
+<div id="message-panel" class="panel">
+    <div class="handle"></div>
+
+    <div id="message" class="component">
+    </div>
+
+</div>
+
+<div id="action-bar">
+    <div class="icon-overflow">
+        <svg width="30" height="30" fill="white" stroke="#777"
+             viewPort="0 0 120 120" version="1.1"
+             xmlns="http://www.w3.org/2000/svg">
+            <line x1="3" y1="7"
+                  x2="27" y2="7"
+                  stroke-width="4"/>
+            <line x1="3" y1="15"
+                  x2="27" y2="15"
+                  stroke-width="4"/>
+            <line x1="3" y1="23"
+                  x2="27" y2="23"
+                  stroke-width="4"/>
+        </svg>
+    </div>
+</div>
+
+<div id="action-menu">
+    <ul class="action-menu-main">
+    </ul>
+</div>
+
+<script data-main="/js/alphacronke_requirejs_entrypoint" src="vendor/require.js"></script>
+</body>
+</html>

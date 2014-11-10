@@ -39,5 +39,12 @@ handlers:
   static_dir: tests/spec
   mime_type: application/javascript
 
+- url: /vendor
+  static_dir: src/vendor/
+
 - url: /.*
-  script: _go_app
+  static_files: public/alphacronke.html
+  upload: public/alphacronke.html
+
+#- url: /.*
+#  script: _go_app

@@ -1,14 +1,22 @@
 //  XHR
-function XHR() {
-}
-XHR.prototype.get = function (url) {
 
-    return new Promise(function (resolve, reject) {
+define(['Promise', 'reqwest'], function (Promise, reqwest) {
 
-        reqwest(url, function (resp) {
-            resolve(resp);
+    function XHR() {
+    }
+
+    XHR.prototype.get = function (url) {
+
+        return new Promise(function (resolve, reject) {
+
+            reqwest(url, function (resp) {
+                resolve(resp);
+            });
+
         });
 
-    });
+    };
 
-};
+    return XHR;
+
+});

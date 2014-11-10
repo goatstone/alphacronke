@@ -12,28 +12,36 @@
  })
  * * */
 
-var Text = klass({
-    processStory: function (textToProcess) {
+define(['klass', 'Promise'], function (klass, Promise) {
 
-        return new Promise(function (resolve, reject) {
-            var story = {};
-            var sections = [];
-            var txtStart = 738;
-            var textEnd = 59570;
-            var storyText = textToProcess.substr(txtStart, textEnd);
-            // remove \r characters
-            storyText = storyText.replace(/\r/g, "");
-            // chang all single \n into a single space
-            storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
-            sections = storyText.split(/[\n][\n]/g);
-            story.intro = sections.slice(0, 16);
-            story.partOne = sections.slice(17, 74);
-            story.partTwo = sections.slice(75, 129);
-            story.partThree = sections.slice(130, 172);
-            sections = null;
-            storyText = null;
+    var Text = klass({
+        processStory: function (textToProcess) {
 
-            resolve(story);
-        });
-    }
+            return new Promise(function (resolve, reject) {
+                if (!textToProcess) {
+                    throw "Text Document has to be supplied.";
+                }
+                var story = {};
+                var sections = [];
+                var txtStart = 738;
+                var textEnd = 59570;
+                var storyText = textToProcess.substr(txtStart, textEnd);
+                // remove \r characters
+                storyText = storyText.replace(/\r/g, "");
+                // chang all single \n into a single space
+                storyText = storyText.replace(/([^\n])[\n]([^\n])/g, '$1 $2');
+                sections = storyText.split(/[\n][\n]/g);
+                story.intro = sections.slice(0, 16);
+                story.partOne = sections.slice(17, 74);
+                story.partTwo = sections.slice(75, 129);
+                story.partThree = sections.slice(130, 172);
+                sections = null;
+                storyText = null;
+
+                resolve(story);
+            });
+        }
+    });
+    return  Text;
+
 });

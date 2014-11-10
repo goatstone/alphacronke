@@ -1,9 +1,16 @@
-
 //  ProjectGutenberg
 
-function ProjectGutenberg(){
-}
-ProjectGutenberg.prototype.get = function(url){
+define(["XHR"], function (XHR) {
 
-	return new XHR().get(url);
-};
+    function ProjectGutenberg() {
+    }
+
+    ProjectGutenberg.prototype.get = function (url) {
+
+        return new XHR().get(url);
+    };
+
+    return ProjectGutenberg;
+
+});
+
