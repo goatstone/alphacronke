@@ -2,7 +2,7 @@
  */
 define(function(require) {
 
-	var Example = require("components/example");
+	var Example = require("../test/components/example");
 
 	describe("Example", function () {
 		describe("Something", function(){

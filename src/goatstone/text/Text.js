@@ -18,8 +18,8 @@ define(['klass', 'Promise'], function (klass, Promise) {
         processStory: function (textToProcess) {
 
             return new Promise(function (resolve, reject) {
-                if (!textToProcess) {
-                    throw "Text Document has to be supplied.";
+                if (typeof textToProcess !== 'string') {
+                    throw new Error("Text Document has to be supplied!");
                 }
                 var story = {};
                 var sections = [];
