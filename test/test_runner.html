@@ -3,25 +3,25 @@
 <head>
     <meta charset="utf-8">
     <title>Tests</title>
-    <link rel="stylesheet" href="js/vendor/mocha/mocha.css">
+    <link rel="stylesheet" href="vendor/mocha/mocha.css">
+    <style>
+        #blanket-main {
+            margin: 0 25px 0 65px;
+            font-size: 12px
+        }
+    </style>
 </head>
 <body>
-    <div id="mocha"></div>
-
-    <script src="js/vendor/mocha/mocha.js"></script>
-	<script data-main="main-tests" src="js/vendor/requirejs/require.js"></script>
-    <script src="js/vendor/blanket/dist/qunit/blanket.js" data-cover-only="js/component"></script>
-    <script src="../node_modules/grunt-blanket-mocha/support/mocha-blanket.js"></script>
-    <script>
+<div id="mocha"></div>
+<script src="vendor/mocha/mocha.js"></script>
+<script data-main="requirejs_entrypoint" src="vendor/requirejs/require.js"></script>
+<script src="vendor/blanket/dist/qunit/blanket.js" data-cover-only="component"></script>
+<script src="../node_modules/grunt-blanket-mocha/support/mocha-blanket.js"></script>
+<script>
     /* global blanket */
     if (window.PHANTOMJS) {
-
         blanket.options("reporter", "../node_modules/grunt-blanket-mocha/support/grunt-reporter.js");
     }
-	</script>
-
-    <style>
-    	#blanket-main { margin: 0 25px 0 65px; font-size: 12px }
-    </style>
+</script>
 </body>
 </html>
