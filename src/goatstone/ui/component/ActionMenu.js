@@ -3,7 +3,7 @@
 
  */
 
-define([], function(){
+define([], function () {
 
     function ActionMenu(actionMenuModel) {
 
@@ -21,8 +21,8 @@ define([], function(){
             this.$root.querySelector('ul.action-menu-main').appendChild(li);
         }
 
-        this.$root.querySelector('ul').addEventListener("click",function(e){
-            var liIndex = e.target.dataset.index ;
+        this.$root.querySelector('ul').addEventListener("click", function (e) {
+            var liIndex = e.target.dataset.index;
             actionMenuModel[liIndex].action();
         });
 

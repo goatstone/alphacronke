@@ -1,46 +1,66 @@
+/*
+goatstone.ui.action-menu-button
+*/
+button[role="action-menu-button"] {
+    position: fixed;
+    top: 6px;
+    right: 40px;
+    width: 38px;
+    height: 38px;
+    padding: 5px;
+    background-color: #ddd;
+    border-radius: 6px;
+}
 
+button[role="action-menu-button"]:hover {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+button[role="action-menu-button"]:focus {
+    border-color: blue;
+    border-size: 3px;
+}
+
+button[role="action-menu-button"] svg {
+    width: 30px;
+    height: 30px;
+    stroke: #333;
+    stroke-width: 3;
+}
 
 /* goatstone.ui.ActionMenu */
-#action-menu{
+#action-menu {
     position: fixed;
     top: 40px;
-    right: 10px;
+    right: 70px;
     min-width: 100px;
-    border-radius: 10px 0px 10px 10px;
-    background-color: #ccc;    
+    border-radius: 10px 10px 10px 10px;
+    background-color: #eee;
+    padding: 5px;
     visibility: hidden;
 }
-#action-menu ul{
+
+#action-menu ul {
     list-style: none;
     margin: 6px;
 }
-#action-menu li{
-    padding: 5px;
+
+#action-menu li {
+    padding: 2px;
     margin-left: -40px;
     cursor: pointer;
 }
-#action-menu li:hover{
-    color: green;
+
+#action-menu li button {
+    border-radius: 10px;
     cursor: pointer;
 }
 
-/* goatstone.ui.ActionBar */
- #action-bar{    
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    width: 35px;
-    height: 35px;
-    padding: 7px;
-     }
-#action-bar .icon-overflow{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background-color: #ccc;
-    border-radius: 5px 5px 0px 5px;
- }
-/* END goatstone.ui.ActionBar */
+#action-menu li button:hover {
+    background-color: #eee;
+}
 
+#action-menu li button:focus {
+    border-color: #55f;
+}

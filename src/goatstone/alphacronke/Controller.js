@@ -196,9 +196,8 @@ define([
                 }
             ]);
 
-
             // ActionBar
-            new ActionBar([
+            new ActionBar('[role=action-menu-button]',[
                 {
                     title: 'About AlphaCronke',
                     action: function () {
