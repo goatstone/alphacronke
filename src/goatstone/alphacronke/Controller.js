@@ -127,7 +127,7 @@ define([
             ]);
 
             // mainPanel
-            mainPanel = new Panel('#panel-a', {x: 10, y: 10});
+            mainPanel = new Panel('#panel-a', {x: 10, y: 120});
             mainPanel.subscribe([
                 {
                     topic: 'mainPanel',
