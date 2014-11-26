@@ -6,8 +6,8 @@
 define([
         'Model', 'AlphaRange', "Panel", 'ProjectGutenberg', 'Text',
         'PubSub', 'BubbleText', 'LineText', 'SelectSize', 'StoryPartSelect',
-        'SelectStyle', 'Message', 'ActionBar'],
-    function (Model, AlphaRange, Panel, ProjectGutenberg, Text, PubSub, BubbleText, LineText, SelectSize, StoryPartSelect, SelectStyle, Message, ActionBar) {
+        'SelectStyle', 'Message', 'ActionBar', "Menu"],
+    function (Model, AlphaRange, Panel, ProjectGutenberg, Text, PubSub, BubbleText, LineText, SelectSize, StoryPartSelect, SelectStyle, Message, ActionBar, Menu) {
 
         function Controller() {
 
@@ -197,7 +197,9 @@ define([
             ]);
 
             // ActionBar
-            new ActionBar('[role=action-menu-button]',[
+            new ActionBar('[role=action-menu-button]');
+
+            var menu = new Menu('[role="menu"]', [
                 {
                     title: 'About AlphaCronke',
                     action: function () {
@@ -217,7 +219,15 @@ define([
                     }
                 }
             ]);
-
+            menu.hide();
+            menu.subscribe([
+                {
+                    topic: "actionMenu",
+                    callback: function (topic, data) {
+                        menu.toggle();
+                    }
+                }
+            ]);
         }
 
         return Controller;

@@ -3,7 +3,7 @@
  require PubSub
  */
 
-define(['klass', 'PubSub'], function(klass, PubSub){
+define(['klass', 'PubSub'], function (klass, PubSub) {
 
     var Component = klass({
         $root: null,
@@ -20,6 +20,15 @@ define(['klass', 'PubSub'], function(klass, PubSub){
         },
         hide: function () {
             this.$root.style.display = 'none';
+            this.$root.style.visibility = 'hidden';
+        },
+        toggle: function () {
+            if (this.$root.style.visibility == 'hidden') {
+                this.show();
+            }
+            else{
+                this.hide();
+            }
         },
         /* subscribe expects and object in this form:
          [{

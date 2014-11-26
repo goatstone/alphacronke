@@ -1,0 +1,38 @@
+
+div[role=menu] {
+    position: fixed;
+    top: 34px;
+    right: 64px;
+    min-width: 100px;
+    border-radius: 10px 10px 10px 10px;
+    padding: 0px;
+    background-color: #ccc;
+    visibility: hidden;
+}
+
+div[role=menu] ul {
+    list-style: none;
+    margin: 0px;
+     border: 5px solid #ddd;
+    border-radius: 5px;
+}
+
+div[role=menu] li {
+    padding: 2px 5px 2px 5px;
+    margin-left: -40px;
+     background-color: #ccc;
+  }
+
+div[role=menu] li button {
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 1;
+}
+
+div[role=menu] li button:hover {
+    background-color: #eee;
+}
+
+div[role=menu] li button:focus {
+    border-color: #55f;
+}

@@ -24,7 +24,7 @@ require([], function () {
             AlphaRange:         'goatstone/ui/component/AlphaRange',
             Component:          'goatstone/ui/component/Component',
             ActionBar:          'goatstone/ui/component/ActionBar',
-//            ActionMenu:         'goatstone/ui/component/ActionMenu',
+            Menu:               'goatstone/ui/component/Menu',
             Panel:              'goatstone/ui/container/Panel',
             ProjectGutenberg:   'goatstone/catalog/ProjectGutenberg',
             Text:               "goatstone/text/Text",

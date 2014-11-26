@@ -2,52 +2,14 @@
  goatstone.ui.component.ActionBar
  */
 
-define([  "Component", "klass"], function (  Component, klass) {
+define([  "Component", "klass", "PubSub"], function (  Component, klass, PubSub) {
 
     var ActionBar = Component.extend({
-        initialize: function (rootDiv, menuItems) {
+        initialize: function (rootDiv  ) {
             this.supr(rootDiv);
-            var actionMenu = document.querySelector('div#action-menu');
-            var ul = actionMenu.querySelector('ul');
-            var isFocused = false;
-            menuItems.forEach(function (el) {
-                var li = document.createElement('li');
-                var button = document.createElement('button');
-                var txt = document.createTextNode(el.title)
-                li.addEventListener('click', function(){
-                    var b = this.querySelector('button');
-                    b.focus();
-                })
-                button.appendChild(txt);
-                button.addEventListener('click', function () {
-                    el.action();
-                    actionMenu.style.visibility = 'hidden';
-                });
-                button.addEventListener('focus', function () {
-                    isFocused = true;
-                });
-                button.addEventListener('blur', function () {
-                    // check to see if the other buttons are focused,
-                    // if not, close the menu
-                    isFocused = false;
-                    setTimeout(function () {
-                        if (!isFocused) {
-                            actionMenu.style.visibility = 'hidden';
-                        }
-                    }, 200);
-                });
-                li.appendChild(button);
-                ul.appendChild(li);
-            });
             this.$root.addEventListener('click', function () {
-                // toggle
-                if (actionMenu.style.visibility == 'visible') {
-                    actionMenu.style.visibility = 'hidden';
-                } else {
-                    actionMenu.style.visibility = 'visible';
-                    ul.querySelector('button').focus();
-                }
-            })
+                PubSub.publish('actionMenu', {value: "toggle"});
+            });
             this.drawBackground();
         },
         drawBackground: function () {
