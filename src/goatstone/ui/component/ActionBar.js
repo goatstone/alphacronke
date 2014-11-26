@@ -2,7 +2,7 @@
  goatstone.ui.component.ActionBar
  */
 
-define(['ActionMenu', "Component", "klass"], function (ActionMenu, Component, klass) {
+define([  "Component", "klass"], function (  Component, klass) {
 
     var ActionBar = Component.extend({
         initialize: function (rootDiv, menuItems) {
@@ -14,6 +14,10 @@ define(['ActionMenu', "Component", "klass"], function (ActionMenu, Component, kl
                 var li = document.createElement('li');
                 var button = document.createElement('button');
                 var txt = document.createTextNode(el.title)
+                li.addEventListener('click', function(){
+                    var b = this.querySelector('button');
+                    b.focus();
+                })
                 button.appendChild(txt);
                 button.addEventListener('click', function () {
                     el.action();
