@@ -59,7 +59,7 @@ define(['Component'], function (Component) {
                     this.$body.addEventListener('mousemove', this, false);
                 }
                 if (eventType === 'mousemove') {
-                    console.log('move..');
+//                    console.log('move..');
                     x = e.clientX;
                     y = e.clientY;
                     // this.position()

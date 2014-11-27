@@ -162,7 +162,7 @@ define([
             new SelectSection('.select-section');
 
             // selectStyle
-            selectStyle = new SelectStyle('#panel-a #styles');
+            selectStyle = new SelectStyle('.select-mode');
             selectStyle.subscribe([
                 {
                     topic: 'mode',
