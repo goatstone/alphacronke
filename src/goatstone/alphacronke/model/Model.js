@@ -19,8 +19,17 @@ define([], function () {
                 options: [
                     {value: 'bubble', label: "Bubble"},
                     {value: 'alphaSelect', label: "Word Select"}
-                ]}
-        };
+                ]},
+            section: {
+                label: "Select a section ",
+                options: [
+                    {value: 'intro', label: "Intro and Preface"},
+                    {value: 'partOne', label: "Part I"},
+                    {value: 'partTwo', label: "Part II"},
+                    {value: 'partThree', label: "Part III"}
+                ]
+            }
+        }
     }
 
     return Model;
