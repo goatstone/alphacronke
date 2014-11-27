@@ -20,12 +20,12 @@ require([], function () {
             SelectMode:        'goatstone/alphacronke/ui/component/SelectMode',
             SelectSection:      'goatstone/alphacronke/ui/component/SelectSection',
 
-            Message:            'goatstone/ui/component/Message',
-            AlphaRange:         'goatstone/ui/component/AlphaRange',
-            Component:          'goatstone/ui/component/Component',
-            ActionBar:          'goatstone/ui/component/ActionBar',
-            Menu:               'goatstone/ui/component/Menu',
-            Panel:              'goatstone/ui/container/Panel',
+            Message:            'goatstone/ui/Message',
+            AlphaRange:         'goatstone/ui/AlphaRange',
+            Component:          'goatstone/ui/Component',
+            ActionBar:          'goatstone/ui/ActionBar',
+            Menu:               'goatstone/ui/Menu',
+            Panel:              'goatstone/ui/Panel',
             ProjectGutenberg:   'goatstone/catalog/ProjectGutenberg',
             Text:               "goatstone/text/Text",
             XHR:                'goatstone/io/XHR'
