@@ -17,8 +17,6 @@ module.exports = function (grunt) {
                 run: false
             }
         },
-
-
         watch: {
             scripts: {
                 files: [
@@ -37,14 +35,6 @@ module.exports = function (grunt) {
             options: {
                 separator: ' '
             },
-//            loadfirst: {
-//                src: ['src/goatstone/ui/component/Component.js' ],
-//                dest: 'public/js/component.js'
-//            },
-//            dist: {
-//                src: ['src/goatstone/**/*.js', '!src/goatstone/ui/component/Component.js' ],
-//                dest: 'public/js/<%= pkg.name %>.js'
-//            },
             vendor: {
                 src: ['src/vendor/**/*.js'],
                 dest: 'public/js/vendor.js'
@@ -88,12 +78,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks("grunt-blanket-mocha");
 
-    // Default task(s).
-    // grunt.registerTask('default', ['jshint', 'watch', 'concat', 'uglify']);
-    grunt.registerTask("tests", ["blanket_mocha"]);
-
-    // grunt.registerTask("default", ["tests"]);
-//    grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+    grunt.registerTask("test", ["blanket_mocha"]);
     grunt.registerTask('default', ['jshint', 'concat' ]);
-
 };
