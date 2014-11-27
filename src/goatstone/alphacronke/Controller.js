@@ -16,7 +16,7 @@ define([
             // panels
             var alphaRangePanel, mainPanel, messagePanel;
             // components
-            var storyWords, alphaRange, selectSize, storyPartSelect, selectStyle, message, lineText;
+            var storyWords, alphaRange, selectSize, storyPartSelect, selectMode, message, lineText;
 
             // alphaRange
             alphaRange = new AlphaRange('#alpha-range');
@@ -142,9 +142,8 @@ define([
                 }
             ]);
 
-
             // selectSize
-            selectSize = new SelectSize('#select-chart-size');
+            selectSize = new SelectSize('.select-size');
             selectSize.subscribe([
                 {
                     topic: "mode",
