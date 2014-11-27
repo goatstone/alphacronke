@@ -30,10 +30,6 @@ define(['Component'], function (Component) {
             this.position(this.x, this.y);
             this.setDrag();
         },
-        position: function (x, y) {
-            this.$root.style.left = x + 'px';
-            this.$root.style.top = y + 'px';
-        },
         setDrag: function () {
             var mOffsets = [];
             this.handleEvent = function (e) {
@@ -59,17 +55,13 @@ define(['Component'], function (Component) {
                 if (eventType === 'mousemove') {
                     x = e.clientX;
                     y = e.clientY;
-                    // this.position()
-                    this.$root.style.left = (x - mOffsets[0]) + 'px';
-                    this.$root.style.top = (y - mOffsets[1]) + 'px';
+                    this.position(x - mOffsets[0], y - mOffsets[1]);
                 }
                 if (eventType === 'touchmove') {
-                    // this.position()
                     var touch = e.targetTouches[0];
                     var tX = touch.clientX - mOffsets[0];
                     var tY = touch.clientY - mOffsets[1];
-                    this.$root.style.left = tX + 'px';
-                    this.$root.style.top = tY + 'px';
+                    this.position(tX, tY);
                     e.preventDefault();
                 }
                 if (eventType === 'mouseup') {

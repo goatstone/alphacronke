@@ -30,6 +30,10 @@ define(['klass', 'PubSub'], function (klass, PubSub) {
                 this.hide();
             }
         },
+        position: function (x, y) {
+            this.$root.style.left = x + 'px';
+            this.$root.style.top = y + 'px';
+        },
         /* subscribe expects and object in this form:
          [{
          topic: 'mode',
