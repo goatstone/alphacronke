@@ -6,8 +6,8 @@
 define([
         'Model', 'AlphaRange', "Panel", 'ProjectGutenberg', 'Text',
         'PubSub', 'BubbleText', 'LineText', 'SelectSize', 'SelectSection',
-        'SelectStyle', 'Message', 'ActionBar', "Menu"],
-    function (Model, AlphaRange, Panel, ProjectGutenberg, Text, PubSub, BubbleText, LineText, SelectSize, SelectSection, SelectStyle, Message, ActionBar, Menu) {
+        'SelectMode', 'Message', 'ActionBar', "Menu"],
+    function (Model, AlphaRange, Panel, ProjectGutenberg, Text, PubSub, BubbleText, LineText, SelectSize, SelectSection, SelectMode, Message, ActionBar, Menu) {
 
         function Controller() {
 
@@ -162,12 +162,12 @@ define([
             new SelectSection('.select-section');
 
             // selectStyle
-            selectStyle = new SelectStyle('.select-mode');
-            selectStyle.subscribe([
+            selectMode = new SelectMode('.select-mode');
+            selectMode.subscribe([
                 {
                     topic: 'mode',
                     callback: function (topic, data) {
-                        selectStyle.selectValue(data.value);
+                        selectMode.selectValue(data.value);
                     }
                 }
             ]);

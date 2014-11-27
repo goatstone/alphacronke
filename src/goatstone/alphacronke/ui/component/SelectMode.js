@@ -2,7 +2,7 @@
  */
 define(["Component", 'PubSub'], function (Component, PubSub) {
 
-    var SelectStyle = Component.extend({
+    var SelectMode = Component.extend({
         initialize: function (rootDiv) {
             this.supr(rootDiv);
 
@@ -32,5 +32,5 @@ define(["Component", 'PubSub'], function (Component, PubSub) {
         }
     });
 
-    return SelectStyle;
+    return SelectMode;
 });
