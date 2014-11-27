@@ -17,6 +17,8 @@ module.exports = function (grunt) {
                 run: false
             }
         },
+
+
         watch: {
             scripts: {
                 files: [
@@ -35,6 +37,14 @@ module.exports = function (grunt) {
             options: {
                 separator: ' '
             },
+//            loadfirst: {
+//                src: ['src/goatstone/ui/component/Component.js' ],
+//                dest: 'public/js/component.js'
+//            },
+//            dist: {
+//                src: ['src/goatstone/**/*.js', '!src/goatstone/ui/component/Component.js' ],
+//                dest: 'public/js/<%= pkg.name %>.js'
+//            },
             vendor: {
                 src: ['src/vendor/**/*.js'],
                 dest: 'public/js/vendor.js'

@@ -4,7 +4,7 @@
   "description": "Experiment with ways to view text.",
   "main": "Controller.js",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "repository": {
     "type": "git",
