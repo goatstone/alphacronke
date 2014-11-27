@@ -1,0 +1,10 @@
+
+.component{
+    border:1px solid #ddd;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 1px;
+}
+.component div{
+    margin: 3px;
+}
