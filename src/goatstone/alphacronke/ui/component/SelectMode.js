@@ -1,16 +1,13 @@
-/*      goatstone.alphacronke.ui.component.SelectStyle
+/*      goatstone.alphacronke.ui.component.SelectMode
  */
 define(["Component", 'PubSub'], function (Component, PubSub) {
 
     var SelectMode = Component.extend({
-        initialize: function (rootDiv) {
+        initialize: function (rootDiv, setting) {
             this.supr(rootDiv);
-
-            var selectSectionLabel = "Select a mode ";
-            var sections = [
-                {value: 'bubble', label: "Bubble"},
-                {value: 'alphaSelect', label: "Word Select"}
-            ];
+            var s = setting || {};
+            var selectSectionLabel = s.label || "";
+            var sections = s.options || [];
             var selection = this.$root.querySelector('select');
             var l = this.$root.querySelector('label div');
             var lTxt = document.createTextNode(selectSectionLabel);

@@ -137,7 +137,7 @@ define([
             // SelectSection
             new SelectSection('.select-section');
             // selectMode
-            selectMode = new SelectMode('.select-mode');
+            selectMode = new SelectMode('.select-mode', model.control.mode);
             selectMode.subscribe([
                 [   'mode',
                     function (data) {
