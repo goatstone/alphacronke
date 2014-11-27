@@ -43,7 +43,6 @@ define(['Component'], function (Component) {
                 var xTouchStart;
                 var yTouchStart;
                 if (eventType === 'mousedown') {
-//                    console.log('down..');
                     x = e.clientX;
                     y = e.clientY;
                     mOffsets[0] = x - this.$root.offsetLeft;
@@ -51,15 +50,13 @@ define(['Component'], function (Component) {
                     this.$body.addEventListener('mousemove', this, false);
                 }
                 if (eventType === 'touchstart') {
-//                    console.log('touchStart..');
                     xTouchStart = e.targetTouches[0].clientX;
                     yTouchStart = e.targetTouches[0].clientY;
                     mOffsets[0] = xTouchStart - this.$root.offsetLeft;
                     mOffsets[1] = yTouchStart - this.$root.offsetTop;
-                    this.$body.addEventListener('mousemove', this, false);
+                    this.$body.addEventListener('touchmove', this, false);
                 }
                 if (eventType === 'mousemove') {
-//                    console.log('move..');
                     x = e.clientX;
                     y = e.clientY;
                     // this.position()
@@ -69,10 +66,8 @@ define(['Component'], function (Component) {
                 if (eventType === 'touchmove') {
                     // this.position()
                     var touch = e.targetTouches[0];
-                    var tX = touch.pageX - mOffsets[0];
-                    var tY = touch.pageY - mOffsets[1];
-//                    console.log('ofs     %s :::  %s.', mOffsets[0], mOffsets[1]);
-//                    console.log('%s ::: touchmove  %s.', tX, tY);
+                    var tX = touch.clientX - mOffsets[0];
+                    var tY = touch.clientY - mOffsets[1];
                     this.$root.style.left = tX + 'px';
                     this.$root.style.top = tY + 'px';
                     e.preventDefault();
@@ -80,14 +75,14 @@ define(['Component'], function (Component) {
                 if (eventType === 'mouseup') {
                     this.$body.removeEventListener('mousemove', this, false);
                 }
+                if (eventType === 'touchend') {
+                    this.$body.removeEventListener('touchmove', this, false);
+                }
             };
             this.$handle.addEventListener('mousedown', this, false);
             this.$handle.addEventListener('mouseup', this, false);
             this.$handle.addEventListener("touchstart", this, false);
             this.$handle.addEventListener("touchend", this, false);
-            this.$handle.addEventListener("touchcancel", this, false);
-            this.$handle.addEventListener("touchleave", this, false);
-            this.$handle.addEventListener("touchmove", this, false);
         },
         defaultCloseButton: function () {
             var $this = this;
