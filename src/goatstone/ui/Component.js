@@ -44,8 +44,9 @@ define(['klass', 'PubSub'], function (klass, PubSub) {
             }
             topics.forEach(
                 function (e) {
-                    PubSub.subscribe(e.topic, function (topic, data) {
-                        e.callback(topic, data);
+                    if( !e[0] || !e[1] ) throw 'Error : Subscribe arguments not correct';
+                    PubSub.subscribe(e[0], function (topic, data) {
+                        e[1](data);
                     });
                 }
             );

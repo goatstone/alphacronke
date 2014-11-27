@@ -10,29 +10,24 @@ define([
     function (Model, AlphaRange, Panel, ProjectGutenberg, Text, PubSub, BubbleText, LineText, SelectSize, SelectSection, SelectMode, Message, ActionBar, Menu) {
 
         function Controller() {
-
             // model
             var model = new Model();
             // panels
             var alphaRangePanel, mainPanel, messagePanel;
             // components
-            var storyWords, alphaRange, selectSize, storyPartSelect, selectMode, message, lineText;
-
+            var alphaRange, selectSize, storyPartSelect, selectMode, message, lineText;
             // alphaRange
             alphaRange = new AlphaRange('#alpha-range');
             alphaRangePanel = new Panel('#panel-alpharange', {x: 100, y: window.innerHeight - 140});
             alphaRangePanel.subscribe([
-                {
-                    topic: 'alphaRangePanel',
-                    callback: function (topic, data) {
+                [   'alphaRangePanel',
+                    function (data) {
                         if (data.value === 'show') {
                             alphaRangePanel.show();
                         }
-                    }
-                },
-                {
-                    topic: 'mode',
-                    callback: function (topic, data) {
+                    }],
+                [   'mode',
+                    function (data) {
                         if (data.value === 'alphaSelect') {
                             alphaRangePanel.show();
                         }
@@ -40,10 +35,8 @@ define([
                             alphaRangePanel.hide();
                         }
                     }
-                }
+                ]
             ]);
-
-
             // get a book file from the Gutenberg Library #2051
             new ProjectGutenberg().get('datum/dickory_cronke.txt')
                 .then(function (textDocument) {
@@ -58,64 +51,52 @@ define([
                     throw "Getting text document failure." + err;
                 })
                 .then(function () {
-
                     PubSub.publish('section', {value: 'intro'});
                     PubSub.publish('alphaRange', {value: alphaRange.getRange()});
                     PubSub.publish('mode', {value: 'alphaSelect'}); // alphaSelect bubble
                     PubSub.publish('mainPanel', {value: 'show'}); // alphaSelect bubble
                     PubSub.publish('messagePanel', {value: 'show'});
-
                 }, function () {
                     throw "Getting text document failure.";
                 });
-
             // bubbleText
             var bubbleText = new BubbleText('#bubble-text');
             bubbleText.subscribe([
-                {
-                    topic: 'mode',
-                    callback: function (topic, data) {
+                [   'mode',
+                    function (data) {
                         if (data.value === 'bubble') {
                             bubbleText.show();
                         }
                         else {
                             bubbleText.hide();
                         }
-                    }
-                },
-                {
-                    topic: "section",
-                    callback: function (topic, data) {
+                    }],
+                [   "section",
+                    function (data) {
                         bubbleText.setData(model.story[data.value]);   // set the data, triggers redraw
                     }
-                },
-                {
-                    topic: "size",
-                    callback: function (topic, data) {
+                ],
+                [  "size",
+                    function (data) {
                         bubbleText.setSize(data.value);
                     }
-                }
+                ]
             ]);
-
-
             // lineText
             lineText = new LineText("#line-text");
             lineText.subscribe([
-                {
-                    topic: "section",
-                    callback: function (topic, data) {
+                [   "section",
+                    function (data) {
                         lineText.draw(model.story[data.value]); // draw, provide data as agrument
                     }
-                },
-                {
-                    topic: "alphaRange",
-                    callback: function (topic, data) {
+                ],
+                [   "alphaRange",
+                    function (data) {
                         lineText.setAlphaRange(data.value);
                     }
-                },
-                {
-                    topic: 'mode',
-                    callback: function (topic, data) {
+                ],
+                [   'mode',
+                    function (data) {
                         if (data.value === 'alphaSelect') {
                             lineText.show();
                         }
@@ -123,15 +104,13 @@ define([
                             lineText.hide();
                         }
                     }
-                }
+                ]
             ]);
-
             // mainPanel
             mainPanel = new Panel('#panel-a', {x: 10, y: 120});
             mainPanel.subscribe([
-                {
-                    topic: 'mainPanel',
-                    callback: function (topic, data) {
+                [   'mainPanel',
+                    function (data) {
                         if (data.value === 'show') {
                             mainPanel.show();
                         }
@@ -139,15 +118,13 @@ define([
                             mainPanel.hide();
                         }
                     }
-                }
+                ]
             ]);
-
             // selectSize
             selectSize = new SelectSize('.select-size');
             selectSize.subscribe([
-                {
-                    topic: "mode",
-                    callback: function (topic, data) {
+                [   "mode",
+                    function (data) {
                         if (data.value === 'bubble') {
                             selectSize.show();
                         }
@@ -155,22 +132,19 @@ define([
                             selectSize.hide();
                         }
                     }
-                }
+                ]
             ]);
-
+            // SelectSection
             new SelectSection('.select-section');
-
-            // selectStyle
+            // selectMode
             selectMode = new SelectMode('.select-mode');
             selectMode.subscribe([
-                {
-                    topic: 'mode',
-                    callback: function (topic, data) {
+                [   'mode',
+                    function (data) {
                         selectMode.selectValue(data.value);
                     }
-                }
+                ]
             ]);
-
             // message, messagePanel
             message = new Message("#message");
             message.set(
@@ -181,9 +155,8 @@ define([
             );
             messagePanel = new Panel('#message-panel', {x: window.innerWidth - 330, y: 70});
             messagePanel.subscribe([
-                {
-                    topic: "messagePanel",
-                    callback: function (topic, data) {
+                [   "messagePanel",
+                    function (data) {
                         if (data.value === 'show') {
                             messagePanel.show();
                         }
@@ -191,12 +164,11 @@ define([
                             messagePanel.hide();
                         }
                     }
-                }
+                ]
             ]);
-
             // ActionBar
             new ActionBar('[role=action-menu-button]');
-
+            // menu
             var menu = new Menu('[role="menu"]', [
                 {
                     title: 'About AlphaCronke',
@@ -219,12 +191,11 @@ define([
             ]);
             menu.hide();
             menu.subscribe([
-                {
-                    topic: "actionMenu",
-                    callback: function (topic, data) {
+                [   "actionMenu",
+                    function (data) {
                         menu.toggle();
                     }
-                }
+                ]
             ]);
         }
 
