@@ -1,7 +1,7 @@
 /*
 goatstone.ui.action-menu-button
 */
-button[role="action-menu-button"] {
+.action-menu-button {
     position: fixed;
     top: 6px;
     right: 40px;
@@ -12,17 +12,17 @@ button[role="action-menu-button"] {
     border-radius: 6px;
 }
 
-button[role="action-menu-button"]:hover {
+.action-menu-button {
     background-color: #fff;
     cursor: pointer;
 }
 
-button[role="action-menu-button"]:focus {
+.action-menu-button {
     border-color: blue;
     border-size: 3px;
 }
 
-button[role="action-menu-button"] svg {
+.action-menu-button {
     width: 30px;
     height: 30px;
     stroke: #333;
