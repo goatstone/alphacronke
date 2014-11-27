@@ -5,9 +5,9 @@
 
 define([
         'Model', 'AlphaRange', "Panel", 'ProjectGutenberg', 'Text',
-        'PubSub', 'BubbleText', 'LineText', 'SelectSize', 'StoryPartSelect',
+        'PubSub', 'BubbleText', 'LineText', 'SelectSize', 'SelectSection',
         'SelectStyle', 'Message', 'ActionBar', "Menu"],
-    function (Model, AlphaRange, Panel, ProjectGutenberg, Text, PubSub, BubbleText, LineText, SelectSize, StoryPartSelect, SelectStyle, Message, ActionBar, Menu) {
+    function (Model, AlphaRange, Panel, ProjectGutenberg, Text, PubSub, BubbleText, LineText, SelectSize, SelectSection, SelectStyle, Message, ActionBar, Menu) {
 
         function Controller() {
 
@@ -159,8 +159,7 @@ define([
                 }
             ]);
 
-            // StoryPartSelect
-            new StoryPartSelect('#story-parts-opts');
+            new SelectSection('.select-section');
 
             // selectStyle
             selectStyle = new SelectStyle('#panel-a #styles');

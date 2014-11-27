@@ -18,7 +18,7 @@ require([], function () {
             LineText:           'goatstone/alphacronke/ui/component/LineText',
             SelectSize:         'goatstone/alphacronke/ui/component/SelectSize',
             SelectStyle:        'goatstone/alphacronke/ui/component/SelectStyle',
-            StoryPartSelect:    'goatstone/alphacronke/ui/component/StoryPartSelect',
+            SelectSection:      'goatstone/alphacronke/ui/component/SelectSection',
 
             Message:            'goatstone/ui/component/Message',
             AlphaRange:         'goatstone/ui/component/AlphaRange',

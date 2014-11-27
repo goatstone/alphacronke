@@ -8,35 +8,31 @@
     <link rel="stylesheet" href="/css/alphacronke.all.css" type="text/css">
 </head>
 <body>
+
 <div id="line-text"></div>
 <div id="bubble-text"></div>
-
-<div id="story_words"></div>
-
 <div id="panel-alpharange" class="panel">
-    <div class="handle"></div>
-    <div id="alpha-range">
-    </div>
+    <div id="alpha-range" class="component"></div>
 </div>
-
 <div id="panel-a" class="panel">
-    <div class="handle"></div>
 
-    <label for="story-parts-opts">Select a section:</label>
-    <select id="story-parts-opts">
-        <option value="intro">Intro and Preface</option>
-        <option value="partOne">Part I</option>
-        <option value="partTwo">Part II</option>
-        <option value="partThree">Part III</option>
-    </select>
-    <br>
+    <div class="select-section component">
+        <label>
+            <div></div>
+            <select>
+            </select>
+        </label>
+    </div>
+
+    <div class="component">
     <label for="styles">Select a dislay style:</label>
     <select id="styles">
         <option value="bubble">Bubble</option>
         <option value="alphaSelect">Word Select</option>
     </select>
+    </div>
 
-    <div id="select-chart-size">
+    <div id="select-chart-size" class="component">
         <label for="svg-size">Chart Size: </label>
         <input value="700" type="range" min="200" max="2000" id="svg-size">
     </div>
@@ -44,14 +40,16 @@
 </div>
 
 <div id="message-panel" class="panel">
-    <div class="handle"></div>
-    <div id="message" class="component">
-    </div>
+    <div id="message" class="component"></div>
 </div>
 
 <button role="action-menu-button"></button>
-<div id="action-menu"><ul></ul></div>
-<div role="menu"><ul></ul></div>
+<div id="action-menu">
+    <ul></ul>
+</div>
+<div role="menu">
+    <ul></ul>
+</div>
 
 <script data-main="/js/alphacronke_requirejs_entrypoint" src="vendor/require.js"></script>
 
