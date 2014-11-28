@@ -11,26 +11,31 @@
 
 .panel .handle {
     position: absolute;
-    top: -25px;
-    height: 30px;
+    top: -30px;
+    left: -15px;
+    height: 20px;
     width: 100px;
-    /*border: 2px solid #ccc;*/
+    border: 6px solid #ccc;
     background-color: blue;
     border-radius: 20px;
     box-shadow: 3px 3px 3px #aaa;
     cursor: move;
     background: repeating-linear-gradient(180deg, #99f, #99f 3px, #ccc 3px, #ccc 6px);
 }
-
+.panel .handle:hover {
+    background-color: #55f;
+    background: repeating-linear-gradient(180deg, #55f, #33f 3px, #fff 3px, #fff 6px);
+}
 .panel .cancel-icon {
     position: absolute;
     top: -30px;
-    right: 10px;
+    right: -10px;
     height: 30px;
     width: 35px;
-    background-color: #999;
+    background-color: #aaa;
+    border: 3px solid #ccc;
     border-radius: 30px;
-    box-shadow: 3px 3px 3px #888;
+    box-shadow: 3px 3px 3px #aaa;
     cursor: pointer;
 }
 
@@ -38,6 +43,9 @@
     margin: auto;
     display: block;
     margin-top: 5px;
+}
+.panel .cancel-icon svg.close-button line{
+    stroke:#449;
 }
 
 .panel .cancel-icon svg.close-button line:hover {
