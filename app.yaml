@@ -19,6 +19,9 @@ handlers:
 - url: /image
   static_dir: public/image
 
+- url: /svg
+  static_dir: public/svg
+
 - url: /about/*
   static_files:  about/index.html
   upload:  about/index.html

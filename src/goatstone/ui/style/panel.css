@@ -22,10 +22,12 @@
     cursor: move;
     background: repeating-linear-gradient(180deg, #99f, #99f 3px, #ccc 3px, #ccc 6px);
 }
+
 .panel .handle:hover {
     background-color: #55f;
     background: repeating-linear-gradient(180deg, #55f, #33f 3px, #fff 3px, #fff 6px);
 }
+
 .panel .cancel-icon {
     position: absolute;
     top: -30px;
@@ -37,18 +39,8 @@
     border-radius: 30px;
     box-shadow: 3px 3px 3px #aaa;
     cursor: pointer;
+    background: url('/svg/x-mark.svg') no-repeat top left;
+    background-size: 28px 28px;
+    background-position: 4px 0px, center;
+    background-color: #fff;
 }
-
-.panel .cancel-icon svg.close-button {
-    margin: auto;
-    display: block;
-    margin-top: 5px;
-}
-.panel .cancel-icon svg.close-button line{
-    stroke:#449;
-}
-
-.panel .cancel-icon svg.close-button line:hover {
-    stroke: #4a4;
-}
-
