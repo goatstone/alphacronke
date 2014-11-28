@@ -121,7 +121,7 @@ define([
                 ]
             ]);
             // selectSize
-            selectSize = new SelectSize('.select-size');
+            selectSize = new SelectSize('.select-size', model.control.size);
             selectSize.subscribe([
                 [   "mode",
                     function (data) {

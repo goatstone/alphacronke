@@ -28,8 +28,12 @@ define([], function () {
                     {value: 'partTwo', label: "Part II"},
                     {value: 'partThree', label: "Part III"}
                 ]
+            },
+            size:{
+                label:"Select a size "
             }
-        }
+        };
+
     }
 
     return Model;
