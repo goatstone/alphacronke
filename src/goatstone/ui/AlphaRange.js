@@ -6,7 +6,7 @@
  * Goatstone : 5.20.2014
  * */
 
-define(["PubSub", "Component", "D3" ], function (PubSub, Component, d3) {
+define(["Component", "D3" ], function (PubSub, Component, d3) {
 
     var AlphaRange = Component.extend({
         alphaScale: null,
@@ -55,7 +55,7 @@ define(["PubSub", "Component", "D3" ], function (PubSub, Component, d3) {
                     self.brush.extent([min, max]);
                     d3.select(this).call(self.brush);
                     self.highLightTicks();
-                    PubSub.publish('alphaRange', {value: self.range });
+                    self.publish('alphaRange', {value: self.range });
                 });
             var brushGroup = this.svgTag.append("g")
                 .call(this.brush);

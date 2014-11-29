@@ -3,11 +3,12 @@
 
  * */
 
-define(["Component", 'PubSub'], function (Component, PubSub) {
+define(["Component"], function (Component, PubSub) {
 
     var SelectSection = Component.extend({
         initialize: function (rootDiv, setting) {
             this.supr(rootDiv);
+            var self = this;
             var s = setting || {};
             var selectSectionLabel = s.label || "";
             var sections = s.options || [];
@@ -23,7 +24,7 @@ define(["Component", 'PubSub'], function (Component, PubSub) {
                 selection.appendChild(o);
             });
             selection.addEventListener('change', function (e) {
-                PubSub.publish('section', {value: this.value});
+                self.publish('section', {value: this.value});
             });
         }
     });

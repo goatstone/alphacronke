@@ -1,10 +1,11 @@
 /*      goatstone.alphacronke.ui.component.SelectMode
  */
-define(["Component", 'PubSub'], function (Component, PubSub) {
+define(["Component"], function (Component, PubSub) {
 
     var SelectMode = Component.extend({
         initialize: function (rootDiv, setting) {
             this.supr(rootDiv);
+            var self = this;
             var s = setting || {};
             var selectSectionLabel = s.label || "";
             var sections = s.options || [];
@@ -21,7 +22,7 @@ define(["Component", 'PubSub'], function (Component, PubSub) {
             });
             selection.selectedIndex = 1;
             selection.addEventListener('change', function (e) {
-                PubSub.publish('mode', {value: this.value});
+                self.publish('mode', {value: this.value});
             });
         },
         selectValue: function (value) {

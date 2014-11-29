@@ -26,7 +26,7 @@ define(['klass', 'PubSub'], function (klass, PubSub) {
             if (this.$root.style.visibility == 'hidden') {
                 this.show();
             }
-            else{
+            else {
                 this.hide();
             }
         },
@@ -48,12 +48,15 @@ define(['klass', 'PubSub'], function (klass, PubSub) {
             }
             topics.forEach(
                 function (e) {
-                    if( !e[0] || !e[1] ) throw 'Error : Subscribe arguments not correct';
+                    if (!e[0] || !e[1]) throw 'Error : Subscribe arguments not correct';
                     PubSub.subscribe(e[0], function (topic, data) {
                         e[1](data);
                     });
                 }
             );
+        },
+        publish: function (topic, callback) {
+            PubSub.publish(topic, callback);
         }
     });
 

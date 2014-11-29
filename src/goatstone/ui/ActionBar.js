@@ -2,13 +2,14 @@
  goatstone.ui.component.ActionBar
  */
 
-define([  "Component", "klass", "PubSub"], function (  Component, klass, PubSub) {
+define([  "Component", "klass"], function (Component, klass, PubSub) {
 
     var ActionBar = Component.extend({
-        initialize: function (rootDiv  ) {
+        initialize: function (rootDiv) {
             this.supr(rootDiv);
+            var self = this;
             this.$root.addEventListener('click', function () {
-                PubSub.publish('actionMenu', {value: "toggle"});
+                self.publish('actionMenu', {value: "toggle"});
             });
             this.drawBackground();
         },
