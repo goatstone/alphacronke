@@ -13,6 +13,9 @@ define(['Component'], function (Component) {
             this.$handle.addEventListener('focus', function (e) {
                 self.setKeyMove();
             });
+            this.$handle.addEventListener('blur', function (e) {
+                this.removeEventListener('keydown');
+            });
             var $cancelIcon = document.createElement('button');
             $cancelIcon.className = 'cancel-icon';
             $cancelIcon.addEventListener('click', function () {
