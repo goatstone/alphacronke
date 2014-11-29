@@ -29,6 +29,11 @@
     background: repeating-linear-gradient(180deg, #555, #555 3px, #fff 3px, #fff 6px);
 }
 
+.panel .handle:focus {
+    background-color: #77f;
+    background: repeating-linear-gradient(180deg, #555, #555 3px, #77f 3px, #77f 6px);
+}
+
 .panel .cancel-icon {
     position: absolute;
     top: -30px;
@@ -52,5 +57,4 @@
 
 .panel .cancel-icon:focus {
     background-color: #77f;
-
 }

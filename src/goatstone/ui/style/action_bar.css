@@ -10,22 +10,12 @@ goatstone.ui.action-menu-button
     padding: 5px;
     background-color: #ddd;
     border-radius: 6px;
-}
-
-.action-menu-button {
-    background-color: #fff;
-    cursor: pointer;
-}
-
-.action-menu-button {
-    border-color: blue;
-    border-size: 3px;
-}
-
-.action-menu-button {
-    width: 30px;
-    height: 30px;
     stroke: #333;
     stroke-width: 3;
 }
-
+.action-menu-button:hover {
+    background-color: #fff;
+}
+.action-menu-button:focus {
+    background-color: #99f;
+}

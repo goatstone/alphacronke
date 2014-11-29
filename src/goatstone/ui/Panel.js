@@ -9,6 +9,10 @@ define(['Component'], function (Component) {
             var self = this;
             this.$handle = document.createElement('div');
             this.$handle.className = 'handle';
+            this.$handle.setAttribute('tabIndex', 1);
+            this.$handle.addEventListener('focus', function (e) {
+                self.setKeyMove();
+            });
             var $cancelIcon = document.createElement('button');
             $cancelIcon.className = 'cancel-icon';
             $cancelIcon.addEventListener('click', function () {
@@ -28,6 +32,31 @@ define(['Component'], function (Component) {
             }
             this.position(this.x, this.y);
             this.setDrag();
+        },
+        setKeyMove: function (e) {
+            var self = this;
+            this.$handle.addEventListener('keydown', function (e) {
+                var keyCode = e.keyCode;
+                var x = self.$root.offsetLeft;
+                var y = self.$root.offsetTop;
+                var increment = 7;
+                if (keyCode === 37) { // LEFT
+                    self.position(x - increment, y);
+                    e.preventDefault();
+                }
+                if (keyCode === 39) { // RIGHT
+                    self.position(x + increment, y);
+                    e.preventDefault();
+                }
+                if (keyCode === 38) { // UP
+                    self.position(x, y - increment);
+                    e.preventDefault();
+                }
+                if (keyCode === 40) { // DOWN
+                    self.position(x, y + increment);
+                    e.preventDefault();
+                }
+            });
         },
         setDrag: function () {
             var mOffsets = [];
