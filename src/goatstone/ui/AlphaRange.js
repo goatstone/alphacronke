@@ -6,7 +6,7 @@
  * Goatstone : 5.20.2014
  * */
 
-define(["Component", "D3" ], function (PubSub, Component, d3) {
+define(["Component", "D3" ], function ( Component, d3) {
 
     var AlphaRange = Component.extend({
         alphaScale: null,

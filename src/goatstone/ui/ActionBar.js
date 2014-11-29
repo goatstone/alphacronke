@@ -2,7 +2,7 @@
  goatstone.ui.component.ActionBar
  */
 
-define([  "Component", "klass"], function (Component, klass, PubSub) {
+define([  "Component", "klass"], function (Component, klass) {
 
     var ActionBar = Component.extend({
         initialize: function (rootDiv) {

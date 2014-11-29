@@ -1,12 +1,12 @@
 /*
  goatstone.alphacronke.ui.component.SelectSize
 
-* */
+ * */
 
-define(["Component", 'PubSub'], function (Component, PubSub) {
+define(["Component" ], function (Component) {
 
     var Menu = Component.extend({
-        initialize: function (rootDiv,  menuItems) {
+        initialize: function (rootDiv, menuItems) {
             this.supr(rootDiv);
             this.ul = this.$root.querySelector('ul');
             var isFocused = false;
@@ -37,12 +37,12 @@ define(["Component", 'PubSub'], function (Component, PubSub) {
                         }
                     }, 200);
                 });
-                li.appendChild(button );
+                li.appendChild(button);
                 self.ul.appendChild(li);
             });
             this.ul.querySelector('button').focus();
         },
-        show: function(){
+        show: function () {
             this.supr();
             this.ul.querySelector('button').focus();
         }

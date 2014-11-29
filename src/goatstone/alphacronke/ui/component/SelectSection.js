@@ -3,7 +3,7 @@
 
  * */
 
-define(["Component"], function (Component, PubSub) {
+define(["Component"], function (Component) {
 
     var SelectSection = Component.extend({
         initialize: function (rootDiv, setting) {

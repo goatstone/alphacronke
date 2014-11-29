@@ -1,6 +1,6 @@
 /*      goatstone.alphacronke.ui.component.SelectMode
  */
-define(["Component"], function (Component, PubSub) {
+define(["Component"], function (Component) {
 
     var SelectMode = Component.extend({
         initialize: function (rootDiv, setting) {

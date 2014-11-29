@@ -3,7 +3,7 @@
 
  * */
 
-define(["Component"], function (Component, PubSub) {
+define(["Component"], function (Component) {
 
     var SelectSize = Component.extend({
         initialize: function (rootDiv, setting) {

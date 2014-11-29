@@ -4,8 +4,6 @@
  Display text and provide a method to modify its appearance.
  - goatstone: 8.2014
 
- Require: Component PubSub D3
-
  Usage:
  var lineText = new LineText();
  * */
