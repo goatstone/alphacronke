@@ -1,12 +1,12 @@
 
 .panel {
     position: fixed;
-    /*display: inline-block;*/
     background-color: #ccc;
     border: 5px solid rgba(200, 200, 200, .3);
     border-radius: 6px;
     visibility: hidden;
     padding: 3px;
+    box-shadow: 3px 3px 3px #aaa;
 }
 
 .panel .handle {
@@ -20,12 +20,13 @@
     border-radius: 20px;
     box-shadow: 3px 3px 3px #aaa;
     cursor: move;
-    background: repeating-linear-gradient(180deg, #99f, #99f 3px, #ccc 3px, #ccc 6px);
+    background: repeating-linear-gradient(180deg, #222, #222 3px, #ccc 3px, #ccc 6px);
+    /*background: linear-gradient(top,#FF5DB1 0%,#E94A86 100%);*/
 }
 
 .panel .handle:hover {
     background-color: #55f;
-    background: repeating-linear-gradient(180deg, #55f, #33f 3px, #fff 3px, #fff 6px);
+    background: repeating-linear-gradient(180deg, #555, #555 3px, #fff 3px, #fff 6px);
 }
 
 .panel .cancel-icon {
@@ -40,7 +41,16 @@
     box-shadow: 3px 3px 3px #aaa;
     cursor: pointer;
     background: url('/svg/x-mark.svg') no-repeat top left;
-    background-size: 28px 28px;
-    background-position: 4px 0px, center;
+    background-size: 22px 22px;
+    background-position: 5px 1px, center;
+    background-color: #ccc;
+}
+
+.panel .cancel-icon:hover {
     background-color: #fff;
+}
+
+.panel .cancel-icon:focus {
+    background-color: #77f;
+
 }

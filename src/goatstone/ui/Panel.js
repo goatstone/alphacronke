@@ -9,7 +9,7 @@ define(['Component'], function (Component) {
             var self = this;
             this.$handle = document.createElement('div');
             this.$handle.className = 'handle';
-            var $cancelIcon = document.createElement('div');
+            var $cancelIcon = document.createElement('button');
             $cancelIcon.className = 'cancel-icon';
             $cancelIcon.addEventListener('click', function () {
                 self.hide();

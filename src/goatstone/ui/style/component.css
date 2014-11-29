@@ -1,10 +1,15 @@
 
-.component{
-    border:1px solid #ddd;
+.component {
+    border: 1px solid #ddd;
     border-radius: 5px;
     padding: 3px;
     margin: 1px;
 }
-.component div{
+
+.component div {
     margin: 3px;
+}
+
+.component select:focus {
+    background-color: #bbf;
 }
