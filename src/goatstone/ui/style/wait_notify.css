@@ -1,0 +1,39 @@
+.wait-notify{
+    position: fixed;
+    top:0px;
+    width: 100%;
+    height:100%;
+    opacity: .5;
+    color: white;
+    font-size: 100px;
+    padding: 10px;
+    background-color: black;
+}
+.wait-notify h3{
+    margin: 10px 52px;
+    animation-duration:8s;
+    -webkit-animation-duration:8s;
+    animation-name:anim;
+    -webkit-animation-name:anim;
+    color:red;
+}
+@-webkit-keyframes anim{
+    from{
+        font-size: 10px;
+        margin-left: 100px;
+    }
+    to{
+        font-size: 190px;
+        margin-left: 1px;
+    }
+}
+@keyframes anim{
+    from{
+        font-size: 10px;
+        margin-left: 100px;
+    }
+    to{
+        font-size: 190px;
+        margin-left: 1px;
+    }
+}

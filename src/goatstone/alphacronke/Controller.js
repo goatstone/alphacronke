@@ -6,8 +6,8 @@
 define([
         'Model', 'AlphaRange', "Panel", 'ProjectGutenberg', 'Text',
         'PubSub', 'BubbleText', 'LineText', 'SelectSize', 'SelectSection',
-        'SelectMode', 'Message', 'ActionBar', "Menu"],
-    function (Model, AlphaRange, Panel, ProjectGutenberg, Text, PubSub, BubbleText, LineText, SelectSize, SelectSection, SelectMode, Message, ActionBar, Menu) {
+        'SelectMode', 'Message', 'ActionBar', "Menu", "WaitNotify"],
+    function (Model, AlphaRange, Panel, ProjectGutenberg, Text, PubSub, BubbleText, LineText, SelectSize, SelectSection, SelectMode, Message, ActionBar, Menu, WaitNotify) {
 
         function Controller() {
             // model
@@ -16,6 +16,9 @@ define([
             var alphaRangePanel, mainPanel, messagePanel;
             // components
             var alphaRange, selectSize, storyPartSelect, selectMode, message, lineText;
+
+            var waitNotify = new WaitNotify('.wait-notify');
+
             // alphaRange
             alphaRange = new AlphaRange('#alpha-range');
             alphaRangePanel = new Panel('#panel-alpharange', {x: 100, y: window.innerHeight - 140});
@@ -56,6 +59,7 @@ define([
                     PubSub.publish('mode', {value: 'alphaSelect'}); // alphaSelect bubble
                     PubSub.publish('mainPanel', {value: 'show'}); // alphaSelect bubble
                     PubSub.publish('messagePanel', {value: 'show'});
+                    waitNotify.hide();
                 }, function () {
                     throw "Getting text document failure.";
                 });

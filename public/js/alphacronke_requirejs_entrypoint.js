@@ -17,7 +17,7 @@ require([], function () {
             BubbleText:         'goatstone/alphacronke/ui/component/BubbleText',
             LineText:           'goatstone/alphacronke/ui/component/LineText',
             SelectSize:         'goatstone/alphacronke/ui/component/SelectSize',
-            SelectMode:        'goatstone/alphacronke/ui/component/SelectMode',
+            SelectMode:         'goatstone/alphacronke/ui/component/SelectMode',
             SelectSection:      'goatstone/alphacronke/ui/component/SelectSection',
 
             Message:            'goatstone/ui/Message',
@@ -26,6 +26,7 @@ require([], function () {
             ActionBar:          'goatstone/ui/ActionBar',
             Menu:               'goatstone/ui/Menu',
             Panel:              'goatstone/ui/Panel',
+            WaitNotify:         'goatstone/ui/WaitNotify',
             ProjectGutenberg:   'goatstone/catalog/ProjectGutenberg',
             Text:               "goatstone/text/Text",
             XHR:                'goatstone/io/XHR'
